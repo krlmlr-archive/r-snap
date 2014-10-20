@@ -20,6 +20,15 @@ install_latex() {
   popd
 }
 
+provide_r() {
+  if test -d r-devel; then
+    recompile_r
+  else
+    git clone https://github.com/wch/r-source.git r-devel
+    recompile_r
+  fi
+}
+
 recompile_r() {
   cd r-devel
   git pull
@@ -32,11 +41,4 @@ recompile_r() {
 cd $SNAP_CACHE_DIR
 
 provide_latex
-exit 0
-
-if test -d r-devel; then
-  recompile_r
-else
-  git clone https://github.com/wch/r-source.git r-devel
-  recompile_r
-fi
+provide_r
