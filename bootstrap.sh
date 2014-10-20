@@ -5,8 +5,8 @@ set -e
 recompile_r() {
   cd r-devel
   git pull
-  tools/rsync-recommended
   ./configure
+  tools/rsync-recommended
 }
 
 cd $SNAP_CACHE_DIR
