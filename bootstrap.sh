@@ -2,6 +2,26 @@
 
 set -e
 
+CACHE_BASE_PATH=$SNAP_CACHE_DIR/r-snap
+CACHE_VERSION_FILENAME=r-snap-cache-version
+CACHE_VERSION_PATH=$CACHE_BASE_PATH/$CACHE_VERSION_FILENAME
+CURRENT_VERSION=1
+
+log() {
+  echo $* >> /dev/stderr
+}
+
+check_cache_version() {
+  CACHE_VERSION=$(cat $CACHE_VERSION_PATH 2> /dev/null || echo 0)
+  log "Cache version: $CACHE_VERSION"
+  log "Current version: $CURRENT_VERSION"
+  if test $CACHE_VERSION -lt $CURRENT_VERSION; then
+    log "Clearing cache"
+    rm -rf $CACHE_BASE_PATH
+  fi
+  mkdir -p $CACHE_BASE_PATH
+}
+
 provide_latex() {
   if ! test -d texlive; then
     if ! install_latex; then
@@ -40,5 +60,6 @@ recompile_r() {
 
 cd $SNAP_CACHE_DIR
 
+check_cache_version
 provide_latex
 provide_r
