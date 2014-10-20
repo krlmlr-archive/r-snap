@@ -22,6 +22,10 @@ check_cache_version() {
   mkdir -p $CACHE_BASE_PATH
 }
 
+update_cache_version() {
+  echo $CURRENT_VERSION > $CACHE_VERSION_PATH
+}
+
 provide_latex() {
   if ! test -d texlive; then
     if ! install_latex; then
@@ -63,3 +67,4 @@ cd $SNAP_CACHE_DIR
 check_cache_version
 provide_latex
 provide_r
+update_cache_version
