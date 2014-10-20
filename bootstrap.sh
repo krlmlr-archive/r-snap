@@ -1,6 +1,18 @@
 #!/bin/sh
 
+set -e
+
+recompile_r() {
+  cd r-devel
+  git pull
+  tools/rsync-recommended
+  ./configure
+}
+
 cd $SNAP_CACHE_DIR
-test -d r-devel || git clone https://github.com/wch/r-source.git r-devel
-cd r-devel
-git fetch
+if test -d r-devel; then
+  recompile_r
+else
+  git clone https://github.com/wch/r-source.git r-devel
+  recompile_r
+fi
