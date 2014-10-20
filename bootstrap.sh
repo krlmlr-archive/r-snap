@@ -5,6 +5,7 @@ set -e
 recompile_r() {
   cd r-devel
   git pull
+  snap-shell
   ./configure
   tools/rsync-recommended
 }
