@@ -5,8 +5,10 @@ set -e
 recompile_r() {
   cd r-devel
   git pull
-  #./configure
-  #tools/rsync-recommended
+
+  sudo yum install -y gcc-gfortran.x86_64
+  ./configure
+  tools/rsync-recommended
 }
 
 cd $SNAP_CACHE_DIR
