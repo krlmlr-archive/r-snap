@@ -58,8 +58,8 @@ recompile_r() {
   git pull
 
   sudo yum install -y gcc-gfortran.x86_64
-  ./configure
   tools/rsync-recommended
+  ./configure
 }
 
 cd $CACHE_BASE_PATH
