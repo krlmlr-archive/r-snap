@@ -20,6 +20,7 @@ check_cache_version() {
     rm -rf $CACHE_BASE_PATH
   fi
   mkdir -p $CACHE_BASE_PATH
+  update_cache_version
 }
 
 update_cache_version() {
@@ -96,4 +97,3 @@ cd $CACHE_BASE_PATH
 check_cache_version
 provide_latex
 provide_r
-update_cache_version
