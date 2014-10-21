@@ -41,7 +41,10 @@ provide_r() {
 recompile_r() {
   sudo yum install -y gcc-gfortran.x86_64 texinfo
 
-  build_r || { git clean -fdx && build_r }
+  if ! build_r; then
+    git clean -fdx
+    build_r
+  fi
 }
 
 build_r() {
