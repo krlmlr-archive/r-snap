@@ -78,6 +78,7 @@ build_r() {
   tools/rsync-recommended
 
   git log -n 1 --date=iso |
+    tee /dev/stderr |
     tac |
     sed -n -E '/^ +git-svn-id: / {s/^[^@]+@([0-9]+).*$/Revision: \1/;p}; /^Date:/ {s/^Date: +/Last Changed Date: /;p}' |
     tee /dev/stderr > SVN-REVISION
