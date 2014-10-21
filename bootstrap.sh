@@ -48,7 +48,7 @@ recompile_r() {
     R_BATCHSAVE="--no-save --no-restore" \
     R_BROWSER=xdg-open \
     PAGER=/usr/bin/pager \
-    PERL=/usr/bin/perl \
+    PERL=/usr/bin/cat \
     R_UNZIPCMD=/usr/bin/unzip \
     R_ZIPCMD=/usr/bin/zip \
     R_PRINTCMD=/usr/bin/lpr \
