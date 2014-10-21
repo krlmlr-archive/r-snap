@@ -71,6 +71,8 @@ configure_r() {
       --without-lapack \
       --without-readline
 
+  tools/rsync-recommended
+
   (cd doc/manual && make front-matter html-non-svn)
 }
 
