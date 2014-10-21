@@ -74,9 +74,21 @@ recompile_r() {
   make install
 }
 
+push_r() {
+  rm -rf R
+  cp -arx $CACHE_BASE_PATH/R .
+  git add -A
+  if test -n "$(git status --porcelain)"; then
+    git commit -m "update bits"
+    git push origin
+  fi
+}
+
+
 curl -L https://raw.githubusercontent.com/krlmlr/r-snap-texlive/master/install.sh | sh
 
 check_cache_version
 cd $CACHE_BASE_PATH
 
 provide_r
+push_r
