@@ -57,10 +57,12 @@ recompile_r() {
     AWK=/usr/bin/awk \
     CFLAGS="-pipe -std=gnu99 -Wall -pedantic -O3" \
     CXXFLAGS="-pipe -Wall -pedantic -O3" \
-    ./configure --enable-R-shlib \
-                --without-blas \
-                --without-lapack \
-                --without-readline
+    ./configure \
+      --prefix=$CACHE_BASE_PATH/R \
+      --enable-R-shlib \
+      --without-blas \
+      --without-lapack \
+      --without-readline
 
   (cd doc/manual && make front-matter html-non-svn)
 
