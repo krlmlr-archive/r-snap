@@ -43,12 +43,12 @@ recompile_r() {
 
   if ! build_r; then
     git clean -fdx
+    configure_r
     build_r
   fi
 }
 
-build_r() {
-  tools/rsync-recommended
+configure_r() {
   R_PAPERSIZE=letter \
     R_BATCHSAVE="--no-save --no-restore" \
     R_BROWSER=xdg-open \
@@ -69,6 +69,10 @@ build_r() {
       --without-readline
 
   (cd doc/manual && make front-matter html-non-svn)
+}
+
+build_r() {
+  tools/rsync-recommended
 
   git log -n 1 --date=iso |
     tac |
