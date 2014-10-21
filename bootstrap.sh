@@ -42,7 +42,7 @@ recompile_r() {
 
   sudo yum install -y gcc-gfortran.x86_64 texinfo
 
-  git clean -fdx
+  #git clean -fdx
 
   tools/rsync-recommended
   R_PAPERSIZE=letter \
