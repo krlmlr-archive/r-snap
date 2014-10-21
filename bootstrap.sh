@@ -34,6 +34,7 @@ provide_r() {
     git pull
   else
     git clone https://github.com/wch/r-source.git r-devel
+    cd r-devel
   fi
 
   recompile_r
