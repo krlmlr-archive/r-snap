@@ -42,6 +42,8 @@ recompile_r() {
 
   sudo yum install -y gcc-gfortran.x86_64 texinfo
 
+  git clean -fdx
+
   tools/rsync-recommended
   R_PAPERSIZE=letter \
     R_BATCHSAVE="--no-save --no-restore" \
