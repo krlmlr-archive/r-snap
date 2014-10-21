@@ -92,8 +92,8 @@ recompile_r() {
   make
 }
 
+check_cache_version
 cd $CACHE_BASE_PATH
 
-check_cache_version
 provide_latex
 provide_r
