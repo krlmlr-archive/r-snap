@@ -29,21 +29,22 @@ update_cache_version() {
 
 provide_r() {
   if test -d r-devel; then
-    recompile_r
+    cd r-devel
+    git pull
   else
     git clone https://github.com/wch/r-source.git r-devel
-    recompile_r
   fi
+
+  recompile_r
 }
 
 recompile_r() {
-  cd r-devel
-  git pull
-
   sudo yum install -y gcc-gfortran.x86_64 texinfo
 
-  #git clean -fdx
+  build_r || { git clean -fdx && build_r }
+}
 
+build_r() {
   tools/rsync-recommended
   R_PAPERSIZE=letter \
     R_BATCHSAVE="--no-save --no-restore" \
