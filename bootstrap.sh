@@ -40,8 +40,7 @@ recompile_r() {
   cd r-devel
   git pull
 
-  sudo yum install -y gcc-gfortran.x86_64
-  export PATH=$CACHE_BASE_PATH/texlive/bin/x86_64-linux:$PATH
+  sudo yum install -y gcc-gfortran.x86_64 texinfo
 
   tools/rsync-recommended
   R_PAPERSIZE=letter \
