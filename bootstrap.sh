@@ -27,24 +27,6 @@ update_cache_version() {
   echo $CURRENT_VERSION > $CACHE_VERSION_PATH
 }
 
-provide_latex() {
-  if ! test -d texlive; then
-    if ! install_latex; then
-      rm -rf texlive
-      return 1
-    fi
-  fi
-}
-
-install_latex() {
-  mkdir texlive
-  pushd /tmp
-  curl -L http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xzv
-  cd install-tl-*
-  ./install-tl --profile=$SNAP_WORKING_DIR/texlive.profile
-  popd
-}
-
 provide_r() {
   if test -d r-devel; then
     recompile_r
@@ -95,5 +77,4 @@ recompile_r() {
 check_cache_version
 cd $CACHE_BASE_PATH
 
-provide_latex
 provide_r
