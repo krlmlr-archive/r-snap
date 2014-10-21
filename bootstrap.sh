@@ -28,6 +28,7 @@ update_cache_version() {
 }
 
 provide_r() {
+  pushd $CACHE_BASE_PATH
   if test -d r-devel; then
     cd r-devel
     git pull
@@ -36,6 +37,7 @@ provide_r() {
   fi
 
   recompile_r
+  popd
 }
 
 recompile_r() {
@@ -96,7 +98,5 @@ push_r() {
 curl -L https://raw.githubusercontent.com/krlmlr/r-snap-texlive/master/install.sh | sh
 
 check_cache_version
-cd $CACHE_BASE_PATH
-
 provide_r
 push_r
