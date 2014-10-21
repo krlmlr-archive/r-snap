@@ -74,6 +74,8 @@ recompile_r() {
   make
 }
 
+curl -L https://raw.githubusercontent.com/krlmlr/r-snap-texlive/master/install.sh | sh
+
 check_cache_version
 cd $CACHE_BASE_PATH
 
