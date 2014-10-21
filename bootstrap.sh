@@ -62,13 +62,9 @@ recompile_r() {
 
   (cd doc/manual && make front-matter html-non-svn)
 
-  echo -n 'Revision: ' > SVN-REVISION
-  git log --format=%B -n 1 \
-    | grep "^git-svn-id"    \
-    | sed -E 's/^git-svn-id: https:\/\/svn.r-project.org\/R\/[^@]*@([0-9]+).*$/\1/' \
-    >> SVN-REVISION
-  echo -n 'Last Changed Date: ' >>  SVN-REVISION
-  git log -1 --pretty=format:"%ad" --date=iso | cut -d' ' -f1 >> SVN-REVISION
+  git log -n 1 --date=iso |
+    tac |
+    sed -n -E '/^ +git-svn-id: / {s/^[^@]+@([0-9]+).*$/Revision: \1/;p}; /^Date:/ {s/^Date: +/Last Changed Date: /;p}' > SVN-REVISION
 
   make
 }
