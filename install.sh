@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -x
 
 APPNAME=r-snap
 APPDESC=R
@@ -10,16 +11,14 @@ log() {
   echo $* >> /dev/stderr
 }
 
+clone() {
+  ( cd $SNAP_CACHE_DIR/$APPNAME && git pull )
+}
+
 clone_or_pull() {
-  cd $SNAP_CACHE_DIR
-  if test -d $APPNAME/.git; then
-    log "Updating R"
-    cd $APPNAME
-    git pull
-  else
-    log "Cloning R"
-    rm -rf $APPNAME
-    git clone https://github.com/krlmlr/${APPNAME}.git
+  if ! clone; then
+    rm -rf $SNAP_CACHE_DIR/$APPNAME
+    git clone https://github.com/krlmlr/${APPNAME}.git $SNAP_CACHE_DIR/$APPNAME
   fi
 }
 
@@ -29,3 +28,4 @@ set_symlinks() {
 
 clone_or_pull
 set_symlinks
+sudo yum install -y gcc-gfortran.x86_64 texinfo
