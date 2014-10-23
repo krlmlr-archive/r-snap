@@ -22,4 +22,4 @@ Maintainer: Brian Ripley <ripley@stats.ox.ac.uk>
 NeedsCompilation: yes
 Repository: CRAN
 Date/Publication: 2014-09-14 10:52:58
-Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-23 18:30:01 UTC; unix
+Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-23 19:08:52 UTC; unix
