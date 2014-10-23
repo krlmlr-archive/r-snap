@@ -47,4 +47,4 @@ Maintainer: R Core Team <R-core@R-project.org>
 NeedsCompilation: yes
 Repository: CRAN
 Date/Publication: 2014-03-28 09:10:17
-Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-21 13:27:30 UTC; unix
+Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-23 14:11:53 UTC; unix

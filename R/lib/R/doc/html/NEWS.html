@@ -281,12 +281,34 @@ matching by name in <code>log()</code>.
 <li> <p><code>all.equal()</code> gains methods for <code>environment</code>s and
 <code>refClass</code>es.
 </p>
+</li>
+<li><p> The <code>as.dendrogram</code> method for <code>"hclust"</code> objects
+gets <code>check</code> argument protecting against memory explosion for
+invalid inputs.
+</p>
 </li></ul>
 
 
 
 
-<h3><img src="../help/figures/../../html/logo.jpg" alt="../../html/logo.jpg" /> CHANGES IN R 3.1.1 patched</h3>
+<h3><img src="../help/figures/../../html/logo.jpg" alt="../../html/logo.jpg" /> CHANGES IN R 3.1.2 patched</h3>
+
+
+
+<h4>NEW FEATURES</h4>
+
+      
+<ul>
+<li><p> The internal method of <code>download.file()</code> can now handle
+files larger than 2GB on 32-bit builds which support such files
+(tested on 32-bit <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> running on 64-bit Windows).
+</p>
+</li></ul>
+
+
+
+
+<h3><img src="../help/figures/../../html/logo.jpg" alt="../../html/logo.jpg" /> CHANGES IN R 3.1.2</h3>
 
 
 
@@ -360,6 +382,8 @@ set at runtime <em>via</em> environment variable
 <ul>
 <li><p> The <code>configure</code> script reports on the more important
 capabilities/options which will not be compiled in.
+</p>
+<p>More types of external BLAS are recognized by name in that report.
 </p>
 </li>
 <li><p> When building <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> as a shared library, the
@@ -504,6 +528,11 @@ optional argument <code>check</code>;  When that is true, as per
 default, it checks more carefully for valid input.
 </p>
 </li>
+<li><p> The <code>as.dendrogram</code> method for <code>"hclust"</code> objects
+gets a similar <code>check</code> argument which there protects against
+memory explosion for invalid inputs.
+</p>
+</li>
 <li><p> (Windows only) If a user chose to install 64 bit <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> but not
 32 bit <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>, the &lsquo;<span class="file">bin/R</span>&rsquo; and &lsquo;<span class="file">bin/Rscript</span>&rsquo; executables
 failed to run.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15981">PR#15981</a>)
@@ -558,7 +587,7 @@ the <code>xaxs</code>, <code>yaxs</code> and <code>lab</code> graphics parameter
 <li><p> The internal method of <code>download.file()</code> was not
 reporting file sizes and progress correctly on files larger than
 2GB (inherited from <code>libxml2</code>).  This is corrected for 64-bit
-Unix-alikes (32-bit platforms may not support such files).
+builds (32-bit platforms may not support such files).
 </p>
 </li></ul>
 

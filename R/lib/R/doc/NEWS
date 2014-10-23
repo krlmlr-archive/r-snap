@@ -180,7 +180,18 @@ CHANGES IN R-devel:
 
     • all.equal() gains methods for environments and refClasses.
 
-CHANGES IN R 3.1.1 patched:
+    • The as.dendrogram method for "hclust" objects gets check argument
+      protecting against memory explosion for invalid inputs.
+
+CHANGES IN R 3.1.2 patched:
+
+  NEW FEATURES:
+
+    • The internal method of download.file() can now handle files
+      larger than 2GB on 32-bit builds which support such files (tested
+      on 32-bit R running on 64-bit Windows).
+
+CHANGES IN R 3.1.2:
 
   NEW FEATURES:
 
@@ -229,6 +240,9 @@ CHANGES IN R 3.1.1 patched:
 
     • The configure script reports on the more important
       capabilities/options which will not be compiled in.
+
+      More types of external BLAS are recognized by name in that
+      report.
 
     • When building R as a shared library, the -L${R_HOME}/lib${R_ARCH}
       flag is placed earlier in the link commands used during
@@ -325,6 +339,10 @@ CHANGES IN R 3.1.1 patched:
       check; When that is true, as per default, it checks more
       carefully for valid input.
 
+    • The as.dendrogram method for "hclust" objects gets a similar
+      check argument which there protects against memory explosion for
+      invalid inputs.
+
     • (Windows only) If a user chose to install 64 bit R but not 32 bit
       R, the bin/R and bin/Rscript executables failed to run.
       (PR#15981)
@@ -363,7 +381,7 @@ CHANGES IN R 3.1.1 patched:
 
     • The internal method of download.file() was not reporting file
       sizes and progress correctly on files larger than 2GB (inherited
-      from libxml2).  This is corrected for 64-bit Unix-alikes (32-bit
+      from libxml2).  This is corrected for 64-bit builds (32-bit
       platforms may not support such files).
 
 CHANGES IN R 3.1.1:
