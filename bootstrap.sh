@@ -52,6 +52,8 @@ recompile_r() {
 }
 
 configure_r() {
+  tools/rsync-recommended
+
   R_PAPERSIZE=letter \
     R_BATCHSAVE="--no-save --no-restore" \
     R_BROWSER=xdg-open \
@@ -70,8 +72,6 @@ configure_r() {
       --without-blas \
       --without-lapack \
       --without-readline
-
-  tools/rsync-recommended
 
   (cd doc/manual && make front-matter html-non-svn)
 }
