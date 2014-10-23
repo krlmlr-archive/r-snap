@@ -38,6 +38,7 @@ provide_r() {
   fi
 
   recompile_r
+  install_r_packages
   popd
 }
 
@@ -114,5 +115,4 @@ curl -L https://raw.githubusercontent.com/krlmlr/r-snap-texlive/master/install.s
 check_cache_version
 provide_r
 copy_r
-install_r_packages
 push_r
