@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -x
 
 CACHE_BASE_PATH=$SNAP_CACHE_DIR/r-snap
 CACHE_VERSION_FILENAME=r-snap-cache-version
