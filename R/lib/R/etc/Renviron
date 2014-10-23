@@ -25,7 +25,7 @@ R_BROWSER=${R_BROWSER-'xdg-open'}
 ## Default editor
 EDITOR=${EDITOR-${VISUAL-vi}}
 ## Default pager
-PAGER=${PAGER-'/usr/bin/pager'}
+PAGER=${PAGER-'/usr/bin/less'}
 ## Default PDF viewer
 R_PDFVIEWER=${R_PDFVIEWER-'/usr/bin/xdg-open'}
 ## Used by libtool
