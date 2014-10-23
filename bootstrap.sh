@@ -94,6 +94,12 @@ copy_r() {
   cp -arx $CACHE_BASE_PATH/R .
 }
 
+install_r_packages() {
+  R=$PWD/R/bin/R
+  Rscript=$PWD/R/bin/Rscript
+  $Rscript -e "install.packages(commandArgs(TRUE), repos='http://cran.r-project.org')" devtools testthat knitr plyr
+}
+
 push_r() {
   git add -A
   if test -n "$(git status --porcelain)"; then
@@ -108,4 +114,5 @@ curl -L https://raw.githubusercontent.com/krlmlr/r-snap-texlive/master/install.s
 check_cache_version
 provide_r
 copy_r
+install_r_packages
 push_r
