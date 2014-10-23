@@ -100,7 +100,7 @@ install_r_packages() {
   R=$CACHE_BASE_PATH/R/bin/R
   Rscript=$CACHE_BASE_PATH/R/bin/Rscript
   $Rscript -e "update.packages(ask = FALSE, repos='http://cran.r-project.org')"
-  $Rscript -e "install.packages(commandArgs(TRUE), repos='http://cran.r-project.org')" devtools testthat knitr plyr
+  $Rscript -e "install.packages(commandArgs(TRUE), repos='http://cran.r-project.org')" devtools testthat knitr plyr roxygen2
 }
 
 push_r() {
