@@ -24,4 +24,4 @@ Maintainer: Hadley Wickham <hadley@rstudio.com>
 NeedsCompilation: yes
 Repository: CRAN
 Date/Publication: 2014-10-07 22:06:39
-Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-23 19:10:04 UTC; unix
+Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-23 19:37:53 UTC; unix
