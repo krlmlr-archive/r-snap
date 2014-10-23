@@ -98,6 +98,7 @@ copy_r() {
 install_r_packages() {
   R=$PWD/R/bin/R
   Rscript=$PWD/R/bin/Rscript
+  $Rscript -e "update.packages(ask = FALSE)"
   $Rscript -e "install.packages(commandArgs(TRUE), repos='http://cran.r-project.org')" devtools testthat knitr plyr
 }
 
