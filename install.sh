@@ -12,7 +12,7 @@ log() {
 }
 
 clone() {
-  ( cd $SNAP_CACHE_DIR/$APPNAME && git pull )
+  ( cd $SNAP_CACHE_DIR/$APPNAME && git pull && git checkout . && git clean -fdx )
 }
 
 clone_or_pull() {
