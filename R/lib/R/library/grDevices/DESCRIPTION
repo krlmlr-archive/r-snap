@@ -6,4 +6,4 @@ Author: R Core Team and contributors worldwide
 Maintainer: R Core Team <R-core@r-project.org>
 Description: Graphics devices and support for base and grid graphics
 License: Part of R 3.2.0
-Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-23 19:32:28 UTC; unix
+Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-11-07 16:27:24 UTC; unix

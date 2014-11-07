@@ -8,4 +8,4 @@ Author: Douglas M. Bates <bates@stat.wisc.edu> and
 Maintainer: R Core Team <R-core@r-project.org>
 Description: Regression spline functions and classes
 License: Part of R 3.2.0
-Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-23 19:33:13 UTC; unix
+Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-11-07 16:28:55 UTC; unix

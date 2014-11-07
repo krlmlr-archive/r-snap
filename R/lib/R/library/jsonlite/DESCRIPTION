@@ -25,4 +25,4 @@ Suggests: testthat, knitr, reshape2, httr (>= 0.4), rjson, plyr
 Packaged: 2014-10-21 15:27:35 UTC; jeroen
 Repository: CRAN
 Date/Publication: 2014-10-21 18:12:06
-Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-10-23 17:22:22 UTC; unix
+Built: R 3.2.0; x86_64-unknown-linux-gnu; 2014-11-07 16:34:22 UTC; unix

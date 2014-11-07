@@ -228,6 +228,10 @@ now returns the old values invisibly. The initial optimization
 level can also be set with the environment variable
 <span class="env">R_COMPILER_OPTIMIZE</span>.
 </p>
+</li>
+<li> <p><code>R CMD check</code> gains option <span class="option">--test-dir=</span> to 
+specify an alternative set of tests to run.
+</p>
 </li></ul>
 
 
@@ -249,6 +253,11 @@ packages using them to be re-installed.
 now ignored, so arguments are duplicated if <code>DUP = TRUE</code>
 would do so.  As their help has long said, <code>.Call()</code> is much
 preferred.
+</p>
+</li>
+<li><p> New entry point <code>R_allocLD</code>, like <code>R_alloc</code> but
+guaranteed to have sufficient alignment for <code>long double</code>
+pointers.
 </p>
 </li></ul>
 
@@ -282,9 +291,9 @@ matching by name in <code>log()</code>.
 <code>refClass</code>es.
 </p>
 </li>
-<li><p> The <code>as.dendrogram</code> method for <code>"hclust"</code> objects
-gets <code>check</code> argument protecting against memory explosion for
-invalid inputs.
+<li><p> (Windows.) The command completion in <code>Rgui.exe</code>
+messed up the console.  This is an experimental fix; if it is reported
+to work it will be kept, otherwise it will be removed. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15791">PR#15791</a>)
 </p>
 </li></ul>
 
@@ -297,11 +306,60 @@ invalid inputs.
 
 <h4>NEW FEATURES</h4>
 
-      
+
 <ul>
 <li><p> The internal method of <code>download.file()</code> can now handle
 files larger than 2GB on 32-bit builds which support such files
 (tested on 32-bit <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> running on 64-bit Windows).
+</p>
+</li>
+<li> <p><code>kruskal.test()</code> warns on more types of suspicious input.
+</p>
+</li>
+<li><p> The <code>as.dendrogram</code> method for <code>"hclust"</code> objects
+gets a <code>check</code> argument protecting against memory explosion for
+invalid inputs.
+</p>
+</li></ul>
+
+
+
+
+<h4>BUG FIXES</h4>
+
+
+<ul>
+<li><p> (Windows.) <code>Rscript.exe</code> was missing a
+manifest specifying the modern style for common controls (e.g.,
+the download progress bar).
+</p>
+</li>
+<li><p> If a package had extra documentation files but no vignette,
+the HTML help system produced an empty index page.
+</p>
+</li>
+<li><p> The parser now gives an error if a null character is included
+in a string using Unicode escapes. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16046">PR#16046</a>)
+</p>
+</li>
+<li> <p><code>qr.Q()</code> failed on complex arguments due to 
+pre-3.0(!) typo. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16054">PR#16054</a>) 
+</p>
+</li>
+<li> <p><code>abs()</code> failed with named arguments when the argument
+was complex.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16047">PR#16047</a>)
+</p>
+</li>
+<li> <p><code>"noquote"</code> objects may now be used as columns in 
+dataframes.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15997">PR#15997</a>)
+</p>
+</li>
+<li><p> Some values with extremely long names were printed 
+incorrectly.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15999">PR#15999</a>)
+</p>
+</li>
+<li><p> Extremely large exponents on zero expressed in scientific
+notation (e.g. <code>0.0e50000</code>) could give <code>NaN</code>.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15976">PR#15976</a>)
 </p>
 </li></ul>
 
@@ -336,12 +394,13 @@ is set for collation, and never for a <code>C</code> locale).
 <li><p> (OS X only.) Package <span class="pkg">tcltk</span> checks when loaded if it is
 linked against the CRAN X11-based Tcl/Tk and if so that the Tcl/Tk
 component and the X11 libraries are installed.  This allows more
-informative error messages to be given.
+informative error messages to be given advising the installation
+of the missing component or of XQuartz.
 </p>
 <p>The <code>X11()</code> device and X11-based versions of the data editor
 and viewer (invoked by <code>edit()</code> and <code>View()</code> for data
 frames and matrices from command-line <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>) check that the X11
-libraries are installed.
+libraries are installed and if not advises installing XQuartz.
 </p>
 </li>
 <li> <p><code>icuSetCollate()</code> allows <code>locale = "default"</code>, and
@@ -431,7 +490,8 @@ errors (writing <code>importFrom(<var>Pkg</var>)</code> where
 directly on the package namespace without loading and attaching
 the package and its suggests and enhances.  For good practice with
 packages in the <span class="samp">Suggests</span> field, see §1.1.3.1 of
-&lsquo;Writing R Extensions&rsquo;.
+&lsquo;Writing R Extensions&rsquo;.  For use of lazy-data objects in
+the package's own code, see <code>?data</code>.
 </p>
 </li></ul>
 
@@ -450,13 +510,14 @@ correctly.
 <code>x</code> contains <code>NA</code>s.
 </p>
 </li>
-<li><p> A longstanding bug in <code>nlminb()</code> on Windows was traced
-to a compiler bug in gcc 4.6.3; a workaround has been put in place.
-(<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15244">PR#15244</a> and <a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15914">PR#15914</a>).
+<li><p> A longstanding bug exhibited by <code>nlminb()</code> on Windows
+was traced to a compiler bug in gcc 4.6.3; a workaround has been
+put in place.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15244">PR#15244</a> and <a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15914">PR#15914</a>).
 </p>
 </li>
-<li><p> Rendering of <code>\command</code> in HTML has been improved:
-this is particularly evident on the help page for <code>INSTALL</code>.
+<li><p> Rendering of <code>\command</code> in HTML versions of help pages
+has been improved: this is particularly evident on the help page
+for <code>INSTALL</code>.
 </p>
 </li>
 <li> <p><code>as.hexmode(x)</code> and <code>as.octmode(x)</code> now behave
@@ -482,13 +543,14 @@ an object had a non-character attribute named <code>"source"</code>
 have been called), and could flush <code>stdin</code> of the main <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>
 process (seen most often on Solaris).
 </p>
-<p>For good practice, <code>stdout</code> is flushed before forking a child.
+<p>As good practice, <code>stdout</code> is now flushed before forking a child.
 </p>
 </li>
 <li> <p><span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> objects such as <code>list(`a\b` = 1)</code> now print correctly.
 </p>
 </li>
-<li> <p><code>getAnywhere("C_pbinom")</code> now works correctly.
+<li> <p><code>getAnywhere("C_pbinom")</code> now returns correctly a
+single object (rather than unlisting it).
 </p>
 </li>
 <li><p> The <code>confint()</code> method for <code>nls()</code> fits failed it
@@ -524,13 +586,8 @@ dendrogram.
 </p>
 </li>
 <li><p> The <code>plot</code> method for <code>"hclust"</code> objects gets an
-optional argument <code>check</code>;  When that is true, as per
-default, it checks more carefully for valid input.
-</p>
-</li>
-<li><p> The <code>as.dendrogram</code> method for <code>"hclust"</code> objects
-gets a similar <code>check</code> argument which there protects against
-memory explosion for invalid inputs.
+optional argument <code>check</code>; When that is true (the default) it
+checks more carefully for valid input.
 </p>
 </li>
 <li><p> (Windows only) If a user chose to install 64 bit <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> but not
@@ -554,7 +611,7 @@ and missed memory protection added. (<a href="https://bugs.R-project.org/bugzill
 </p>
 </li>
 <li> <p><code>hist(x, breaks)</code> is more robust in adding a small fuzz
-to few breaks when some are very large. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15899">PR#15899</a>)
+to few breaks when some are very large. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15988">PR#15988</a>)
 </p>
 </li>
 <li> <p><code>sub()</code> and <code>gsub()</code> did not handle regular
@@ -564,10 +621,10 @@ locale.  Part of this was due to a bug in the TRE library.
 (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16009">PR#16009</a>)
 </p>
 </li>
-<li> <p><code>RShowDoc("NEWS")</code> now displays the pdf version.
+<li> <p><code>RShowDoc("NEWS")</code> now displays the PDF version.
 </p>
 </li>
-<li><p> matrices and arrays with last dimension zero did not print
+<li><p> Matrices and arrays with last dimension zero did not print
 at all or incompletely.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16012">PR#16012</a>)
 </p>
 </li>
@@ -587,7 +644,17 @@ the <code>xaxs</code>, <code>yaxs</code> and <code>lab</code> graphics parameter
 <li><p> The internal method of <code>download.file()</code> was not
 reporting file sizes and progress correctly on files larger than
 2GB (inherited from <code>libxml2</code>).  This is corrected for 64-bit
-builds (32-bit platforms may not support such files).
+builds (32-bit platforms may not support such files, but where
+possible will be supported in future versions of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>).
+</p>
+</li>
+<li><p> Work around a bug in OS X Yosemite where key environment
+variables may be duplicated causing issues in subprocesses. The
+duplicates are now removed on R startup (via Rprofile). (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16042">PR#16042</a>)
+</p>
+</li>
+<li><p> Adjust X11 auto-launch detection in DISPLAY on OS X to
+recognize latest XQuartz.
 </p>
 </li></ul>
 

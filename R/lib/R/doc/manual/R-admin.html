@@ -7,7 +7,7 @@
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-This manual is for R, version 3.2.0 Under development (2014-10-23 15:44:48 +0000).
+This manual is for R, version 3.2.0 Under development (2014-11-06 11:56:07 +0000).
 
 Copyright (C) 2001-2014 R Core Team
 
@@ -295,7 +295,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <p>This is a guide to installation and administration for R.
 
-   <p>This manual is for R, version 3.2.0 Under development (2014-10-23 15:44:48 +0000).
+   <p>This manual is for R, version 3.2.0 Under development (2014-11-06 11:56:07 +0000).
 
    <p>Copyright &copy; 2001&ndash;2014 R Core Team
 
@@ -1903,6 +1903,11 @@ location of the personal library directory (under <samp><span class="file">~/Lib
 e.g. <samp><span class="file">~/Library/R/3.1/library</span></samp>), and that warnings, messages and
 other output to <samp><span class="file">stderr</span></samp> are highlighted in bold.
 
+   <p>%% https://stat.ethz.ch/pipermail/r-sig-mac/2014-October/011131.html
+It has been reported that running <span class="sc">R.app</span> under Yosemite may fail if no
+preferences are stored, so if it fails when launched for the very first
+time, try it again (the first attempt will store some preferences).
+
    <p>Users of <span class="sc">R.app</span> under Mavericks and later need to be aware of the `App
 Nap' feature
 (<a href="https://developer.apple.com/library/mac/releasenotes/MacOSX/WhatsNewInOSX/Articles/MacOSX10_9.html">https://developer.apple.com/library/mac/releasenotes/MacOSX/WhatsNewInOSX/Articles/MacOSX10_9.html</a>)
@@ -2347,6 +2352,10 @@ for installation of either binary or source packages, from
 
    <p>Note that most binary packages including compiled code are tied to a
 particular series (e.g. R 3.0.x or 3.1.x) of R.
+
+   <p>You should not attempt to mix-and-match binary packages built for the
+‘Snow Leopard’ and ‘Mavericks’ <acronym>CRAN</acronym> distributions: doing so is
+likely to lead to crashes or failures to load.
 
    <p>Installing source packages which do not contain compiled code should
 work with no additional tools. For others you will need the
@@ -5167,6 +5176,10 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#OS-X">OS X</a>
 
 <p>See the comments under ‘Mavericks’.
 
+   <p>Note that if you upgrade to Yosemite you should re-install any of
+XQuartz, the ‘Command-line Tools for Xcode’ and Java which you have
+installed.
+
 <div class="node">
 <a name="Tcl%2fTk-headers-and-libraries"></a>
 <a name="Tcl_002fTk-headers-and-libraries"></a>
@@ -5230,14 +5243,14 @@ no longer supporting Java (and what it does support is Java 6, which has
 reached end-of-life).  Snow Leopard and Lion shipped with a Java 6
 runtime (JRE).
 
-   <p>Mountain Lion and later do not come with an installed JRE, and an
-upgrade to either removes one if already installed: it is intended to be
-installed at first use. Check if a JRE is installed by running
-<samp><span class="command">java -version</span></samp> in a <samp><span class="command">Terminal</span></samp> window: if Java is not
-installed this should prompt you to install it.
+   <p>Mountain Lion and later do not come with an installed JRE, and an OS X
+upgrade removes one if already installed: it is intended to be installed
+at first use.  Check if a JRE is installed by running <samp><span class="command">java
+-version</span></samp> in a <samp><span class="command">Terminal</span></samp> window: if Java is not installed this
+should prompt you to install it.
 
-   <p>However, you may want/need to install the latest Java from Oracle
-(currently Java 8 from
+   <p>You may want/need to install the latest Java from Oracle (currently Java
+8 from
 <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>);
 this is for Lion and later.
 
@@ -5836,7 +5849,8 @@ directory.
 many compilers these reduce the degree of compliance to the
 <acronym>IEEE</acronym> model.  For example, using <samp><span class="option">-fast</span></samp> on the Solaris
 Studio compilers has caused R's <code>NaN</code> to be set incorrectly, and
-<samp><span class="command">gcc</span></samp>'s <samp><span class="option">-ffast-math</span></samp> has given incorrect results.
+<samp><span class="command">gcc</span></samp>'s <samp><span class="option">-ffast-math</span></samp> and <samp><span class="command">clang</span></samp>'s
+<samp><span class="option">-Ofast</span></samp> have given incorrect results.
 
    <p><strong>Shared Objects</strong>: There seems to be very little agreement
 across platforms on what needs to be done to build shared objects. 

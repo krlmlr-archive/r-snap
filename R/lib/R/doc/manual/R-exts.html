@@ -7,7 +7,7 @@
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-This manual is for R, version 3.2.0 Under development (2014-10-23 15:44:48 +0000).
+This manual is for R, version 3.2.0 Under development (2014-11-06 11:56:07 +0000).
 
 Copyright (C) 1999-2014 R Core Team
 
@@ -387,7 +387,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 R add-on packages, writing R documentation, R's system and
 foreign language interfaces, and the R <acronym>API</acronym>.
 
-   <p>This manual is for R, version 3.2.0 Under development (2014-10-23 15:44:48 +0000).
+   <p>This manual is for R, version 3.2.0 Under development (2014-11-06 11:56:07 +0000).
 
    <p>Copyright &copy; 1999&ndash;2014 R Core Team
 
@@ -2208,8 +2208,8 @@ and so on, and also in <code>PKG_LIBS</code>.  C/C++ code that needs to be
 conditioned on the use of OpenMP can be used inside <code>#ifdef
 SUPPORT_OPENMP</code>, a macro defined in the header <samp><span class="file">Rconfig.h</span></samp>
 (see <a href="#Platform-and-version-information">Platform and version information</a>) or <code>_OPENMP</code>: note that
-some toolchains used for R (e.g. <samp><span class="command">clang</span></samp>) have no OpenMP
-support at all, not even <samp><span class="file">omp.h</span></samp>.
+some toolchains used for R (including most of those using
+<samp><span class="command">clang</span></samp>) have no OpenMP support at all, not even <samp><span class="file">omp.h</span></samp>.
 
    <p>For example, a package with C code written for OpenMP should have in
 <samp><span class="file">src/Makevars</span></samp> the lines
@@ -2220,13 +2220,10 @@ support at all, not even <samp><span class="file">omp.h</span></samp>.
    <p>There is nothing to say what version of OpenMP is supported: version 3.0
 (May 2008) is supported by recent versions of the Linux, Windows and
 Solaris platforms, but portable packages cannot assume that end users
-have recent versions.  The compilers used on OS X 10.6 (‘Snow Leopard’)
-had partial support for OpenMP 2.5, but this is not enabled in the
-<acronym>CRAN</acronym> build of R. (Apple have discontinued support for those
-compilers, and their alternative as from OS X 10.9, <samp><span class="command">clang</span></samp>, has
-no OpenMP support.  A project to add it has been announced at
-<a href="http://clang-omp.github.io/">http://clang-omp.github.io/</a>, but it is unknown when or even if
-the Apple builds will incorporate it.)
+have recent versions.  The compilers used on earlier versions of OS X
+had partial support for OpenMP 2.5, but this was not enabled in the
+<acronym>CRAN</acronym> build of R.  As from OS X 10.9 <samp><span class="command">clang</span></samp> is
+used, and the Apple builds currently<a rel="footnote" href="#fn-23" name="fnd-23"><sup>23</sup></a> have no OpenMP support.
 
    <p>The performance of OpenMP varies substantially between platforms.  Both
 the Windows and the Apple OS X (where available) implementations have
@@ -2250,7 +2247,7 @@ assumption that the R process is entitled to use them all are both
 dubious assumptions.  The best way to limit resources is to limit the
 overall number of threads available to OpenMP in the R process: this
 can be done via environment variable <samp><span class="env">OMP_THREAD_LIMIT</span></samp>, where
-implemented.<a rel="footnote" href="#fn-23" name="fnd-23"><sup>23</sup></a>  Alternatively, the number of
+implemented.<a rel="footnote" href="#fn-24" name="fnd-24"><sup>24</sup></a>  Alternatively, the number of
 threads per region can be limited by the environment variable
 <samp><span class="env">OMP_NUM_THREADS</span></samp> or API call <code>omp_set_num_threads</code>, or,
 better, for the regions in your code as part of their
@@ -2307,7 +2304,7 @@ Fortran or F9x equivalents) and <code>PKG_LIBS</code>.
 
    <p>The presence of a working <code>pthreads</code> implementation cannot be
 unambiguously determined without testing for yourself: however, that
-&lsquo;<samp><span class="samp">_REENTRANT</span></samp>&rsquo; is defined<a rel="footnote" href="#fn-24" name="fnd-24"><sup>24</sup></a> in C/C++ code is a good indication.
+&lsquo;<samp><span class="samp">_REENTRANT</span></samp>&rsquo; is defined<a rel="footnote" href="#fn-25" name="fnd-25"><sup>25</sup></a> in C/C++ code is a good indication.
 
    <p>See also the comments on thread-safety and performance under OpenMP: on
 all known R platforms OpenMP is implemented <em>via</em>
@@ -2523,7 +2520,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Configure-and-cleanup">Configure and c
 and passes them to the compiler specified by &lsquo;<samp><span class="samp">F77</span></samp>&rsquo;.  On most but
 not all platforms that compiler will accept Fortran 90/95 code: some
 platforms have a separate Fortran 90/95 compiler and a few (by now quite
-rare<a rel="footnote" href="#fn-25" name="fnd-25"><sup>25</sup></a>) platforms have no Fortran
+rare<a rel="footnote" href="#fn-26" name="fnd-26"><sup>26</sup></a>) platforms have no Fortran
 90/95 support.
 
    <p>This means that portable packages need to be written in correct
@@ -2632,7 +2629,7 @@ value). Hence this environment variable should be defined when invoking
 
    <p>Further control over compilation of C++11 code can be obtained by
 specifying the macros &lsquo;<samp><span class="samp">CXX1X</span></samp>&rsquo; and &lsquo;<samp><span class="samp">CXX1XSTD</span></samp>&rsquo; when R is
-configured<a rel="footnote" href="#fn-26" name="fnd-26"><sup>26</sup></a>, or in a personal or site <samp><span class="file">Makevars</span></samp> file. 
+configured<a rel="footnote" href="#fn-27" name="fnd-27"><sup>27</sup></a>, or in a personal or site <samp><span class="file">Makevars</span></samp> file. 
 See <a href="R-admin.html#Customizing-package-compilation">Customizing package compilation</a>. 
 If C++11 support is not available then these macros are both
 empty. Otherwise, &lsquo;<samp><span class="samp">CXX1X</span></samp>&rsquo; defaults to the same value as the C++
@@ -2648,7 +2645,7 @@ enable support for the 2014 revision using something like <samp><span class="opt
 or <samp><span class="option">-std=c++1y</span></samp>.
 
    <p>As noted above, support for C++11 varies across platforms.  The default
-compiler<a rel="footnote" href="#fn-27" name="fnd-27"><sup>27</sup></a> for OS X (&lt;=
+compiler<a rel="footnote" href="#fn-28" name="fnd-28"><sup>28</sup></a> for OS X (&lt;=
 10.8) is based on GCC 4.2.1 and has no support for anything other than
 the GNU version of C++98 and GNU extensions (which include TR1).  The
 default compiler on Windows is GCC 4.6.x and supports the
@@ -2691,7 +2688,7 @@ If you need <samp><span class="env">R_LIBS</span></samp> set (to find packages i
 library) you can set it in the environment: also you can use the check
 and build environment files (as specified by the environment variables
 <samp><span class="env">R_CHECK_ENVIRON</span></samp> and <samp><span class="env">R_BUILD_ENVIRON</span></samp>; if unset,
-files<a rel="footnote" href="#fn-28" name="fnd-28"><sup>28</sup></a>  <samp><span class="file">~/.R/check.Renviron</span></samp> and
+files<a rel="footnote" href="#fn-29" name="fnd-29"><sup>29</sup></a>  <samp><span class="file">~/.R/check.Renviron</span></samp> and
 <samp><span class="file">~/.R/build.Renviron</span></samp> are used) to set environment variables when
 using these utilities. 
 </blockquote>
@@ -2744,7 +2741,7 @@ operating system platforms.
 (Unix-alikes only).
 
      <li>The files are checked for binary executables, using a suitable version
-of <samp><span class="command">file</span></samp> if available<a rel="footnote" href="#fn-29" name="fnd-29"><sup>29</sup></a>.  (There may be
+of <samp><span class="command">file</span></samp> if available<a rel="footnote" href="#fn-30" name="fnd-30"><sup>30</sup></a>.  (There may be
 rare false positives.)
 
      <li>The <samp><span class="file">DESCRIPTION</span></samp> file is checked for completeness, and some of its
@@ -2828,7 +2825,7 @@ sections of <samp><span class="file">Rd</span></samp> files are documented in th
      <li>The <samp><span class="file">data</span></samp> directory is checked for non-<acronym>ASCII</acronym> characters
 and for the use of reasonable levels of compression.
 
-     <li>C, C++ and FORTRAN source and header files<a rel="footnote" href="#fn-30" name="fnd-30"><sup>30</sup></a> are
+     <li>C, C++ and FORTRAN source and header files<a rel="footnote" href="#fn-31" name="fnd-31"><sup>31</sup></a> are
 tested for portable (LF-only) line endings.  If there is a
 <samp><span class="file">Makefile</span></samp> or <samp><span class="file">Makefile.in</span></samp> or <samp><span class="file">Makevars</span></samp> or
 <samp><span class="file">Makevars.in</span></samp> file under the <samp><span class="file">src</span></samp> directory, it is checked
@@ -2839,7 +2836,7 @@ for portable line endings and the correct use of &lsquo;<samp><span class="samp"
 might terminate R or write to <samp><span class="file">stdout</span></samp>/<samp><span class="file">stderr</span></samp> instead of
 the console.  Note that the latter might give false positives in that
 the symbols might be pulled in with external libraries and could never
-be called.  Windows<a rel="footnote" href="#fn-31" name="fnd-31"><sup>31</sup></a> users
+be called.  Windows<a rel="footnote" href="#fn-32" name="fnd-32"><sup>32</sup></a> users
 should note that the Fortran and C++ runtime libraries are examples of
 such external libraries.
 
@@ -2865,7 +2862,14 @@ specified in that directory are run.  (Typically they will consist of a
 set of <samp><span class="file">.R</span></samp> source files and target output files
 <samp><span class="file">.Rout.save</span></samp>.)  Please note that the comparison will be done in the
 end user's locale, so the target output files should be <acronym>ASCII</acronym>
-if at all possible.
+if at all possible.  (The command line option <code>--test-dir=foo</code> may
+be used to specify tests in a non-standard location.  For example,
+unusually slow tests could be placed in <samp><span class="file">inst/slowTests</span></samp> and then
+<code>R CMD check --test-dir=inst/slowTests</code> would be used to run them. 
+Other names that have been suggested are, for example,
+<samp><span class="file">inst/testWithOracle</span></samp> for tests that require Oracle to be installed,
+<samp><span class="file">inst/randomTests</span></samp> for tests which use random values and may
+occasionally fail by chance, etc.)
 
      <li>The code in package vignettes (see <a href="#Writing-package-vignettes">Writing package vignettes</a>) is
 executed, and the vignette PDFs re-made from their sources as a check of
@@ -2878,7 +2882,7 @@ recorded in the log file).  (If the vignette sources are in the
 deprecated location <samp><span class="file">inst/doc</span></samp>, do mark such target output files to
 not be installed in <samp><span class="file">.Rinstignore</span></samp>.)
 
-     <p>If there is an error<a rel="footnote" href="#fn-32" name="fnd-32"><sup>32</sup></a> in executing the R code in vignette <samp><var>foo.ext</var></samp>, a log
+     <p>If there is an error<a rel="footnote" href="#fn-33" name="fnd-33"><sup>33</sup></a> in executing the R code in vignette <samp><var>foo.ext</var></samp>, a log
 file <samp><var>foo.ext</var><span class="file">.log</span></samp> is created in the check directory.  The
 vignette PDFs are re-made in a copy of the package sources in the
 <samp><span class="file">vign_test</span></samp> subdirectory of the check directory, so for further
@@ -2905,13 +2909,25 @@ setting environment variables <samp><span class="env">_R_CHECK_*_</span></samp>:
 <a href="R-ints.html#Tools">Tools</a>:
 a set of these customizations similar to those used by <acronym>CRAN</acronym>
 can be selected by the option <samp><span class="option">--as-cran</span></samp> (which works best if
-Internet access is available<a rel="footnote" href="#fn-33" name="fnd-33"><sup>33</sup></a>).  Some Windows users may
+Internet access is available<a rel="footnote" href="#fn-34" name="fnd-34"><sup>34</sup></a>).  Some Windows users may
 need to set environment variable <samp><span class="env">R_WIN_NO_JUNCTIONS</span></samp> to a non-empty
-value.  The test of cyclic declarations<a rel="footnote" href="#fn-34" name="fnd-34"><sup>34</sup></a>in <samp><span class="file">DESCRIPTION</span></samp> files needs
+value.  The test of cyclic declarations<a rel="footnote" href="#fn-35" name="fnd-35"><sup>35</sup></a>in <samp><span class="file">DESCRIPTION</span></samp> files needs
 repositories (including <acronym>CRAN</acronym>) set: do this in
-<samp><span class="file">~/.Rprofile</span></samp>, by e.g
+<samp><span class="file">~/.Rprofile</span></samp>, by e.g.
 <pre class="example">     options(repos = c(CRAN="http://cran.r-project.org"))
 </pre>
+   <p>One check customization which can be revealing is
+<pre class="example">     _R_CHECK_CODETOOLS_PROFILE_="suppressLocalUnused=FALSE"
+</pre>
+   <p class="noindent">which reports unused local assignments.  Not only does this point out
+computations which are unnecessary because their results are unused, it
+also can show errors.  (Two such are to intend to update an object by
+assigning a value but mistype its name or assign in the wrong scope,
+for example using <code>&lt;-</code> where <code>&lt;&lt;-</code> was intended.)  This can
+give false positives, most commonly because of non-standard evaluation
+for formulae and because the intention is to return objects in the
+environment of a function for later use.
+
    <p>You do need to ensure that the package is checked in a suitable locale
 if it contains non-<acronym>ASCII</acronym> characters.  Such packages are likely
 to fail some of the checks in a <code>C</code> locale, and <samp><span class="command">R CMD
@@ -2937,9 +2953,9 @@ as <samp><var>R_HOME</var><span class="file">/etc/i386/Renviron.site</span></sam
 to check the primary sub-architecture, and then to use something like
 <samp><span class="command">R --arch=x86_64 CMD check --extra-arch</span></samp> or (Windows)
 <samp><span class="command">/path/to/R/bin/x64/Rcmd check --extra-arch</span></samp> to run for each
-additional sub-architecture just the checks<a rel="footnote" href="#fn-35" name="fnd-35"><sup>35</sup></a> which differ by sub-architecture.  (This approach is
-required for packages which are installed by <samp><span class="command">R CMD INSTALL
---merge-multiarch</span></samp>.)
+additional sub-architecture just the checks<a rel="footnote" href="#fn-36" name="fnd-36"><sup>36</sup></a> which differ by sub-architecture.  (This
+approach is required for packages which are installed by <samp><span class="command">R CMD
+INSTALL --merge-multiarch</span></samp>.)
 
    <p>Where packages need additional commands to install all the
 sub-architectures these can be supplied by e.g. 
@@ -2982,9 +2998,9 @@ using <samp><span class="command">R CMD check</span></samp> prior to invoking th
 of exclude patterns in file <samp><span class="file">.Rbuildignore</span></samp> in the top-level source
 directory.  These patterns should be Perl-like regular expressions (see
 the help for <code>regexp</code> in R for the precise details), one per
-line, to be matched case-insensitively<a rel="footnote" href="#fn-36" name="fnd-36"><sup>36</sup></a> against the file and directory names relative to the
+line, to be matched case-insensitively<a rel="footnote" href="#fn-37" name="fnd-37"><sup>37</sup></a> against the file and directory names relative to the
 top-level package source directory.  In addition, directories from
-source control systems<a rel="footnote" href="#fn-37" name="fnd-37"><sup>37</sup></a> or from <samp><span class="command">eclipse</span></samp><a rel="footnote" href="#fn-38" name="fnd-38"><sup>38</sup></a>, directories with names ending <samp><span class="file">.Rcheck</span></samp> or
+source control systems<a rel="footnote" href="#fn-38" name="fnd-38"><sup>38</sup></a> or from <samp><span class="command">eclipse</span></samp><a rel="footnote" href="#fn-39" name="fnd-39"><sup>39</sup></a>, directories with names ending <samp><span class="file">.Rcheck</span></samp> or
 <samp><span class="file">Old</span></samp> or <samp><span class="file">old</span></samp> and files <samp><span class="file">GNUMakefile</span></samp>,
 <samp><span class="file">Read-and-delete-me</span></samp> or with base names starting with &lsquo;<samp><span class="samp">.#</span></samp>&rsquo;, or
 starting and ending with &lsquo;<samp><span class="samp">#</span></samp>&rsquo;, or ending in &lsquo;<samp><span class="samp">~</span></samp>&rsquo;, &lsquo;<samp><span class="samp">.bak</span></samp>&rsquo; or
@@ -3183,7 +3199,7 @@ components intended to be installed.
 
    <p>Sweave vignette sources are normally given the file extension
 <samp><span class="file">.Rnw</span></samp> or <samp><span class="file">.Rtex</span></samp>, but for historical reasons
-extensions<a rel="footnote" href="#fn-39" name="fnd-39"><sup>39</sup></a> <samp><span class="file">.Snw</span></samp> and
+extensions<a rel="footnote" href="#fn-40" name="fnd-40"><sup>40</sup></a> <samp><span class="file">.Snw</span></samp> and
 <samp><span class="file">.Stex</span></samp> are also recognized.  Sweave allows the integration of
 LaTeX documents: see the <code>Sweave</code> help page in R and the
 <code>Sweave</code> vignette in package <strong>utils</strong> for details on the
@@ -3201,13 +3217,13 @@ re-make the vignettes (such as LaTeX style files, BibTeX input
 files and files for any figures not created by running the code in the
 vignette) must be in the vignette source directory.
 
-   <p><code>R CMD build</code> will automatically<a rel="footnote" href="#fn-40" name="fnd-40"><sup>40</sup></a> create the
+   <p><code>R CMD build</code> will automatically<a rel="footnote" href="#fn-41" name="fnd-41"><sup>41</sup></a> create the
 (PDF or <acronym>HTML</acronym> versions of the) vignettes in <samp><span class="file">inst/doc</span></samp> for
 distribution with the package sources.  By including the vignette
 outputs in the package sources it is not necessary that these can be
 re-built at install time, i.e., the package author can use private R
 packages, screen snapshots and LaTeX extensions which are only
-available on his machine.<a rel="footnote" href="#fn-41" name="fnd-41"><sup>41</sup></a>
+available on his machine.<a rel="footnote" href="#fn-42" name="fnd-42"><sup>42</sup></a>
 
    <p>By default <code>R CMD build</code> will run <code>Sweave</code> on all Sweave
 vignette source files in <samp><span class="file">vignettes</span></samp>.  If <samp><span class="file">Makefile</span></samp> is found
@@ -3220,7 +3236,7 @@ creation of PDF/<acronym>HTML</acronym> files and cleaning up afterwards (includ
 after <code>Sweave</code>), i.e., delete all files that shall not appear in
 the final package archive.  Note that if the <code>make</code> step runs R
 it needs to be careful to respect the environment values of <samp><span class="env">R_LIBS</span></samp>
-and <samp><span class="env">R_HOME</span></samp><a rel="footnote" href="#fn-42" name="fnd-42"><sup>42</sup></a>. 
+and <samp><span class="env">R_HOME</span></samp><a rel="footnote" href="#fn-43" name="fnd-43"><sup>43</sup></a>. 
 Finally, if there is a <samp><span class="file">Makefile</span></samp> and it has a &lsquo;<samp><span class="samp">clean:</span></samp>&rsquo;
 target, <samp><span class="command">make clean</span></samp> is run.
 
@@ -3446,7 +3462,7 @@ from other packages will cause these other packages to be loaded as well
 (unless they have already been loaded), but they will <em>not</em> be
 placed on the search path by these implicit loads.  Thus code in the
 package can only depend on objects in its own namespace and its imports
-(including the <strong>base</strong> namespace) being visible<a rel="footnote" href="#fn-43" name="fnd-43"><sup>43</sup></a>.
+(including the <strong>base</strong> namespace) being visible<a rel="footnote" href="#fn-44" name="fnd-44"><sup>44</sup></a>.
 
    <p>Namespaces are <em>sealed</em> once they are loaded.  Sealing means that
 imports and exports cannot be changed and that internal variable
@@ -3607,7 +3623,7 @@ detached, and unloaded.  See <code>help(".onLoad")</code> for more details.
 
    <p>Since loading and attaching are distinct operations, separate hooks are
 provided for each.  These hook functions are called <code>.onLoad</code> and
-<code>.onAttach</code>.  They both take arguments<a rel="footnote" href="#fn-44" name="fnd-44"><sup>44</sup></a> <code>libname</code> and
+<code>.onAttach</code>.  They both take arguments<a rel="footnote" href="#fn-45" name="fnd-45"><sup>45</sup></a> <code>libname</code> and
 <code>pkgname</code>; they should be defined in the namespace but not
 exported.
 
@@ -3651,12 +3667,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Package-namespaces">Package namespaces
 
 <p>A <samp><span class="file">NAMESPACE</span></samp> file can contain one or more <code>useDynLib</code>
 directives which allows shared objects that need to be
-loaded.<a rel="footnote" href="#fn-45" name="fnd-45"><sup>45</sup></a>  The directive
+loaded.<a rel="footnote" href="#fn-46" name="fnd-46"><sup>46</sup></a>  The directive
 
    <p><a name="index-useDynLib-53"></a>
 <pre class="example">     useDynLib(foo)
 </pre>
-   <p class="noindent">registers the shared object <code>foo</code><a rel="footnote" href="#fn-46" name="fnd-46"><sup>46</sup></a> for loading with <code>library.dynam</code>. 
+   <p class="noindent">registers the shared object <code>foo</code><a rel="footnote" href="#fn-47" name="fnd-47"><sup>47</sup></a> for loading with <code>library.dynam</code>. 
 Loading of registered object(s) occurs after the package code has been
 loaded and before running the load hook function.  Packages that would
 only need a load hook function to load a shared object can use the
@@ -3873,7 +3889,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Package-namespaces">Package namespaces
 <p>Some additional steps are needed for packages which make use of formal
 (S4-style) classes and methods (unless these are purely used
 internally).  The package should have <code>Depends: methods</code> in its
-<samp><span class="file">DESCRIPTION</span></samp> file<a rel="footnote" href="#fn-47" name="fnd-47"><sup>47</sup></a> and <code>import(methods)</code> or
+<samp><span class="file">DESCRIPTION</span></samp> file<a rel="footnote" href="#fn-48" name="fnd-48"><sup>48</sup></a> and <code>import(methods)</code> or
 <code>importFrom(methods, ...)</code> plus any classes and methods which are
 to be exported need to be declared in the <samp><span class="file">NAMESPACE</span></samp> file.  For
 example, the <strong>stats4</strong> package has
@@ -3894,7 +3910,7 @@ example, the <strong>stats4</strong> package has
 </pre>
    <p><a name="index-exportPattern-56"></a><a name="index-exportClassPattern-57"></a>All S4 classes to be used outside the package need to be listed in an
 <code>exportClasses</code> directive. Alternatively, they can be specified
-using <code>exportClassPattern</code><a rel="footnote" href="#fn-48" name="fnd-48"><sup>48</sup></a> in the same style as
+using <code>exportClassPattern</code><a rel="footnote" href="#fn-49" name="fnd-49"><sup>49</sup></a> in the same style as
 for <code>exportPattern</code>.  To export methods for generics from other
 packages an <code>exportMethods</code> directive can be used.
 
@@ -3922,7 +3938,7 @@ functions, and <code>undoc</code> in package <strong>tools</strong> will not rep
 
    <p>If a package uses S4 classes and methods exported from another package,
 but does not import the entire namespace of the other
-package<a rel="footnote" href="#fn-49" name="fnd-49"><sup>49</sup></a>, it needs
+package<a rel="footnote" href="#fn-50" name="fnd-50"><sup>50</sup></a>, it needs
 to import the classes and methods explicitly, with directives
 
    <p><a name="index-importClassesFrom-58"></a><a name="index-importMethodsFrom-59"></a>
@@ -3999,7 +4015,7 @@ not allowed under Windows which are mentioned above.
 (aka <code>x11()</code>) which although emulated on Windows may not be
 available on a Unix-alike (and is not the preferred screen device on OS
 X).  It is rarely necessary for package code or examples to open a new
-device, but if essential,<a rel="footnote" href="#fn-50" name="fnd-50"><sup>50</sup></a> use <code>dev.new()</code>.
+device, but if essential,<a rel="footnote" href="#fn-51" name="fnd-51"><sup>51</sup></a> use <code>dev.new()</code>.
 
    <p>Use <samp><span class="command">R CMD build</span></samp> to make the release <samp><span class="file">.tar.gz</span></samp> file.
 
@@ -4028,7 +4044,7 @@ results.
 
      <pre class="example">          PKG_CPPFLAGS = `gsl-config --cflags`
 </pre>
-     <p class="noindent">which works in all versions of <samp><span class="command">make</span></samp> known<a rel="footnote" href="#fn-51" name="fnd-51"><sup>51</sup></a> to be used
+     <p class="noindent">which works in all versions of <samp><span class="command">make</span></samp> known<a rel="footnote" href="#fn-52" name="fnd-52"><sup>52</sup></a> to be used
 with R.
 
      <p>If you really must assume GNU make, declare it in the <samp><span class="file">DESCRIPTION</span></samp>
@@ -4079,7 +4095,7 @@ on some R platforms (including 64-bit Windows), but 64-bit on most
 modern Unix and Linux platforms.  It is rather unlikely that the use of
 <code>long</code> in C code has been thought through: if you need a longer
 type than <code>int</code> you should use a configure test for a C99 type such
-as <code>int_fast64_t</code> (and failing that, <code>long long</code> <a rel="footnote" href="#fn-52" name="fnd-52"><sup>52</sup></a>) and typedef your own type
+as <code>int_fast64_t</code> (and failing that, <code>long long</code> <a rel="footnote" href="#fn-53" name="fnd-53"><sup>53</sup></a>) and typedef your own type
 to be <code>long</code> or <code>long long</code>, or use another suitable type
 (such as <code>size_t</code>).
 
@@ -4093,7 +4109,7 @@ and are not required to be implemented by the C99 standard).
 in C on all R platforms.
 
      <li>Under no circumstances should your compiled code ever call <code>abort</code>
-or <code>exit</code><a rel="footnote" href="#fn-53" name="fnd-53"><sup>53</sup></a>: these terminate the user's R process, quite possibly
+or <code>exit</code><a rel="footnote" href="#fn-54" name="fnd-54"><sup>54</sup></a>: these terminate the user's R process, quite possibly
 including all his unsaved work.  One usage that could call <code>abort</code>
 is the <code>assert</code> macro in C or C++ functions, which should never be
 active in production code.  The normal way to ensure that is to define
@@ -4112,7 +4128,7 @@ calls may come from external software and may never be called, but
 package authors are often mistaken about that.
 
      <li>Compiled code should not call the system random number generators such
-as <code>rand</code>, <code>drand48</code> and <code>random</code><a rel="footnote" href="#fn-54" name="fnd-54"><sup>54</sup></a>, but rather use the
+as <code>rand</code>, <code>drand48</code> and <code>random</code><a rel="footnote" href="#fn-55" name="fnd-55"><sup>55</sup></a>, but rather use the
 interfaces to R's RNGs described in <a href="#Random-numbers">Random numbers</a>.  In
 particular, if more than one package initializes the system RNG (e.g. 
 <em>via</em> <code>srand</code>), they will interfere with each other.
@@ -4189,7 +4205,7 @@ for routine use.  Most R platforms use &lsquo;<samp><span class="samp">ix86</spa
 but not all of their FPU instructions.  Thus the achieved precision can
 depend on the compiler version and optimization flags&mdash;our experience
 is that 32-bit builds tend to be less precise than 64-bit ones.  But not
-all platforms use those CPUs, and not all<a rel="footnote" href="#fn-55" name="fnd-55"><sup>55</sup></a> which use them configure them to
+all platforms use those CPUs, and not all<a rel="footnote" href="#fn-56" name="fnd-56"><sup>56</sup></a> which use them configure them to
 allow the use of extended precision.  In particular, ARM CPUs do not
 (currently) have extended precision nor long doubles, and long double
 was 64-bit on HP/PA Linux.
@@ -4199,6 +4215,9 @@ build R with <samp><span class="option">--disable-long-double</span></samp> and 
 compiler flags (such as <samp><span class="option">-ffloat-store</span></samp> and
 <samp><span class="option">-fexcess-precision=standard</span></samp> for <samp><span class="command">gcc</span></samp>) to mitigate the
 effects of extended-precision calculations.
+
+     <p>Tests which involve random inputs or non-deterministic algorithms should
+normally set a seed or be tested for many seeds.
 
    </ul>
 
@@ -4236,7 +4255,7 @@ done for the R reference manual at
 excessively high resolution.  These are often best re-generated (for
 example <code>Sweave</code> defaults to 300 ppi, and 100&ndash;150 is more
 appropriate for a package manual).  These tools include Adobe Acrobat
-(not Reader), Apple's Preview<a rel="footnote" href="#fn-56" name="fnd-56"><sup>56</sup></a>  and Ghostscript (which
+(not Reader), Apple's Preview<a rel="footnote" href="#fn-57" name="fnd-57"><sup>57</sup></a>  and Ghostscript (which
 converts PDF to PDF by
 
 <pre class="example">     ps2pdf <var>options</var> -dAutoRotatePages=/None <var>in</var>.pdf <var>out</var>.pdf
@@ -4315,7 +4334,7 @@ possible to mark the encoding used in the <samp><span class="file">DESCRIPTION</
    <p>First, consider carefully if you really need non-<acronym>ASCII</acronym> text. 
 Many users of R will only be able to view correctly text in their
 native language group (e.g. Western European, Eastern European,
-Simplified Chinese) and <acronym>ASCII</acronym>.<a rel="footnote" href="#fn-57" name="fnd-57"><sup>57</sup></a>.  Other characters may not be rendered at all,
+Simplified Chinese) and <acronym>ASCII</acronym>.<a rel="footnote" href="#fn-58" name="fnd-58"><sup>58</sup></a>.  Other characters may not be rendered at all,
 rendered incorrectly, or cause your R code to give an error.  For
 <samp><span class="file">.Rd</span></samp> documentation, marking the encoding and including
 <acronym>ASCII</acronym> transliterations is likely to do a reasonable job.  The
@@ -4345,7 +4364,7 @@ this, make sure you have &lsquo;<samp><span class="samp">R (&gt;= 2.10)</span></
    <p>R sessions running in non-UTF-8 locales will if possible re-encode
 such strings for display (and this is done by <samp><span class="command">RGui</span></samp> on Windows,
 for example).  Suitable fonts will need to be selected or made
-available<a rel="footnote" href="#fn-58" name="fnd-58"><sup>58</sup></a>  both for the console/terminal and graphics devices such as
+available<a rel="footnote" href="#fn-59" name="fnd-59"><sup>59</sup></a>  both for the console/terminal and graphics devices such as
 &lsquo;<samp><span class="samp">X11()</span></samp>&rsquo; and &lsquo;<samp><span class="samp">windows()</span></samp>&rsquo;.  Using &lsquo;<samp><span class="samp">postscript</span></samp>&rsquo; or
 &lsquo;<samp><span class="samp">pdf</span></samp>&rsquo; will choose a default 8-bit encoding depending on the
 language of the UTF-8 locale, and your users would need to be told how
@@ -5012,7 +5031,7 @@ header is mandatory.
 
    <p>Information is given within a series of <em>sections</em> with standard
 names (and user-defined sections are also allowed).  Unless otherwise
-specified<a rel="footnote" href="#fn-59" name="fnd-59"><sup>59</sup></a> these should occur only once in an <samp><span class="file">Rd</span></samp>
+specified<a rel="footnote" href="#fn-60" name="fnd-60"><sup>60</sup></a> these should occur only once in an <samp><span class="file">Rd</span></samp>
 file (in any order), and the processing software will retain only the
 first occurrence of a standard section in the file, with a warning.
 
@@ -5077,7 +5096,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Rd-format">Rd format</a>
 particular, functions) are given in this subsection.
 
      <dl>
-<dt><code>\name{</code><var>name</var><code>}</code><dd><a name="index-g_t_005cname-64"></a><var>name</var> typically<a rel="footnote" href="#fn-60" name="fnd-60"><sup>60</sup></a> is the basename of
+<dt><code>\name{</code><var>name</var><code>}</code><dd><a name="index-g_t_005cname-64"></a><var>name</var> typically<a rel="footnote" href="#fn-61" name="fnd-61"><sup>61</sup></a> is the basename of
 the <samp><span class="file">Rd</span></samp> file containing the documentation.  It is the &ldquo;name&rdquo; of
 the <samp><span class="file">Rd</span></samp> object represented by the file and has to be unique in a
 package.  To avoid problems with indexing the package manual, it may not
@@ -5087,7 +5106,7 @@ with the <acronym>HTML</acronym> help system it should not contain &lsquo;<samp>
 (LaTeX special characters are allowed, but may not be collated
 correctly in the index.)  There can only be one <code>\name</code> entry in a
 file, and it must not contain any markup.  Entries in the package manual
-will be in alphabetic<a rel="footnote" href="#fn-61" name="fnd-61"><sup>61</sup></a> order
+will be in alphabetic<a rel="footnote" href="#fn-62" name="fnd-62"><sup>62</sup></a> order
 of the <code>\name</code> entries.
 
      <br><dt><code>\alias{</code><var>topic</var><code>}</code><dd><a name="index-g_t_005calias-65"></a>The <code>\alias</code> sections specify all &ldquo;topics&rdquo; the file documents. 
@@ -5227,7 +5246,7 @@ form
      <pre class="example">          \item{<var>comp_i</var>}{<var>Description of comp_i</var>.}
 </pre>
      <p class="noindent">for each component of the list returned.  Optional text may
-precede<a rel="footnote" href="#fn-62" name="fnd-62"><sup>62</sup></a> this
+precede<a rel="footnote" href="#fn-63" name="fnd-63"><sup>63</sup></a> this
 list (see for example the help for <code>rle</code>).  Note that <code>\value</code>
 is implicitly a <code>\describe</code> environment, so that environment should
 not be used for listing components, just individual <code>\item{}{}</code>
@@ -5618,7 +5637,7 @@ verbatim, and is used as the <acronym>URL</acronym> in the hyperlink, with the
 second argument of LaTeX-like text displayed to the user.
 
      <br><dt><code>\var{</code><var>metasyntactic_variable</var><code>}</code><dd><a name="index-g_t_005cvar-102"></a>Indicate a metasyntactic variable.  In some cases this will be rendered
-distinctly, e.g. in italic, but not in all<a rel="footnote" href="#fn-63" name="fnd-63"><sup>63</sup></a>. LaTeX-like. 
+distinctly, e.g. in italic, but not in all<a rel="footnote" href="#fn-64" name="fnd-64"><sup>64</sup></a>. LaTeX-like. 
 <br><dt><code>\env{</code><var>environment_variable</var><code>}</code><dd><a name="index-g_t_005cenv-103"></a>Indicate an environment variable. Verbatim. 
 Displayed using <code>typewriter</code> font if possible
 <br><dt><code>\option{</code><var>option</var><code>}</code><dd><a name="index-g_t_005coption-104"></a>Indicate a command-line option.  Verbatim. 
@@ -5735,7 +5754,7 @@ given above.
 <samp><var>bar</var><span class="file">.html</span></samp> respectively.  These are rarely needed, perhaps to
 refer to not-yet-installed packages (but there the <acronym>HTML</acronym> help system
 will resolve the link at run time) or in the normally undesirable event
-that more than one package offers help on a topic<a rel="footnote" href="#fn-64" name="fnd-64"><sup>64</sup></a> (in
+that more than one package offers help on a topic<a rel="footnote" href="#fn-65" name="fnd-65"><sup>65</sup></a> (in
 which case the present package has precedence so this is only needed to
 refer to other packages).  They are currently only used in <acronym>HTML</acronym> help
 (and ignored for hyperlinks in LaTeX conversions of help pages), and
@@ -5859,7 +5878,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Writing-R-documentation-files">Writing
 <p><a name="index-g_t_005cR-122"></a>Use <code>\R</code> for the R system itself.  Use <code>\dots</code>
 <a name="index-g_t_005cdots-123"></a>for the dots in function argument lists &lsquo;<samp><span class="samp">...</span></samp>&rsquo;, and
 <code>\ldots</code>
-<a name="index-g_t_005cldots-124"></a>for ellipsis dots in ordinary text.<a rel="footnote" href="#fn-65" name="fnd-65"><sup>65</sup></a>  These can be followed by
+<a name="index-g_t_005cldots-124"></a>for ellipsis dots in ordinary text.<a rel="footnote" href="#fn-66" name="fnd-66"><sup>66</sup></a>  These can be followed by
 <code>{}</code>, and should be unless followed by whitespace.
 
    <p>After an unescaped &lsquo;<samp><span class="samp">%</span></samp>&rsquo;, you can put your own comments regarding the
@@ -5870,7 +5889,7 @@ of the &ldquo;help&rdquo; invisible.
    <p>You can produce a backslash (&lsquo;<samp><span class="samp">\</span></samp>&rsquo;) by escaping it by another
 backslash.  (Note that <code>\cr</code> is used for generating line breaks.)
 
-   <p>The &ldquo;comment&rdquo; character &lsquo;<samp><span class="samp">%</span></samp>&rsquo; and unpaired braces<a rel="footnote" href="#fn-66" name="fnd-66"><sup>66</sup></a>
+   <p>The &ldquo;comment&rdquo; character &lsquo;<samp><span class="samp">%</span></samp>&rsquo; and unpaired braces<a rel="footnote" href="#fn-67" name="fnd-67"><sup>67</sup></a>
 <em>almost always</em> need to be escaped by &lsquo;<samp><span class="samp">\</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">\\</span></samp>&rsquo; can
 be used for backslash and needs to be when there two or more adjacent
 backslashes).  In R-like code quoted strings are handled slightly
@@ -6198,7 +6217,7 @@ in finding non-<acronym>ASCII</acronym> bytes in the files.)
    <p>For convenience, encoding names &lsquo;<samp><span class="samp">latin1</span></samp>&rsquo; and &lsquo;<samp><span class="samp">latin2</span></samp>&rsquo; are
 always recognized: these and &lsquo;<samp><span class="samp">UTF-8</span></samp>&rsquo; are likely to work fairly
 widely.  However, this does not mean that all characters in UTF-8 will
-be recognized, and the coverage of non-Latin characters<a rel="footnote" href="#fn-67" name="fnd-67"><sup>67</sup></a> is fairly low.  Using LaTeX
+be recognized, and the coverage of non-Latin characters<a rel="footnote" href="#fn-68" name="fnd-68"><sup>68</sup></a> is fairly low.  Using LaTeX
 <code>inputenx</code> (see <code>?Rd2pdf</code> in R) will give greater coverage
 of UTF-8.
 
@@ -6395,12 +6414,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tidying-and-profiling-R-code">Tidying 
 <h3 class="section">3.2 Profiling R code for speed</h3>
 
 <p><a name="index-Profiling-147"></a><a name="index-Rprof-148"></a>
-It is possible to profile R code on Windows and most<a rel="footnote" href="#fn-68" name="fnd-68"><sup>68</sup></a> Unix-alike versions of
+It is possible to profile R code on Windows and most<a rel="footnote" href="#fn-69" name="fnd-69"><sup>69</sup></a> Unix-alike versions of
 R.
 
    <p>The command <samp><span class="command">Rprof</span></samp> is used to control profiling, and its help
 page can be consulted for full details.  Profiling works by recording
-at fixed intervals<a rel="footnote" href="#fn-69" name="fnd-69"><sup>69</sup></a> (by default every 20 msecs)
+at fixed intervals<a rel="footnote" href="#fn-70" name="fnd-70"><sup>70</sup></a> (by default every 20 msecs)
 which line in which R function is being used, and recording the
 results in a file (default <samp><span class="file">Rprof.out</span></samp> in the working directory). 
 Then the function <code>summaryRprof</code> or the command-line utility
@@ -6972,7 +6991,7 @@ For example
 </pre>
    <p class="noindent">At the browser prompt one can enter any R expression, so for example
 <code>ls()</code> lists the objects in the current frame, and entering the
-name of an object will<a rel="footnote" href="#fn-70" name="fnd-70"><sup>70</sup></a> print it.  The following commands are
+name of an object will<a rel="footnote" href="#fn-71" name="fnd-71"><sup>71</sup></a> print it.  The following commands are
 also accepted
 
      <ul>
@@ -7413,7 +7432,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Checking-memory-access">Checking memor
 <h4 class="subsection">4.3.2 Using valgrind</h4>
 
 <p>If you have access to Linux on a common CPU type or supported versions
-of OS X<a rel="footnote" href="#fn-71" name="fnd-71"><sup>71</sup></a> you can use
+of OS X<a rel="footnote" href="#fn-72" name="fnd-72"><sup>72</sup></a> you can use
 <code>valgrind</code> (<a href="http://www.valgrind.org/">http://www.valgrind.org/</a>, pronounced to rhyme
 with ‘tinned’) to check for possible problems.  To run some examples
 under <code>valgrind</code> use something like
@@ -7441,7 +7460,7 @@ in the use of memory allocated from the R heap.  The
 <samp><span class="option">--with-valgrind-instrumentation=</span><var>level</var></samp>, where <var>level</var>
 is 0, 1, 2 or 3.  Level 0 is the default and does not add any anything. 
 Level 1 will detect some uses of uninitialised memory and has little
-impact on speed (compared to level 0). Levels 2 and 3<a rel="footnote" href="#fn-72" name="fnd-72"><sup>72</sup></a>
+impact on speed (compared to level 0). Levels 2 and 3<a rel="footnote" href="#fn-73" name="fnd-73"><sup>73</sup></a>
 will detect many other memory-use bugs but make R much slower when
 running under <code>valgrind</code>.  Using this in conjunction with
 <code>gctorture</code> can be even more effective (and even slower).
@@ -7486,7 +7505,7 @@ C code can be inspected (see <a href="#Inspecting-R-objects">Inspecting R object
    <p><samp><span class="command">valgrind</span></samp> is good at spotting the use of uninitialized values:
 use option <samp><span class="option">--track-origins=yes</span></samp> to show where these originated
 from.  What it cannot detect is the misuse of arrays allocated on the
-stack: this includes C automatic variables and some<a rel="footnote" href="#fn-73" name="fnd-73"><sup>73</sup></a>
+stack: this includes C automatic variables and some<a rel="footnote" href="#fn-74" name="fnd-74"><sup>74</sup></a>
 Fortran arrays.
 
    <p>It is possible to run all the examples, tests and vignettes covered by
@@ -7528,14 +7547,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Checking-memory-access">Checking memor
 
 <p><samp><span class="command">AddressSanitizer</span></samp> (‘ASan’) is a tool with similar aims to the
 memory checker in <samp><span class="command">valgrind</span></samp>.  It is available with suitable
-builds<a rel="footnote" href="#fn-74" name="fnd-74"><sup>74</sup></a> of <samp><span class="command">gcc</span></samp> 4.8.0 or
+builds<a rel="footnote" href="#fn-75" name="fnd-75"><sup>75</sup></a> of <samp><span class="command">gcc</span></samp> 4.8.0 or
 <samp><span class="command">clang</span></samp> 3.1 and later on common Linux and OS X platforms.  See
 <a href="http://clang.llvm.org/docs/UsersManual.html#controlling-code-generation">http://clang.llvm.org/docs/UsersManual.html#controlling-code-generation</a>,
 <a href="http://clang.llvm.org/docs/AddressSanitizer.html">http://clang.llvm.org/docs/AddressSanitizer.html</a> and
 <a href="https://code.google.com/p/address-sanitizer/">https://code.google.com/p/address-sanitizer/</a>.
 
    <p>It requires code to have been compiled <em>and linked</em> with
-<samp><span class="option">-fsanitize=address</span></samp><a rel="footnote" href="#fn-75" name="fnd-75"><sup>75</sup></a>, and compiling with <code>-fno-omit-frame-pointer</code>
+<samp><span class="option">-fsanitize=address</span></samp><a rel="footnote" href="#fn-76" name="fnd-76"><sup>76</sup></a>, and compiling with <code>-fno-omit-frame-pointer</code>
 will give more legible reports.  It has a runtime penalty of 2&ndash;3x,
 extended compilation times and uses substantially more memory, often
 1&ndash;2GB, at run time.  On 64-bit platforms it reserves (but does not
@@ -7554,7 +7573,7 @@ version, this can be done <em>via</em> an environment variable, e.g.
 <pre class="example">     ASAN_SYMBOLIZER_PATH=/path/to/llvm-symbolizer
 </pre>
    <p class="noindent">or by piping the output through
-<samp><span class="command">asan_symbolize.py</span></samp><a rel="footnote" href="#fn-76" name="fnd-76"><sup>76</sup></a> and
+<samp><span class="command">asan_symbolize.py</span></samp><a rel="footnote" href="#fn-77" name="fnd-77"><sup>77</sup></a> and
 perhaps then (for compiled C++ code) <samp><span class="command">c++filt</span></samp>.
 
    <p>The simplest way to make use of this is to build a version of R with
@@ -7770,7 +7789,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Checking-memory-access">Checking memor
 
 <p>‘Dr. Memory’ from <a href="http://www.drmemory.org/">http://www.drmemory.org/</a> is a memory checker
 for (currently) 32-bit Windows, Linux and OS X with similar aims to
-<samp><span class="command">valgrind</span></samp>.  It works with unmodified executables<a rel="footnote" href="#fn-77" name="fnd-77"><sup>77</sup></a>
+<samp><span class="command">valgrind</span></samp>.  It works with unmodified executables<a rel="footnote" href="#fn-78" name="fnd-78"><sup>78</sup></a>
 and detects memory access errors, uninitialized reads and memory leaks.
 
 <div class="node">
@@ -7804,7 +7823,7 @@ package: add to <samp><span class="file">~/.R/Makevars</span></samp> something l
 
    <p>This may report incorrectly errors with the way that Fortran character
 variables are passed, particularly when Fortran subroutines are called
-from C code.  This may include<a rel="footnote" href="#fn-78" name="fnd-78"><sup>78</sup></a> the use of BLAS and LAPACK subroutines in R, so it is
+from C code.  This may include<a rel="footnote" href="#fn-79" name="fnd-79"><sup>79</sup></a> the use of BLAS and LAPACK subroutines in R, so it is
 not advisable to build R itself with bounds checking (and may not
 even be possible as these subroutines are called during the R build).
 
@@ -8159,7 +8178,7 @@ can be used with other languages which can generate C interfaces, for
 example C++ (see <a href="#Interfacing-C_002b_002b-code">Interfacing C++ code</a>).
 
    <p>The first argument to each function is a character string specifying the
-symbol name as known<a rel="footnote" href="#fn-79" name="fnd-79"><sup>79</sup></a> to C or
+symbol name as known<a rel="footnote" href="#fn-80" name="fnd-80"><sup>80</sup></a> to C or
 FORTRAN, that is the function or subroutine name.  (That the symbol is
 loaded can be tested by, for example, <code>is.loaded("cg")</code>.  Use the
 name you pass to <code>.C</code> or <code>.Fortran</code> rather than the translated
@@ -8278,7 +8297,7 @@ elements of the C array are copied to create new elements of a character
 vector.  This means that the contents of the character strings of the
 <code>char **</code> array can be changed, including to <code>\0</code> to shorten
 the string, but the strings cannot be lengthened.  It is
-possible<a rel="footnote" href="#fn-80" name="fnd-80"><sup>80</sup></a> to allocate a new string <em>via</em>
+possible<a rel="footnote" href="#fn-81" name="fnd-81"><sup>81</sup></a> to allocate a new string <em>via</em>
 <code>R_alloc</code> and replace an entry in the <code>char **</code> array by the
 new string.  However, when character vectors are used other than in a
 read-only way, the <code>.Call</code> interface is much to be preferred.
@@ -8530,7 +8549,7 @@ identifiers are provided in the following table:
    <p>One can also specify whether each argument is used simply as input, or
 as output, or as both input and output.  The style field in the
 description of a method is used for this.  The purpose is to
-allow<a rel="footnote" href="#fn-81" name="fnd-81"><sup>81</sup></a> R to transfer values
+allow<a rel="footnote" href="#fn-82" name="fnd-82"><sup>82</sup></a> R to transfer values
 more efficiently across the R-C/FORTRAN interface by avoiding copying
 values when it is not necessary. Typically, one omits this information
 in the registration data.
@@ -8699,9 +8718,9 @@ needs to declare them as a comma-separated list in the field
 that the <samp><span class="file">include</span></samp> directories in the installed linked-to packages
 are added to the include paths for C and C++ code.
 
-   <p>It must specify<a rel="footnote" href="#fn-82" name="fnd-82"><sup>82</sup></a>
+   <p>It must specify<a rel="footnote" href="#fn-83" name="fnd-83"><sup>83</sup></a>
 &lsquo;<samp><span class="samp">Imports</span></samp>&rsquo; or &lsquo;<samp><span class="samp">Depends</span></samp>&rsquo; of those packages, for they have to be
-loaded<a rel="footnote" href="#fn-83" name="fnd-83"><sup>83</sup></a> prior to this one
+loaded<a rel="footnote" href="#fn-84" name="fnd-84"><sup>84</sup></a> prior to this one
 (so the path to their compiled code has been registered).
 
    <p>A <acronym>CRAN</acronym> example of the use of this mechanism is package
@@ -9033,7 +9052,7 @@ a shared object, <samp><span class="file">.so</span></samp>, on that platform) w
 </pre>
    <p class="noindent">This will work for installation, but very likely not when package
 <code>packB</code> is loaded, as the path to package <strong>packB</strong>'s <samp><span class="file">lib</span></samp>
-directory is not in the <samp><span class="command">ld.so</span></samp><a rel="footnote" href="#fn-84" name="fnd-84"><sup>84</sup></a>  search path.  You can arrange to
+directory is not in the <samp><span class="command">ld.so</span></samp><a rel="footnote" href="#fn-85" name="fnd-85"><sup>85</sup></a>  search path.  You can arrange to
 put it there <strong>before</strong> R is launched by setting (on some
 platforms) <samp><span class="env">LD_RUN_PATH</span></samp> or <samp><span class="env">LD_LIBRARY_PATH</span></samp> or adding to the
 <samp><span class="command">ld.so</span></samp> cache (see <samp><span class="command">man ldconfig</span></samp>).  On platforms that
@@ -9189,7 +9208,7 @@ the arguments can be extracted.
 
    <p>In each case the R objects are available for manipulation <em>via</em>
 a set of functions and macros defined in the header file
-<samp><span class="file">Rinternals.h</span></samp> or some S-compatibility macros<a rel="footnote" href="#fn-85" name="fnd-85"><sup>85</sup></a> defined
+<samp><span class="file">Rinternals.h</span></samp> or some S-compatibility macros<a rel="footnote" href="#fn-86" name="fnd-86"><sup>86</sup></a> defined
 in <samp><span class="file">Rdefines.h</span></samp>.  See <a href="#Interface-functions-_002eCall-and-_002eExternal">Interface functions .Call and .External</a>
 for details on <code>.Call</code> and <code>.External</code>.
 
@@ -9208,7 +9227,7 @@ interfaces as read-only.
 
    <p>To handle R objects from within C code we use the macros and functions
 that have been used to implement the core parts of R.  A
-public<a rel="footnote" href="#fn-86" name="fnd-86"><sup>86</sup></a>  subset of these is defined in the header file
+public<a rel="footnote" href="#fn-87" name="fnd-87"><sup>87</sup></a>  subset of these is defined in the header file
 <samp><span class="file">Rinternals.h</span></samp> in the directory <samp><var>R_INCLUDE_DIR</var></samp> (default
 <samp><var>R_HOME</var><span class="file">/include</span></samp>) that should be available on any R
 installation.
@@ -9220,7 +9239,7 @@ make use of the source code for inspirational examples.
 
    <p>It is necessary to know something about how R objects are handled in
 C code.  All the R objects you will deal with will be handled with
-the type <dfn>SEXP</dfn><a rel="footnote" href="#fn-87" name="fnd-87"><sup>87</sup></a>, which is a
+the type <dfn>SEXP</dfn><a rel="footnote" href="#fn-88" name="fnd-88"><sup>88</sup></a>, which is a
 pointer to a structure with typedef <code>SEXPREC</code>.  Think of this
 structure as a <em>variant type</em> that can handle all the usual types
 of R objects, that is vectors of various modes, functions,
@@ -9450,7 +9469,7 @@ object, you can change the type by using
 </pre>
    <p class="noindent">Protection is needed as a new <em>object</em> is created; the object
 formerly pointed to by the <code>SEXP</code> is still protected but now
-unused.<a rel="footnote" href="#fn-88" name="fnd-88"><sup>88</sup></a>
+unused.<a rel="footnote" href="#fn-89" name="fnd-89"><sup>89</sup></a>
 
    <p>All the coercion functions do their own error-checking, and generate
 <code>NA</code>s with a warning or stop with an error as appropriate.
@@ -9755,7 +9774,7 @@ creates a new binding or changes the value of an existing binding in the
 specified environment frame; it is the analogue of <code>assign(symbol,
 value, envir = rho, inherits = FALSE)</code>, but unlike <code>assign</code>,
 <code>defineVar</code> does not make a copy of the object
-<code>value</code>.<a rel="footnote" href="#fn-89" name="fnd-89"><sup>89</sup></a>  <code>setVar</code> searches for an existing
+<code>value</code>.<a rel="footnote" href="#fn-90" name="fnd-90"><sup>90</sup></a>  <code>setVar</code> searches for an existing
 binding for <code>symbol</code> in <code>rho</code> or its enclosing environments. 
 If a binding is found, its value is changed to <code>value</code>.  Otherwise,
 a new binding with the specified value is created in the global
@@ -10477,7 +10496,7 @@ corresponding to the <code>i</code>'th element of the <code>STRSXP</code>
 <code>theta</code>.  Here, <code>STRING_ELT(theta, i)</code> accesses the
 <code>i</code>'th element of the <code>STRSXP</code> <code>theta</code>.  Macro
 <code>CHAR()</code> extracts the actual character
-representation<a rel="footnote" href="#fn-90" name="fnd-90"><sup>90</sup></a> of it: it returns a pointer.  We then
+representation<a rel="footnote" href="#fn-91" name="fnd-91"><sup>91</sup></a> of it: it returns a pointer.  We then
 install the name and use <code>findVar</code> to find its value.
 
 <pre class="example">     	tt = REAL(par)[0];
@@ -10535,7 +10554,7 @@ Suppose an R extension want to accept an R expression from the
 user and evaluate it.  The previous section covered evaluation, but the
 expression will be entered as text and needs to be parsed first.  A
 small part of R's parse interface is declared in header file
-<samp><span class="file">R_ext/Parse.h</span></samp><a rel="footnote" href="#fn-91" name="fnd-91"><sup>91</sup></a>.
+<samp><span class="file">R_ext/Parse.h</span></samp><a rel="footnote" href="#fn-92" name="fnd-92"><sup>92</sup></a>.
 
    <p>An example of the usage can be found in the (example) Windows package
 <strong>windlgs</strong> included in the R source tree.  The essential part is
@@ -10944,7 +10963,7 @@ user code, it is <em>essential</em> to include the appropriate header
 files when using these entry points. 
 </blockquote>
 
-   <p>This remapping can cause problems<a rel="footnote" href="#fn-92" name="fnd-92"><sup>92</sup></a>, and can be eliminated by defining <code>R_NO_REMAP</code> and
+   <p>This remapping can cause problems<a rel="footnote" href="#fn-93" name="fnd-93"><sup>93</sup></a>, and can be eliminated by defining <code>R_NO_REMAP</code> and
 prepending &lsquo;<samp><span class="samp">Rf_</span></samp>&rsquo; to <em>all</em> the function names used from
 <samp><span class="file">Rinternals.h</span></samp> and <samp><span class="file">R_ext/Error.h</span></samp>.  These problems can
 usually be avoided by including other headers (such as system headers
@@ -11002,7 +11021,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Memory-allocation">Memory allocation</
 
 <h4 class="subsection">6.1.1 Transient storage allocation</h4>
 
-<p><a name="index-R_005falloc-253"></a><a name="index-S_005falloc-254"></a><a name="index-S_005frealloc-255"></a><a name="index-vmaxget-256"></a><a name="index-vmaxset-257"></a>
+<p><a name="index-R_005falloc-253"></a><a name="index-R_005fallocLD-254"></a><a name="index-S_005falloc-255"></a><a name="index-S_005frealloc-256"></a><a name="index-vmaxget-257"></a><a name="index-vmaxset-258"></a>
 Here R will reclaim the memory at the end of the call to <code>.C</code>,
 <code>.Call</code> or <code>.External</code>.  Use
 
@@ -11056,7 +11075,12 @@ just under 16Gb.
 
    <p>The memory returned is only guaranteed to be aligned as required for
 <code>double</code> pointers: take precautions if casting to a pointer which
-needs more (e.g. <code>(long double *)</code> on some platforms).
+needs more. As from R 3.2.0 there is also
+
+<pre class="example">     long double *R_allocLD(size_t <var>n</var>)
+</pre>
+   <p class="noindent">which is guaranteed to have the 16-byte alignment needed for <code>long
+double</code> pointers on some platforms.
 
    <p>These functions should only be used in code called by <code>.C</code> etc,
 never from front-ends.  They are not thread-safe.
@@ -11072,7 +11096,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Memory-allocation">Memory allocation</
 
 <h4 class="subsection">6.1.2 User-controlled memory</h4>
 
-<p><a name="index-Calloc-258"></a><a name="index-Realloc-259"></a><a name="index-Free-260"></a>
+<p><a name="index-Calloc-259"></a><a name="index-Realloc-260"></a><a name="index-Free-261"></a>
 The other form of memory allocation is an interface to <code>malloc</code>,
 the interface providing R error handling.  This memory lasts until
 freed by the user and is additional to the memory allocated for the R
@@ -11116,7 +11140,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.2 Error handling</h3>
 
-<p><a name="index-Error-handling-from-C-261"></a>
+<p><a name="index-Error-handling-from-C-262"></a>
 The basic error handling routines are the equivalents of <code>stop</code> and
 <code>warning</code> in R code, and use the same interface.
 
@@ -11154,7 +11178,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Error-handling">Error handling</a>
 
 <h4 class="subsection">6.2.1 Error handling from FORTRAN</h4>
 
-<p><a name="index-Error-handling-from-FORTRAN-262"></a>
+<p><a name="index-Error-handling-from-FORTRAN-263"></a>
 There are two interface function provided to call <code>error</code> and
 <code>warning</code> from FORTRAN code, in each case with a simple character
 string argument.  They are defined as
@@ -11175,7 +11199,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.3 Random number generation</h3>
 
-<p><a name="index-Random-numbers-in-C-263"></a><a name="index-unif_005frand-264"></a><a name="index-norm_005frand-265"></a><a name="index-exp_005frand-266"></a><a name="index-GetRNGstate-267"></a><a name="index-PutRNGstate-268"></a><a name="index-g_t_002eRandom_002eseed-269"></a><a name="index-seed_005fin-270"></a><a name="index-seed_005fout-271"></a>
+<p><a name="index-Random-numbers-in-C-264"></a><a name="index-unif_005frand-265"></a><a name="index-norm_005frand-266"></a><a name="index-exp_005frand-267"></a><a name="index-GetRNGstate-268"></a><a name="index-PutRNGstate-269"></a><a name="index-g_t_002eRandom_002eseed-270"></a><a name="index-seed_005fin-271"></a><a name="index-seed_005fout-272"></a>
 The interface to R's internal random number generation routines is
 
 <pre class="example">     double unif_rand();
@@ -11219,7 +11243,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.4 Missing and <acronym>IEEE</acronym> special values</h3>
 
-<p><a name="index-Missing-values-272"></a><a name="index-IEEE-special-values-273"></a><a name="index-ISNA-274"></a><a name="index-ISNAN-275"></a><a name="index-R_005fFINITE-276"></a><a name="index-R_005fIsNaN-277"></a><a name="index-R_005fPosInf-278"></a><a name="index-R_005fNegInf-279"></a><a name="index-NA_005fREAL-280"></a>
+<p><a name="index-Missing-values-273"></a><a name="index-IEEE-special-values-274"></a><a name="index-ISNA-275"></a><a name="index-ISNAN-276"></a><a name="index-R_005fFINITE-277"></a><a name="index-R_005fIsNaN-278"></a><a name="index-R_005fPosInf-279"></a><a name="index-R_005fNegInf-280"></a><a name="index-NA_005fREAL-281"></a>
 A set of functions is provided to test for <code>NA</code>, <code>Inf</code>,
 <code>-Inf</code> and <code>NaN</code>.  These functions are accessed <em>via</em> macros:
 
@@ -11258,7 +11282,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.5 Printing</h3>
 
-<p><a name="index-Printing-from-C-281"></a><a name="index-Rprintf-282"></a><a name="index-REprintf-283"></a><a name="index-Rvprintf-284"></a><a name="index-REvprintf-285"></a>
+<p><a name="index-Printing-from-C-282"></a><a name="index-Rprintf-283"></a><a name="index-REprintf-284"></a><a name="index-Rvprintf-285"></a><a name="index-REvprintf-286"></a>
 The most useful function for printing from a C routine compiled into
 R is <code>Rprintf</code>.  This is used in exactly the same way as
 <code>printf</code>, but is guaranteed to write to R's output (which might
@@ -11294,7 +11318,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Printing">Printing</a>
 
 <h4 class="subsection">6.5.1 Printing from FORTRAN</h4>
 
-<p><a name="index-Printing-from-FORTRAN-286"></a>
+<p><a name="index-Printing-from-FORTRAN-287"></a>
 On many systems FORTRAN <code>write</code> and <code>print</code> statements can be
 used, but the output may not interleave well with that of C, and will be
 invisible on <acronym>GUI</acronym> interfaces.  They are not portable and best
@@ -11327,7 +11351,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.6 Calling C from FORTRAN and vice versa</h3>
 
-<p><a name="index-Calling-C-from-FORTRAN-and-vice-versa-287"></a>
+<p><a name="index-Calling-C-from-FORTRAN-and-vice-versa-288"></a>
 Naming conventions for symbols generated by FORTRAN differ by platform:
 it is not safe to assume that FORTRAN names appear to C with a trailing
 underscore.  To help cover up the platform-specific differences there is
@@ -11350,7 +11374,7 @@ by the macros.)
    <p>For example, suppose we want to call R's normal random numbers from
 FORTRAN.  We need a C wrapper along the lines of
 
-   <p><a name="index-Random-numbers-in-FORTRAN-288"></a>
+   <p><a name="index-Random-numbers-in-FORTRAN-289"></a>
 <pre class="example">     #include &lt;R.h&gt;
      
      void F77_SUB(rndstart)(void) { GetRNGstate(); }
@@ -11392,7 +11416,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.7 Numerical analysis subroutines</h3>
 
-<p><a name="index-Numerical-analysis-subroutines-from-C-289"></a>
+<p><a name="index-Numerical-analysis-subroutines-from-C-290"></a>
 R contains a large number of mathematical functions for its own use,
 for example numerical linear algebra computations and special functions.
 
@@ -11427,7 +11451,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Numerical-analysis-subroutines">Numeri
 
 <h4 class="subsection">6.7.1 Distribution functions</h4>
 
-<p><a name="index-Distribution-functions-from-C-290"></a>
+<p><a name="index-Distribution-functions-from-C-291"></a>
 The routines used to calculate densities, cumulative distribution
 functions and quantile functions for the standard statistical
 distributions are available as entry points.
@@ -11459,11 +11483,11 @@ F(t)), by using
 <pre class="example">     - p<var>dist</var>(t, ..., /*lower_tail = */ FALSE, /* give_log = */ TRUE)
 </pre>
    <p class="noindent">or shorter (and more cryptic) <code>- p</code><var>dist</var><code>(t, ..., 0, 1)</code>. 
-<a name="index-cumulative-hazard-291"></a>
+<a name="index-cumulative-hazard-292"></a>
 The random-variate generation routine <code>rnorm</code> returns one normal
 variate. See <a href="#Random-numbers">Random numbers</a>, for the protocol in using the
 random-variate routines. 
-<a name="index-Random-numbers-in-C-292"></a>
+<a name="index-Random-numbers-in-C-293"></a>
 Note that these argument sequences are (apart from the names and that
 <code>rnorm</code> has no <var>n</var>) mainly the same as the corresponding R
 functions of the same name, so the documentation of the R functions
@@ -11527,16 +11551,16 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Numerical-analysis-subroutines">Numeri
 
 <h4 class="subsection">6.7.2 Mathematical functions</h4>
 
-<p><a name="index-gammafn-293"></a><a name="index-lgammafn-294"></a><a name="index-digamma-295"></a><a name="index-trigamma-296"></a><a name="index-tetragamma-297"></a><a name="index-pentagamma-298"></a><a name="index-psigamma-299"></a><a name="index-Gamma-function-300"></a>
+<p><a name="index-gammafn-294"></a><a name="index-lgammafn-295"></a><a name="index-digamma-296"></a><a name="index-trigamma-297"></a><a name="index-tetragamma-298"></a><a name="index-pentagamma-299"></a><a name="index-psigamma-300"></a><a name="index-Gamma-function-301"></a>
 
 <div class="defun">
-&mdash; Function: double <b>gammafn</b> (<var>double x</var>)<var><a name="index-gammafn-301"></a></var><br>
-&mdash; Function: double <b>lgammafn</b> (<var>double x</var>)<var><a name="index-lgammafn-302"></a></var><br>
-&mdash; Function: double <b>digamma</b> (<var>double x</var>)<var><a name="index-digamma-303"></a></var><br>
-&mdash; Function: double <b>trigamma</b> (<var>double x</var>)<var><a name="index-trigamma-304"></a></var><br>
-&mdash; Function: double <b>tetragamma</b> (<var>double x</var>)<var><a name="index-tetragamma-305"></a></var><br>
-&mdash; Function: double <b>pentagamma</b> (<var>double x</var>)<var><a name="index-pentagamma-306"></a></var><br>
-&mdash; Function: double <b>psigamma</b> (<var>double x, double deriv</var>)<var><a name="index-psigamma-307"></a></var><br>
+&mdash; Function: double <b>gammafn</b> (<var>double x</var>)<var><a name="index-gammafn-302"></a></var><br>
+&mdash; Function: double <b>lgammafn</b> (<var>double x</var>)<var><a name="index-lgammafn-303"></a></var><br>
+&mdash; Function: double <b>digamma</b> (<var>double x</var>)<var><a name="index-digamma-304"></a></var><br>
+&mdash; Function: double <b>trigamma</b> (<var>double x</var>)<var><a name="index-trigamma-305"></a></var><br>
+&mdash; Function: double <b>tetragamma</b> (<var>double x</var>)<var><a name="index-tetragamma-306"></a></var><br>
+&mdash; Function: double <b>pentagamma</b> (<var>double x</var>)<var><a name="index-pentagamma-307"></a></var><br>
+&mdash; Function: double <b>psigamma</b> (<var>double x, double deriv</var>)<var><a name="index-psigamma-308"></a></var><br>
 <blockquote><p>The Gamma function, the natural logarithm of its absolute value and
 first four derivatives and the n-th derivative of Psi, the digamma
 function, which is the derivative of <code>lgammafn</code>. In other words,
@@ -11544,32 +11568,32 @@ function, which is the derivative of <code>lgammafn</code>. In other words,
 <code>trigamma(x) == psigamma(x,1)</code>, etc. 
 </p></blockquote></div>
 
-   <p><a name="index-beta-308"></a><a name="index-lbeta-309"></a><a name="index-Beta-function-310"></a>
+   <p><a name="index-beta-309"></a><a name="index-lbeta-310"></a><a name="index-Beta-function-311"></a>
 
 <div class="defun">
-&mdash; Function: double <b>beta</b> (<var>double a, double b</var>)<var><a name="index-beta-311"></a></var><br>
-&mdash; Function: double <b>lbeta</b> (<var>double a, double b</var>)<var><a name="index-lbeta-312"></a></var><br>
+&mdash; Function: double <b>beta</b> (<var>double a, double b</var>)<var><a name="index-beta-312"></a></var><br>
+&mdash; Function: double <b>lbeta</b> (<var>double a, double b</var>)<var><a name="index-lbeta-313"></a></var><br>
 <blockquote><p>The (complete) Beta function and its natural logarithm. 
 </p></blockquote></div>
 
-   <p><a name="index-choose-313"></a><a name="index-lchoose-314"></a>
+   <p><a name="index-choose-314"></a><a name="index-lchoose-315"></a>
 
 <div class="defun">
-&mdash; Function: double <b>choose</b> (<var>double n, double k</var>)<var><a name="index-choose-315"></a></var><br>
-&mdash; Function: double <b>lchoose</b> (<var>double n, double k</var>)<var><a name="index-lchoose-316"></a></var><br>
+&mdash; Function: double <b>choose</b> (<var>double n, double k</var>)<var><a name="index-choose-316"></a></var><br>
+&mdash; Function: double <b>lchoose</b> (<var>double n, double k</var>)<var><a name="index-lchoose-317"></a></var><br>
 <blockquote><p>The number of combinations of <var>k</var> items chosen from from <var>n</var> and
 the natural logarithm of its absolute value, generalized to arbitrary real
 <var>n</var>.  <var>k</var> is rounded to the nearest integer (with a warning if
 needed). 
 </p></blockquote></div>
 
-   <p><a name="index-bessel_005fi-317"></a><a name="index-bessel_005fj-318"></a><a name="index-bessel_005fk-319"></a><a name="index-bessel_005fy-320"></a><a name="index-Bessel-functions-321"></a>
+   <p><a name="index-bessel_005fi-318"></a><a name="index-bessel_005fj-319"></a><a name="index-bessel_005fk-320"></a><a name="index-bessel_005fy-321"></a><a name="index-Bessel-functions-322"></a>
 
 <div class="defun">
-&mdash; Function: double <b>bessel_i</b> (<var>double x, double nu, double expo</var>)<var><a name="index-bessel_005fi-322"></a></var><br>
-&mdash; Function: double <b>bessel_j</b> (<var>double x, double nu</var>)<var><a name="index-bessel_005fj-323"></a></var><br>
-&mdash; Function: double <b>bessel_k</b> (<var>double x, double nu, double expo</var>)<var><a name="index-bessel_005fk-324"></a></var><br>
-&mdash; Function: double <b>bessel_y</b> (<var>double x, double nu</var>)<var><a name="index-bessel_005fy-325"></a></var><br>
+&mdash; Function: double <b>bessel_i</b> (<var>double x, double nu, double expo</var>)<var><a name="index-bessel_005fi-323"></a></var><br>
+&mdash; Function: double <b>bessel_j</b> (<var>double x, double nu</var>)<var><a name="index-bessel_005fj-324"></a></var><br>
+&mdash; Function: double <b>bessel_k</b> (<var>double x, double nu, double expo</var>)<var><a name="index-bessel_005fk-325"></a></var><br>
+&mdash; Function: double <b>bessel_y</b> (<var>double x, double nu</var>)<var><a name="index-bessel_005fy-326"></a></var><br>
 <blockquote><p>Bessel functions of types I, J, K and Y with index <var>nu</var>.  For
 <code>bessel_i</code> and <code>bessel_k</code> there is the option to return
 exp(-<var>x</var>)&nbsp;I(<var>x</var>;&nbsp;<var>nu</var>)<!-- /@w --> or exp(<var>x</var>)&nbsp;K(<var>x</var>;&nbsp;<var>nu</var>)<!-- /@w --> if <var>expo</var> is 2. (Use <var>expo</var><code> == 1</code> for unscaled
@@ -11590,8 +11614,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Numerical-analysis-subroutines">Numeri
 <p>There are a few other numerical utility functions available as entry points.
 
 <div class="defun">
-&mdash; Function: double <b>R_pow</b> (<var>double x, double y</var>)<var><a name="index-R_005fpow-326"></a></var><br>
-&mdash; Function: double <b>R_pow_di</b> (<var>double x, int i</var>)<var><a name="index-R_005fpow_005fdi-327"></a></var><br>
+&mdash; Function: double <b>R_pow</b> (<var>double x, double y</var>)<var><a name="index-R_005fpow-327"></a></var><br>
+&mdash; Function: double <b>R_pow_di</b> (<var>double x, int i</var>)<var><a name="index-R_005fpow_005fdi-328"></a></var><br>
 <blockquote><p><code>R_pow(</code><var>x</var><code>, </code><var>y</var><code>)</code> and <code>R_pow_di(</code><var>x</var><code>, </code><var>i</var><code>)</code>
 compute <var>x</var><code>^</code><var>y</var> and <var>x</var><code>^</code><var>i</var>, respectively
 using <code>R_FINITE</code> checks and returning the proper result (the same
@@ -11600,7 +11624,7 @@ missing or infinite or <code>NaN</code>.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>log1p</b> (<var>double x</var>)<var><a name="index-log1p-328"></a></var><br>
+&mdash; Function: double <b>log1p</b> (<var>double x</var>)<var><a name="index-log1p-329"></a></var><br>
 <blockquote><p>Computes <code>log(1 + </code><var>x</var><code>)</code> (<em>log 1 </em><b>p</b><em>lus x</em>), accurately
 even for small <var>x</var>, i.e., |x| &lt;&lt; 1.
 
@@ -11610,20 +11634,20 @@ in <samp><span class="file">Rmath.h</span></samp>, but is (probably) in <samp><s
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>log1pmx</b> (<var>double x</var>)<var><a name="index-log1pmx-329"></a></var><br>
+&mdash; Function: double <b>log1pmx</b> (<var>double x</var>)<var><a name="index-log1pmx-330"></a></var><br>
 <blockquote><p>Computes <code>log(1 + </code><var>x</var><code>) - </code><var>x</var> (<em>log 1 </em><b>p</b><em>lus x </em><b>m</b><em>inus </em><b>x</b>),
 accurately even for small <var>x</var>, i.e., |x| &lt;&lt; 1. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>log1pexp</b> (<var>double x</var>)<var><a name="index-log1pexp-330"></a></var><br>
+&mdash; Function: double <b>log1pexp</b> (<var>double x</var>)<var><a name="index-log1pexp-331"></a></var><br>
 <blockquote><p>Computes <code>log(1 + exp(</code><var>x</var><code>))</code> (<em>log 1 </em><b>p</b><em>lus </em><b>exp</b>),
 accurately, notably for large <var>x</var>, e.g., x &gt; 720. 
 </p></blockquote></div>
 
 <!-- log1mexp(.) to come -->
 <div class="defun">
-&mdash; Function: double <b>expm1</b> (<var>double x</var>)<var><a name="index-expm1-331"></a></var><br>
+&mdash; Function: double <b>expm1</b> (<var>double x</var>)<var><a name="index-expm1-332"></a></var><br>
 <blockquote><p>Computes <code>exp(</code><var>x</var><code>) - 1</code> (<em>exp x </em><b>m</b><em>inus 1</em>), accurately
 even for small <var>x</var>, i.e., |x| &lt;&lt; 1.
 
@@ -11633,22 +11657,22 @@ in <samp><span class="file">Rmath.h</span></samp>, but is (probably) in <samp><s
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>lgamma1p</b> (<var>double x</var>)<var><a name="index-lgamma1p-332"></a></var><br>
+&mdash; Function: double <b>lgamma1p</b> (<var>double x</var>)<var><a name="index-lgamma1p-333"></a></var><br>
 <blockquote><p>Computes <code>log(gamma(</code><var>x</var><code> + 1))</code> (<em>log(gamma(1 </em><b>p</b><em>lus x))</em>),
 accurately even for small <var>x</var>, i.e., 0 &lt; x &lt; 0.5. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>cospi</b> (<var>double x</var>)<var><a name="index-cospi-333"></a></var><br>
+&mdash; Function: double <b>cospi</b> (<var>double x</var>)<var><a name="index-cospi-334"></a></var><br>
 <blockquote><p>Computes <code>cos(pi * x)</code> (where <code>pi</code> is 3.14159...),
 accurately, notably for half integer <var>x</var>.
 
-        <p>This might be provided by your platform<a rel="footnote" href="#fn-93" name="fnd-93"><sup>93</sup></a>, in which case it is not included in <samp><span class="file">Rmath.h</span></samp>, but is
+        <p>This might be provided by your platform<a rel="footnote" href="#fn-94" name="fnd-94"><sup>94</sup></a>, in which case it is not included in <samp><span class="file">Rmath.h</span></samp>, but is
 in <samp><span class="file">math.h</span></samp> which <samp><span class="file">Rmath.h</span></samp> includes. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>sinpi</b> (<var>double x</var>)<var><a name="index-sinpi-334"></a></var><br>
+&mdash; Function: double <b>sinpi</b> (<var>double x</var>)<var><a name="index-sinpi-335"></a></var><br>
 <blockquote><p>Computes <code>sin(pi * x)</code> accurately, notably for (half) integer <var>x</var>.
 
         <p>This might be provided by your platform, in which case it is not included
@@ -11656,7 +11680,7 @@ in <samp><span class="file">Rmath.h</span></samp>, but is in <samp><span class="
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>tanpi</b> (<var>double x</var>)<var><a name="index-tanpi-335"></a></var><br>
+&mdash; Function: double <b>tanpi</b> (<var>double x</var>)<var><a name="index-tanpi-336"></a></var><br>
 <blockquote><p>Computes <code>tan(pi * x)</code> accurately, notably for (half) integer <var>x</var>.
 
         <p>This might be provided by your platform, in which case it is not included
@@ -11664,9 +11688,9 @@ in <samp><span class="file">Rmath.h</span></samp>, but is in <samp><span class="
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>logspace_add</b> (<var>double logx, double logy</var>)<var><a name="index-logspace_005fadd-336"></a></var><br>
-&mdash; Function: double <b>logspace_sub</b> (<var>double logx, double logy</var>)<var><a name="index-logspace_005fsub-337"></a></var><br>
-&mdash; Function: double <b>logspace_sum</b> (<var>double* logx, int n</var>)<var><a name="index-logspace_005fsum-338"></a></var><br>
+&mdash; Function: double <b>logspace_add</b> (<var>double logx, double logy</var>)<var><a name="index-logspace_005fadd-337"></a></var><br>
+&mdash; Function: double <b>logspace_sub</b> (<var>double logx, double logy</var>)<var><a name="index-logspace_005fsub-338"></a></var><br>
+&mdash; Function: double <b>logspace_sum</b> (<var>double* logx, int n</var>)<var><a name="index-logspace_005fsum-339"></a></var><br>
 <blockquote><p>Compute the log of a sum or difference from logs of terms, i.e., &ldquo;x +
 y&rdquo; as <code>log (exp(</code><var>logx</var><code>) + exp(</code><var>logy</var><code>))</code> and &ldquo;x - y&rdquo; as
 <code>log (exp(</code><var>logx</var><code>) - exp(</code><var>logy</var><code>))</code>,
@@ -11675,10 +11699,10 @@ without causing unnecessary overflows or throwing away too much accuracy.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>imax2</b> (<var>int x, int y</var>)<var><a name="index-imax2-339"></a></var><br>
-&mdash; Function: int <b>imin2</b> (<var>int x, int y</var>)<var><a name="index-imin2-340"></a></var><br>
-&mdash; Function: double <b>fmax2</b> (<var>double x, double y</var>)<var><a name="index-fmax2-341"></a></var><br>
-&mdash; Function: double <b>fmin2</b> (<var>double x, double y</var>)<var><a name="index-fmin2-342"></a></var><br>
+&mdash; Function: int <b>imax2</b> (<var>int x, int y</var>)<var><a name="index-imax2-340"></a></var><br>
+&mdash; Function: int <b>imin2</b> (<var>int x, int y</var>)<var><a name="index-imin2-341"></a></var><br>
+&mdash; Function: double <b>fmax2</b> (<var>double x, double y</var>)<var><a name="index-fmax2-342"></a></var><br>
+&mdash; Function: double <b>fmin2</b> (<var>double x, double y</var>)<var><a name="index-fmin2-343"></a></var><br>
 <blockquote><p>Return the larger (<code>max</code>) or smaller (<code>min</code>) of two integer or
 double numbers, respectively.  Note that <code>fmax2</code> and <code>fmin2</code>
 differ from C99's <code>fmax</code> and <code>fmin</code> when one of the arguments
@@ -11686,19 +11710,19 @@ is a <code>NaN</code>: these versions return <code>NaN</code>.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>sign</b> (<var>double x</var>)<var><a name="index-sign-343"></a></var><br>
+&mdash; Function: double <b>sign</b> (<var>double x</var>)<var><a name="index-sign-344"></a></var><br>
 <blockquote><p>Compute the <em>signum</em> function, where sign(<var>x</var>) is 1, 0, or
 -1, when <var>x</var> is positive, 0, or negative, respectively, and
 <code>NaN</code> if <code>x</code> is a <code>NaN</code>. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>fsign</b> (<var>double x, double y</var>)<var><a name="index-fsign-344"></a></var><br>
+&mdash; Function: double <b>fsign</b> (<var>double x, double y</var>)<var><a name="index-fsign-345"></a></var><br>
 <blockquote><p>Performs &ldquo;transfer of sign&rdquo; and is defined as |x| * sign(y). 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>fprec</b> (<var>double x, double digits</var>)<var><a name="index-fprec-345"></a></var><br>
+&mdash; Function: double <b>fprec</b> (<var>double x, double digits</var>)<var><a name="index-fprec-346"></a></var><br>
 <blockquote><p>Returns the value of <var>x</var> rounded to <var>digits</var> decimal digits
 (after the decimal point).
 
@@ -11706,7 +11730,7 @@ is a <code>NaN</code>: these versions return <code>NaN</code>.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>fround</b> (<var>double x, double digits</var>)<var><a name="index-fround-346"></a></var><br>
+&mdash; Function: double <b>fround</b> (<var>double x, double digits</var>)<var><a name="index-fround-347"></a></var><br>
 <blockquote><p>Returns the value of <var>x</var> rounded to <var>digits</var> <em>significant</em>
 decimal digits.
 
@@ -11714,7 +11738,7 @@ decimal digits.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: double <b>ftrunc</b> (<var>double x</var>)<var><a name="index-ftrunc-347"></a></var><br>
+&mdash; Function: double <b>ftrunc</b> (<var>double x</var>)<var><a name="index-ftrunc-348"></a></var><br>
 <blockquote><p>Returns the value of <var>x</var> truncated (to an integer value) towards
 zero.
 
@@ -11732,7 +11756,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Numerical-analysis-subroutines">Numeri
 
 <h4 class="subsection">6.7.4 Mathematical constants</h4>
 
-<p><a name="index-M_005fE-348"></a><a name="index-M_005fPI-349"></a><!-- maybe not all into the index ... -->
+<p><a name="index-M_005fE-349"></a><a name="index-M_005fPI-350"></a><!-- maybe not all into the index ... -->
 
    <p>R has a set of commonly used mathematical constants encompassing
 constants usually found <samp><span class="file">math.h</span></samp> and contains further ones that are
@@ -11774,7 +11798,7 @@ use <code>ln(x)</code> for the natural logarithm (<code>log(x)</code> in R).
 defined (unless <code>STRICT_R_HEADERS</code> is defined) in the included
 header <samp><span class="file">R_ext/Constants.h</span></samp>, mainly for compatibility with S.
 
-   <p><a name="index-TRUE-350"></a><a name="index-FALSE-351"></a>Further, the included header <samp><span class="file">R_ext/Boolean.h</span></samp> has enumeration
+   <p><a name="index-TRUE-351"></a><a name="index-FALSE-352"></a>Further, the included header <samp><span class="file">R_ext/Boolean.h</span></samp> has enumeration
 constants <code>TRUE</code> and <code>FALSE</code> of type <code>Rboolean</code> in
 order to provide a way of using &ldquo;logical&rdquo; variables in C consistently. 
 This can conflict with other software: for example it conflicts with the
@@ -11791,7 +11815,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.8 Optimization</h3>
 
-<p><a name="index-optimization-352"></a>
+<p><a name="index-optimization-353"></a>
 The C code underlying <code>optim</code> can be accessed directly.  The user
 needs to supply a function to compute the function to be minimized, of
 the type
@@ -11814,28 +11838,28 @@ at the result.
 
      <ul>
 <li>Nelder Mead:
-<a name="index-nmmin-353"></a>
+<a name="index-nmmin-354"></a>
      <pre class="example">          void nmmin(int n, double *xin, double *x, double *Fmin, optimfn fn,
           	   int *fail, double abstol, double intol, void *ex,
           	   double alpha, double beta, double gamma, int trace,
           	   int *fncount, int maxit);
 </pre>
      <li>BFGS:
-<a name="index-vmmin-354"></a>
+<a name="index-vmmin-355"></a>
      <pre class="example">          void vmmin(int n, double *x, double *Fmin,
           	   optimfn fn, optimgr gr, int maxit, int trace,
           	   int *mask, double abstol, double reltol, int nREPORT,
           	   void *ex, int *fncount, int *grcount, int *fail);
 </pre>
      <li>Conjugate gradients:
-<a name="index-cgmin-355"></a>
+<a name="index-cgmin-356"></a>
      <pre class="example">          void cgmin(int n, double *xin, double *x, double *Fmin,
           	   optimfn fn, optimgr gr, int *fail, double abstol,
           	   double intol, void *ex, int type, int trace,
           	   int *fncount, int *grcount, int maxit);
 </pre>
      <li>Limited-memory BFGS with bounds:
-<a name="index-lbfgsb-356"></a>
+<a name="index-lbfgsb-357"></a>
      <pre class="example">          void lbfgsb(int n, int lmm, double *x, double *lower,
           	    double *upper, int *nbd, double *Fmin, optimfn fn,
           	    optimgr gr, int *fail, void *ex, double factr,
@@ -11843,7 +11867,7 @@ at the result.
           	    int maxit, char *msg, int trace, int nREPORT);
 </pre>
      <li>Simulated annealing:
-<a name="index-samin-357"></a>
+<a name="index-samin-358"></a>
      <pre class="example">          void samin(int n, double *x, double *Fmin, optimfn fn, int maxit,
           	   int tmax, double temp, int trace, void *ex);
 </pre>
@@ -11868,7 +11892,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.9 Integration</h3>
 
-<p><a name="index-integration-358"></a>
+<p><a name="index-integration-359"></a>
 The C code underlying <code>integrate</code> can be accessed directly.  The
 user needs to supply a <em>vectorizing</em> C function to compute the
 function to be integrated, of the type
@@ -11890,7 +11914,7 @@ one of the integration boundaries is not finite.
 
      <ul>
 <li>Finite:
-<a name="index-Rdqags-359"></a>
+<a name="index-Rdqags-360"></a>
      <pre class="example">          void Rdqags(integr_fn f, void *ex, double *a, double *b,
           	    double *epsabs, double *epsrel,
           	    double *result, double *abserr, int *neval, int *ier,
@@ -11898,7 +11922,7 @@ one of the integration boundaries is not finite.
           	    int *iwork, double *work);
 </pre>
      <li>Indefinite:
-<a name="index-Rdqagi-360"></a>
+<a name="index-Rdqagi-361"></a>
      <pre class="example">          void Rdqagi(integr_fn f, void *ex, double *bound, int *inf,
           	    double *epsabs, double *epsrel,
           	    double *result, double *abserr, int *neval, int *ier,
@@ -11949,13 +11973,13 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.10 Utility functions</h3>
 
-<p><a name="index-Sort-functions-from-C-361"></a>
+<p><a name="index-Sort-functions-from-C-362"></a>
 R has a fairly comprehensive set of sort routines which are made
 available to users' C code. 
 The following is declared in header file <samp><span class="file">Rinternals.h</span></samp>.
 
 <div class="defun">
-&mdash; Function: void <b>R_orderVector</b> (<var>int* indx, int n, SEXP arglist, Rboolean nalast, Rboolean decreasing</var>)<var><a name="index-R_005forderVector-362"></a></var><br>
+&mdash; Function: void <b>R_orderVector</b> (<var>int* indx, int n, SEXP arglist, Rboolean nalast, Rboolean decreasing</var>)<var><a name="index-R_005forderVector-363"></a></var><br>
 <blockquote>
         <p>This corresponds to R's <code>order(..., na.last, decreasing)</code>. 
 More specifically, <code>indx &lt;- order(x, y, na.last, decreasing)</code> corresponds to
@@ -11972,10 +11996,10 @@ contains a permutation of <code>0:(n-1)</code>, i.e., 0-based C indices (and not
 <samp><span class="file">R_ext/Utils.h</span></samp> (included by <samp><span class="file">R.h</span></samp>) and include the following.
 
 <div class="defun">
-&mdash; Function: void <b>R_isort</b> (<var>int* x, int n</var>)<var><a name="index-R_005fisort-363"></a></var><br>
-&mdash; Function: void <b>R_rsort</b> (<var>double* x, int n</var>)<var><a name="index-R_005frsort-364"></a></var><br>
-&mdash; Function: void <b>R_csort</b> (<var>Rcomplex* x, int n</var>)<var><a name="index-R_005fcsort-365"></a></var><br>
-&mdash; Function: void <b>rsort_with_index</b> (<var>double* x, int* index, int n</var>)<var><a name="index-rsort_005fwith_005findex-366"></a></var><br>
+&mdash; Function: void <b>R_isort</b> (<var>int* x, int n</var>)<var><a name="index-R_005fisort-364"></a></var><br>
+&mdash; Function: void <b>R_rsort</b> (<var>double* x, int n</var>)<var><a name="index-R_005frsort-365"></a></var><br>
+&mdash; Function: void <b>R_csort</b> (<var>Rcomplex* x, int n</var>)<var><a name="index-R_005fcsort-366"></a></var><br>
+&mdash; Function: void <b>rsort_with_index</b> (<var>double* x, int* index, int n</var>)<var><a name="index-rsort_005fwith_005findex-367"></a></var><br>
 <blockquote><p>The first three sort integer, real (double) and complex data
 respectively.  (Complex numbers are sorted by the real part first then
 the imaginary part.)  <code>NA</code>s are sorted last.
@@ -11985,25 +12009,25 @@ permutation to <var>index</var>.  <code>NA</code>s are sorted last.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: void <b>revsort</b> (<var>double* x, int* index, int n</var>)<var><a name="index-revsort-367"></a></var><br>
+&mdash; Function: void <b>revsort</b> (<var>double* x, int* index, int n</var>)<var><a name="index-revsort-368"></a></var><br>
 <blockquote><p>Is similar to <code>rsort_with_index</code> but sorts into decreasing order,
 and <code>NA</code>s are not handled. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: void <b>iPsort</b> (<var>int* x, int n, int k</var>)<var><a name="index-iPsort-368"></a></var><br>
-&mdash; Function: void <b>rPsort</b> (<var>double* x, int n, int k</var>)<var><a name="index-rPsort-369"></a></var><br>
-&mdash; Function: void <b>cPsort</b> (<var>Rcomplex* x, int n, int k</var>)<var><a name="index-cPsort-370"></a></var><br>
+&mdash; Function: void <b>iPsort</b> (<var>int* x, int n, int k</var>)<var><a name="index-iPsort-369"></a></var><br>
+&mdash; Function: void <b>rPsort</b> (<var>double* x, int n, int k</var>)<var><a name="index-rPsort-370"></a></var><br>
+&mdash; Function: void <b>cPsort</b> (<var>Rcomplex* x, int n, int k</var>)<var><a name="index-cPsort-371"></a></var><br>
 <blockquote><p>These all provide (very) partial sorting: they permute <var>x</var> so that
 <var>x</var><code>[</code><var>k</var><code>]</code> is in the correct place with smaller values to
 the left, larger ones to the right. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: void <b>R_qsort</b> (<var>double *v, size_t i, size_t j</var>)<var><a name="index-R_005fqsort-371"></a></var><br>
-&mdash; Function: void <b>R_qsort_I</b> (<var>double *v, int *I, int i, int j</var>)<var><a name="index-R_005fqsort_005fI-372"></a></var><br>
-&mdash; Function: void <b>R_qsort_int</b> (<var>int *iv, size_t i, size_t j</var>)<var><a name="index-R_005fqsort_005fint-373"></a></var><br>
-&mdash; Function: void <b>R_qsort_int_I</b> (<var>int *iv, int *I, int i, int j</var>)<var><a name="index-R_005fqsort_005fint_005fI-374"></a></var><br>
+&mdash; Function: void <b>R_qsort</b> (<var>double *v, size_t i, size_t j</var>)<var><a name="index-R_005fqsort-372"></a></var><br>
+&mdash; Function: void <b>R_qsort_I</b> (<var>double *v, int *I, int i, int j</var>)<var><a name="index-R_005fqsort_005fI-373"></a></var><br>
+&mdash; Function: void <b>R_qsort_int</b> (<var>int *iv, size_t i, size_t j</var>)<var><a name="index-R_005fqsort_005fint-374"></a></var><br>
+&mdash; Function: void <b>R_qsort_int_I</b> (<var>int *iv, int *I, int i, int j</var>)<var><a name="index-R_005fqsort_005fint_005fI-375"></a></var><br>
 <blockquote>
         <p>These routines sort <var>v</var><code>[</code><var>i</var><code>:</code><var>j</var><code>]</code> or
 <var>iv</var><code>[</code><var>i</var><code>:</code><var>j</var><code>]</code> (using 1-indexing, i.e.,
@@ -12018,8 +12042,8 @@ use different sorting functions if <code>NA</code>s can be present.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: subroutine <b>qsort4</b> (<var>double precision v, integer indx, integer ii, integer jj</var>)<var><a name="index-qsort4-375"></a></var><br>
-&mdash; Function: subroutine <b>qsort3</b> (<var>double precision v, integer ii, integer jj</var>)<var><a name="index-qsort3-376"></a></var><br>
+&mdash; Function: subroutine <b>qsort4</b> (<var>double precision v, integer indx, integer ii, integer jj</var>)<var><a name="index-qsort4-376"></a></var><br>
+&mdash; Function: subroutine <b>qsort3</b> (<var>double precision v, integer ii, integer jj</var>)<var><a name="index-qsort3-377"></a></var><br>
 <blockquote>
         <p>The FORTRAN interface routines for sorting double precision vectors are
 <code>qsort3</code> and <code>qsort4</code>, equivalent to <code>R_qsort</code> and
@@ -12027,7 +12051,7 @@ use different sorting functions if <code>NA</code>s can be present.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: void <b>R_max_col</b> (<var>double* matrix, int* nr, int* nc, int* maxes, int* ties_meth</var>)<var><a name="index-R_005fmax_005fcol-377"></a></var><br>
+&mdash; Function: void <b>R_max_col</b> (<var>double* matrix, int* nr, int* nc, int* maxes, int* ties_meth</var>)<var><a name="index-R_005fmax_005fcol-378"></a></var><br>
 <blockquote><p>Given the <var>nr</var> by <var>nc</var> matrix <code>matrix</code> in column-major
 (&ldquo;FORTRAN&rdquo;)
 order, <code>R_max_col()</code> returns in <var>maxes</var><code>[</code><var>i</var><code>-1]</code> the
@@ -12039,7 +12063,7 @@ See R's help page <code>?max.col</code>.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>findInterval</b> (<var>double* xt, int n, double x, Rboolean rightmost_closed, Rboolean all_inside, int ilo, int* mflag</var>)<var><a name="index-findInterval-378"></a></var><br>
+&mdash; Function: int <b>findInterval</b> (<var>double* xt, int n, double x, Rboolean rightmost_closed, Rboolean all_inside, int ilo, int* mflag</var>)<var><a name="index-findInterval-379"></a></var><br>
 <blockquote><p>Given the ordered vector <var>xt</var> of length <var>n</var>, return the interval
 or index of <var>x</var> in <var>xt</var><code>[]</code>, typically max(i; 1 &lt;= i &lt;= <var>n</var> &amp; <var>xt</var>[i] &lt;=
 <var>x</var>) where we use 1-indexing as in R and FORTRAN (but not C).  If
@@ -12062,8 +12086,8 @@ is increasing or decreasing for subsequent calls.
 file is provided as
 
 <div class="defun">
-&mdash; Function: char * <b>R_tmpnam</b> (<var>const char *prefix, const char *tmpdir</var>)<var><a name="index-R_005ftmpnam-379"></a></var><br>
-&mdash; Function: char * <b>R_tmpnam2</b> (<var>const char *prefix, const char *tmpdir, const char *fileext</var>)<var><a name="index-R_005ftmpnam2-380"></a></var><br>
+&mdash; Function: char * <b>R_tmpnam</b> (<var>const char *prefix, const char *tmpdir</var>)<var><a name="index-R_005ftmpnam-380"></a></var><br>
+&mdash; Function: char * <b>R_tmpnam2</b> (<var>const char *prefix, const char *tmpdir, const char *fileext</var>)<var><a name="index-R_005ftmpnam2-381"></a></var><br>
 <blockquote><p>Return a pathname for a temporary file with name beginning with
 <var>prefix</var> and ending with <var>fileext</var> in directory <var>tmpdir</var>. 
 A <code>NULL</code> prefix or extension is replaced by <code>""</code>.  Note that
@@ -12076,7 +12100,7 @@ longer needed (unlike the system call <code>tmpnam</code>).
 R functions, and called directly by <code>path.expand</code>.
 
 <div class="defun">
-&mdash; Function: const char * <b>R_ExpandFileName</b> (<var>const char *fn</var>)<var><a name="index-R_005fExpandFileName-381"></a></var><br>
+&mdash; Function: const char * <b>R_ExpandFileName</b> (<var>const char *fn</var>)<var><a name="index-R_005fExpandFileName-382"></a></var><br>
 <blockquote><p>Expand a path name <var>fn</var> by replacing a leading tilde by the user's
 home directory (if defined).  The precise meaning is platform-specific;
 it will usually be taken from the environment variable <samp><span class="env">HOME</span></samp> if
@@ -12110,13 +12134,13 @@ of <code>iconv</code>.
    <p>These are declared in header file <samp><span class="file">R_ext/Riconv.h</span></samp>.
 
 <div class="defun">
-&mdash; Function: void * <b>Riconv_open</b> (<var>const char *to, const char *from</var>)<var><a name="index-Riconv_005fopen-382"></a></var><br>
+&mdash; Function: void * <b>Riconv_open</b> (<var>const char *to, const char *from</var>)<var><a name="index-Riconv_005fopen-383"></a></var><br>
         </div>
    Set up a pointer to an encoding object to be used to convert between two
 encodings: <code>""</code> indicates the current locale.
 
 <div class="defun">
-&mdash; Function: size_t <b>Riconv</b> (<var>void *cd, const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft</var>)<var><a name="index-Riconv-383"></a></var><br>
+&mdash; Function: size_t <b>Riconv</b> (<var>void *cd, const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft</var>)<var><a name="index-Riconv-384"></a></var><br>
         </div>
    Convert as much as possible of <code>inbuf</code> to <code>outbuf</code>.  Initially
 the <code>int</code> variables indicate the number of bytes available in the
@@ -12130,7 +12154,7 @@ and might be invalid in the encoding specified) or <code>EINVAL</code> (the
 input does not end with a complete multi-byte character).
 
 <div class="defun">
-&mdash; Function: int <b>Riconv_close</b> (<var>void * cd</var>)<var><a name="index-Riconv_005fclose-384"></a></var><br>
+&mdash; Function: int <b>Riconv_close</b> (<var>void * cd</var>)<var><a name="index-Riconv_005fclose-385"></a></var><br>
         </div>
    Free the resources of an encoding object.
 
@@ -12145,7 +12169,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.12 Allowing interrupts</h3>
 
-<p><a name="index-Interrupts-385"></a>
+<p><a name="index-Interrupts-386"></a>
 No port of R can be interrupted whilst running long computations in
 compiled code, so programmers should make provision for the code to be
 interrupted at suitable points by calling from C
@@ -12176,14 +12200,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.13 Platform and version information</h3>
 
-<p><a name="index-Version-information-from-C-386"></a><a name="index-OpenMP-387"></a><a name="index-R_005fVersion-388"></a>
+<p><a name="index-Version-information-from-C-387"></a><a name="index-OpenMP-388"></a><a name="index-R_005fVersion-389"></a>
 The header files define <code>USING_R</code>, which can be used to test if
 the code is indeed being used with R.
 
    <p>Header file <samp><span class="file">Rconfig.h</span></samp> (included by <samp><span class="file">R.h</span></samp>) is used to define
 platform-specific macros that are mainly for use in other header files. 
 The macro <code>WORDS_BIGENDIAN</code> is defined on
-big-endian<a rel="footnote" href="#fn-94" name="fnd-94"><sup>94</sup></a>
+big-endian<a rel="footnote" href="#fn-95" name="fnd-95"><sup>95</sup></a>
 systems (e.g. most OSes on Sparc and PowerPC hardware) and not on
 little-endian systems (such as <code>i686</code> and <code>x86_64</code> on all
 OSes, and Linux on Alpha and Itanium).  It can be useful when
@@ -12219,7 +12243,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.14 Inlining C functions</h3>
 
-<p><a name="index-R_005fINLINE-389"></a>
+<p><a name="index-R_005fINLINE-390"></a>
 The C99 keyword <code>inline</code> should be recognized by all compilers now
 used to build R.  Portable code which might be used with earlier
 versions of R can be written using the macro <code>R_INLINE</code> (defined
@@ -12253,7 +12277,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#The-R-API">The R API</a>
 
 <h3 class="section">6.15 Controlling visibility</h3>
 
-<p><a name="index-Visibility-390"></a>
+<p><a name="index-Visibility-391"></a>
 Header <samp><span class="file">R_ext/Visibility</span></samp> has some definitions for controlling the
 visibility of entry points.  These are only effective when
 &lsquo;<samp><span class="samp">HAVE_VISIBILITY_ATTRIBUTE</span></samp>&rsquo; is defined &ndash; this is checked when R
@@ -12440,7 +12464,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">7 Generic functions and methods</h2>
 
-<p><a name="index-Generic-functions-391"></a><a name="index-Method-functions-392"></a>
+<p><a name="index-Generic-functions-392"></a><a name="index-Method-functions-393"></a>
 R programmers will often want to add methods for existing generic
 functions, and may want to add new generic functions or make existing
 functions generic.  In this chapter we give guidelines for doing so,
@@ -12631,7 +12655,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Linking-GUIs-and-other-front_002dends-
 
 <h3 class="section">8.1 Embedding R under Unix-alikes</h3>
 
-<p>R can be built as a shared library<a rel="footnote" href="#fn-95" name="fnd-95"><sup>95</sup></a> if configured with <samp><span class="option">--enable-R-shlib</span></samp>.  This
+<p>R can be built as a shared library<a rel="footnote" href="#fn-96" name="fnd-96"><sup>96</sup></a> if configured with <samp><span class="option">--enable-R-shlib</span></samp>.  This
 shared library can be used to run R from alternative front-end
 programs.  We will assume this has been done for the rest of this
 section.  Also, it can be built as a static library if configured with
@@ -12694,7 +12718,7 @@ and R does look there for system components.)
 
    <p>The other senses in which this example is too simple are that all the
 internal defaults are used and that control is handed over to the
-R main loop.  There are a number of small examples<a rel="footnote" href="#fn-96" name="fnd-96"><sup>96</sup></a> in the
+R main loop.  There are a number of small examples<a rel="footnote" href="#fn-97" name="fnd-97"><sup>97</sup></a> in the
 <samp><span class="file">tests/Embedding</span></samp> directory.  These make use of
 <code>Rf_initEmbeddedR</code> in <samp><span class="file">src/main/Rembedded.c</span></samp>, and essentially
 use
@@ -12869,25 +12893,25 @@ defined)
 these do is generally documented in the file <samp><span class="file">src/unix/system.txt</span></samp>.
 
 <div class="defun">
-&mdash; Function: void <b>R_ShowMessage</b> (<var>char *message</var>)<var><a name="index-R_005fShowMessage-393"></a></var><br>
+&mdash; Function: void <b>R_ShowMessage</b> (<var>char *message</var>)<var><a name="index-R_005fShowMessage-394"></a></var><br>
 <blockquote><p>This should display the message, which may have multiple lines:  it
 should be brought to the user's attention immediately. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: void <b>R_Busy</b> (<var>int which</var>)<var><a name="index-R_005fBusy-394"></a></var><br>
+&mdash; Function: void <b>R_Busy</b> (<var>int which</var>)<var><a name="index-R_005fBusy-395"></a></var><br>
 <blockquote><p>This function invokes actions (such as change of cursor) when R
 embarks on an extended computation (<var>which</var><code>=1</code>) and when such
 a state terminates (<var>which</var><code>=0</code>). 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>R_ReadConsole</b> (<var>const char *prompt, unsigned char *buf, int buflen, int hist</var>)<var><a name="index-R_005fReadConsole-395"></a></var><br>
-&mdash; Function: void <b>R_WriteConsole</b> (<var>const char *buf, int buflen</var>)<var><a name="index-R_005fWriteConsole-396"></a></var><br>
-&mdash; Function: void <b>R_WriteConsoleEx</b> (<var>const char *buf, int buflen, int otype</var>)<var><a name="index-R_005fWriteConsoleEx-397"></a></var><br>
-&mdash; Function: void <b>R_ResetConsole</b> ()<var><a name="index-R_005fResetConsole-398"></a></var><br>
-&mdash; Function: void <b>R_FlushConsole</b> ()<var><a name="index-R_005fFlushConsole-399"></a></var><br>
-&mdash; Function: void <b>R_ClearErrConsole</b> ()<var><a name="index-R_005fClearErrConsole-400"></a></var><br>
+&mdash; Function: int <b>R_ReadConsole</b> (<var>const char *prompt, unsigned char *buf, int buflen, int hist</var>)<var><a name="index-R_005fReadConsole-396"></a></var><br>
+&mdash; Function: void <b>R_WriteConsole</b> (<var>const char *buf, int buflen</var>)<var><a name="index-R_005fWriteConsole-397"></a></var><br>
+&mdash; Function: void <b>R_WriteConsoleEx</b> (<var>const char *buf, int buflen, int otype</var>)<var><a name="index-R_005fWriteConsoleEx-398"></a></var><br>
+&mdash; Function: void <b>R_ResetConsole</b> ()<var><a name="index-R_005fResetConsole-399"></a></var><br>
+&mdash; Function: void <b>R_FlushConsole</b> ()<var><a name="index-R_005fFlushConsole-400"></a></var><br>
+&mdash; Function: void <b>R_ClearErrConsole</b> ()<var><a name="index-R_005fClearErrConsole-401"></a></var><br>
 <blockquote>
         <p>These functions interact with a console.
 
@@ -12917,33 +12941,33 @@ with reading from the console.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>R_ShowFiles</b> (<var>int nfile, const char **file, const char **headers, const char *wtitle, Rboolean del, const char *pager</var>)<var><a name="index-R_005fShowFiles-401"></a></var><br>
+&mdash; Function: int <b>R_ShowFiles</b> (<var>int nfile, const char **file, const char **headers, const char *wtitle, Rboolean del, const char *pager</var>)<var><a name="index-R_005fShowFiles-402"></a></var><br>
 <blockquote>
         <p>This function is used to display the contents of files. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>R_ChooseFile</b> (<var>int new, char *buf, int len</var>)<var><a name="index-R_005fChooseFile-402"></a></var><br>
+&mdash; Function: int <b>R_ChooseFile</b> (<var>int new, char *buf, int len</var>)<var><a name="index-R_005fChooseFile-403"></a></var><br>
 <blockquote>
         <p>Choose a file and return its name in <var>buf</var> of length <var>len</var>. 
 Return value is 0 for success, &gt; 0 otherwise. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>R_EditFile</b> (<var>const char *buf</var>)<var><a name="index-R_005fEditFile-403"></a></var><br>
+&mdash; Function: int <b>R_EditFile</b> (<var>const char *buf</var>)<var><a name="index-R_005fEditFile-404"></a></var><br>
 <blockquote><p>Send a file to an editor window. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>R_EditFiles</b> (<var>int nfile, const char **file, const char **title, const char *editor</var>)<var><a name="index-R_005fEditFiles-404"></a></var><br>
+&mdash; Function: int <b>R_EditFiles</b> (<var>int nfile, const char **file, const char **title, const char *editor</var>)<var><a name="index-R_005fEditFiles-405"></a></var><br>
 <blockquote><p>Send <var>nfile</var> files to an editor, with titles possibly to be used for
 the editor window(s). 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: SEXP <b>R_loadhistory</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005floadhistory-405"></a></var><br>
-&mdash; Function: SEXP <b>R_savehistory</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005fsavehistory-406"></a></var><br>
-&mdash; Function: SEXP <b>R_addhistory</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005faddhistory-407"></a></var><br>
+&mdash; Function: SEXP <b>R_loadhistory</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005floadhistory-406"></a></var><br>
+&mdash; Function: SEXP <b>R_savehistory</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005fsavehistory-407"></a></var><br>
+&mdash; Function: SEXP <b>R_addhistory</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005faddhistory-408"></a></var><br>
 <blockquote>
         <p><code>.Internal</code> functions for <code>loadhistory</code>, <code>savehistory</code>
 and <code>timestamp</code>.
@@ -12972,7 +12996,7 @@ to write the time stamp to the console.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: void <b>R_Suicide</b> (<var>const char *message</var>)<var><a name="index-R_005fSuicide-408"></a></var><br>
+&mdash; Function: void <b>R_Suicide</b> (<var>const char *message</var>)<var><a name="index-R_005fSuicide-409"></a></var><br>
 <blockquote><p>This should abort R as rapidly as possible, displaying the message. 
 A possible implementation is
 
@@ -12987,7 +13011,7 @@ A possible implementation is
         </blockquote></div>
 
 <div class="defun">
-&mdash; Function: void <b>R_CleanUp</b> (<var>SA_TYPE saveact, int status, int RunLast</var>)<var><a name="index-R_005fCleanUp-409"></a></var><br>
+&mdash; Function: void <b>R_CleanUp</b> (<var>SA_TYPE saveact, int status, int RunLast</var>)<var><a name="index-R_005fCleanUp-410"></a></var><br>
 <blockquote>
         <p>This function invokes any actions which occur at system termination. 
 It needs to be quite complex:
@@ -13033,9 +13057,9 @@ It needs to be quite complex:
 hence cannot be called from an extension package).
 
 <div class="defun">
-&mdash; Function: SEXP <b>R_dataentry</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005fdataentry-410"></a></var><br>
-&mdash; Function: SEXP <b>R_dataviewer</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005fdataviewer-411"></a></var><br>
-&mdash; Function: SEXP <b>R_selectlist</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005fselectlist-412"></a></var><br>
+&mdash; Function: SEXP <b>R_dataentry</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005fdataentry-411"></a></var><br>
+&mdash; Function: SEXP <b>R_dataviewer</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005fdataviewer-412"></a></var><br>
+&mdash; Function: SEXP <b>R_selectlist</b> (<var>SEXP, SEXP, SEXP, SEXP</var>)<var>;<a name="index-R_005fselectlist-413"></a></var><br>
 <blockquote>
         <p><code>.External</code> functions for <code>dataentry</code> (and <code>edit</code> on
 matrices and data frames), <code>View</code> and <code>select.list</code>.  These
@@ -13173,7 +13197,7 @@ defined) as
 defined in R, so your code needs to define <code>HAVE_UINTPTR_T</code>
 appropriately.
 
-   <p>These will be set<a rel="footnote" href="#fn-97" name="fnd-97"><sup>97</sup></a> when <code>Rf_initialize_R</code> is called, to values appropriate to the
+   <p>These will be set<a rel="footnote" href="#fn-98" name="fnd-98"><sup>98</sup></a> when <code>Rf_initialize_R</code> is called, to values appropriate to the
 main thread.  Stack-checking can be disabled by setting
 <code>R_CStackLimit = (uintptr_t)-1</code>, but it is better to if possible
 set appropriate values.  (What these are and how to determine them are
@@ -13435,7 +13459,7 @@ and <code>select.list()</code>.  It would be possible to replace all of these,
 but it seems easier to allow GraphApp to handle most of them.
 
    <p>It is possible to run R in a GUI in a single thread (as
-<samp><span class="file">RGui.exe</span></samp> shows) but it will normally be easier<a rel="footnote" href="#fn-98" name="fnd-98"><sup>98</sup></a> to
+<samp><span class="file">RGui.exe</span></samp> shows) but it will normally be easier<a rel="footnote" href="#fn-99" name="fnd-99"><sup>99</sup></a> to
 use multiple threads.
 
    <p>Note that R's own front ends use a stack size of 10Mb, whereas MinGW
@@ -13537,7 +13561,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-g_t_002eonDetach-51"><code>.onDetach</code></a>: <a href="#Load-hooks">Load hooks</a></li>
 <li><a href="#index-g_t_002eonLoad-48"><code>.onLoad</code></a>: <a href="#Load-hooks">Load hooks</a></li>
 <li><a href="#index-g_t_002eonUnload-50"><code>.onUnload</code></a>: <a href="#Load-hooks">Load hooks</a></li>
-<li><a href="#index-g_t_002eRandom_002eseed-269"><code>.Random.seed</code></a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-g_t_002eRandom_002eseed-270"><code>.Random.seed</code></a>: <a href="#Random-numbers">Random numbers</a></li>
 <li><a href="#index-g_t_005cacronym-108"><code>\acronym</code></a>: <a href="#Marking-text">Marking text</a></li>
 <li><a href="#index-g_t_005calias-65"><code>\alias</code></a>: <a href="#Documenting-functions">Documenting functions</a></li>
 <li><a href="#index-g_t_005carguments-71"><code>\arguments</code></a>: <a href="#Documenting-functions">Documenting functions</a></li>
@@ -13604,95 +13628,95 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-g_t_005cverb-96"><code>\verb</code></a>: <a href="#Marking-text">Marking text</a></li>
 <li><a href="#index-allocVector-208"><code>allocVector</code></a>: <a href="#Allocating-storage">Allocating storage</a></li>
 <li><a href="#index-AUTHORS-19"><code>AUTHORS</code></a>: <a href="#Package-subdirectories">Package subdirectories</a></li>
-<li><a href="#index-bessel_005fi-317"><code>bessel_i</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-bessel_005fj-318"><code>bessel_j</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-bessel_005fk-319"><code>bessel_k</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-bessel_005fy-320"><code>bessel_y</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-beta-308"><code>beta</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-bessel_005fi-318"><code>bessel_i</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-bessel_005fj-319"><code>bessel_j</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-bessel_005fk-320"><code>bessel_k</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-bessel_005fy-321"><code>bessel_y</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-beta-309"><code>beta</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-BLAS_005fLIBS-26"><code>BLAS_LIBS</code></a>: <a href="#Using-Makevars">Using Makevars</a></li>
 <li><a href="#index-browser-157"><code>browser</code></a>: <a href="#Browsing">Browsing</a></li>
-<li><a href="#index-Calloc-258"><code>Calloc</code></a>: <a href="#User_002dcontrolled-memory">User-controlled memory</a></li>
+<li><a href="#index-Calloc-259"><code>Calloc</code></a>: <a href="#User_002dcontrolled-memory">User-controlled memory</a></li>
 <li><a href="#index-CAR-229"><code>CAR</code></a>: <a href="#Calling-_002eExternal">Calling .External</a></li>
 <li><a href="#index-CDR-230"><code>CDR</code></a>: <a href="#Calling-_002eExternal">Calling .External</a></li>
-<li><a href="#index-cgmin-355"><code>cgmin</code></a>: <a href="#Optimization">Optimization</a></li>
-<li><a href="#index-choose-313"><code>choose</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-cgmin-356"><code>cgmin</code></a>: <a href="#Optimization">Optimization</a></li>
+<li><a href="#index-choose-314"><code>choose</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-CITATION-60"><code>CITATION</code></a>: <a href="#Preparing-translations">Preparing translations</a></li>
 <li><a href="#index-CITATION-15"><code>CITATION</code></a>: <a href="#Package-subdirectories">Package subdirectories</a></li>
 <li><a href="#index-COPYRIGHTS-20"><code>COPYRIGHTS</code></a>: <a href="#Package-subdirectories">Package subdirectories</a></li>
 <li><a href="#index-COPYRIGHTS-8"><code>COPYRIGHTS</code></a>: <a href="#The-DESCRIPTION-file">The DESCRIPTION file</a></li>
-<li><a href="#index-cospi-333"><code>cospi</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-cPsort-370"><code>cPsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-cospi-334"><code>cospi</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-cPsort-371"><code>cPsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
 <li><a href="#index-debug-162"><code>debug</code></a>: <a href="#Debugging-R-code">Debugging R code</a></li>
 <li><a href="#index-debugger-160"><code>debugger</code></a>: <a href="#Debugging-R-code">Debugging R code</a></li>
 <li><a href="#index-defineVar-222"><code>defineVar</code></a>: <a href="#Finding-and-setting-variables">Finding and setting variables</a></li>
-<li><a href="#index-digamma-295"><code>digamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-digamma-296"><code>digamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-dump_002eframes-159"><code>dump.frames</code></a>: <a href="#Debugging-R-code">Debugging R code</a></li>
 <li><a href="#index-duplicate-224"><code>duplicate</code></a>: <a href="#Named-objects-and-copying">Named objects and copying</a></li>
 <li><a href="#index-dyn_002eload-176"><code>dyn.load</code></a>: <a href="#dyn_002eload-and-dyn_002eunload">dyn.load and dyn.unload</a></li>
 <li><a href="#index-dyn_002eunload-177"><code>dyn.unload</code></a>: <a href="#dyn_002eload-and-dyn_002eunload">dyn.load and dyn.unload</a></li>
-<li><a href="#index-exp_005frand-266"><code>exp_rand</code></a>: <a href="#Random-numbers">Random numbers</a></li>
-<li><a href="#index-expm1-331"><code>expm1</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-exp_005frand-267"><code>exp_rand</code></a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-expm1-332"><code>expm1</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
 <li><a href="#index-export-43"><code>export</code></a>: <a href="#Specifying-imports-and-exports">Specifying imports and exports</a></li>
 <li><a href="#index-exportClasses-54"><code>exportClasses</code></a>: <a href="#Namespaces-with-S4-classes-and-methods">Namespaces with S4 classes and methods</a></li>
 <li><a href="#index-exportClassPattern-57"><code>exportClassPattern</code></a>: <a href="#Namespaces-with-S4-classes-and-methods">Namespaces with S4 classes and methods</a></li>
 <li><a href="#index-exportMethods-55"><code>exportMethods</code></a>: <a href="#Namespaces-with-S4-classes-and-methods">Namespaces with S4 classes and methods</a></li>
 <li><a href="#index-exportPattern-56"><code>exportPattern</code></a>: <a href="#Namespaces-with-S4-classes-and-methods">Namespaces with S4 classes and methods</a></li>
 <li><a href="#index-exportPattern-44"><code>exportPattern</code></a>: <a href="#Specifying-imports-and-exports">Specifying imports and exports</a></li>
-<li><a href="#index-FALSE-351"><code>FALSE</code></a>: <a href="#Mathematical-constants">Mathematical constants</a></li>
-<li><a href="#index-findInterval-378"><code>findInterval</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-FALSE-352"><code>FALSE</code></a>: <a href="#Mathematical-constants">Mathematical constants</a></li>
+<li><a href="#index-findInterval-379"><code>findInterval</code></a>: <a href="#Utility-functions">Utility functions</a></li>
 <li><a href="#index-findVar-221"><code>findVar</code></a>: <a href="#Finding-and-setting-variables">Finding and setting variables</a></li>
 <li><a href="#index-FLIBS-25"><code>FLIBS</code></a>: <a href="#Using-Makevars">Using Makevars</a></li>
-<li><a href="#index-fmax2-341"><code>fmax2</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-fmin2-342"><code>fmin2</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-fprec-345"><code>fprec</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-Free-260"><code>Free</code></a>: <a href="#User_002dcontrolled-memory">User-controlled memory</a></li>
-<li><a href="#index-fround-346"><code>fround</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-fsign-344"><code>fsign</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-ftrunc-347"><code>ftrunc</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-gammafn-293"><code>gammafn</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-fmax2-342"><code>fmax2</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-fmin2-343"><code>fmin2</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-fprec-346"><code>fprec</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-Free-261"><code>Free</code></a>: <a href="#User_002dcontrolled-memory">User-controlled memory</a></li>
+<li><a href="#index-fround-347"><code>fround</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-fsign-345"><code>fsign</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-ftrunc-348"><code>ftrunc</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-gammafn-294"><code>gammafn</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-gctorture-165"><code>gctorture</code></a>: <a href="#Using-gctorture">Using gctorture</a></li>
 <li><a href="#index-getAttrib-211"><code>getAttrib</code></a>: <a href="#Attributes">Attributes</a></li>
 <li><a href="#index-getCharCE-248"><code>getCharCE</code></a>: <a href="#Character-encoding-issues">Character encoding issues</a></li>
-<li><a href="#index-GetRNGstate-267"><code>GetRNGstate</code></a>: <a href="#Random-numbers">Random numbers</a></li>
-<li><a href="#index-imax2-339"><code>imax2</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-imin2-340"><code>imin2</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-GetRNGstate-268"><code>GetRNGstate</code></a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-imax2-340"><code>imax2</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-imin2-341"><code>imin2</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
 <li><a href="#index-import-45"><code>import</code></a>: <a href="#Specifying-imports-and-exports">Specifying imports and exports</a></li>
 <li><a href="#index-importClassesFrom-58"><code>importClassesFrom</code></a>: <a href="#Namespaces-with-S4-classes-and-methods">Namespaces with S4 classes and methods</a></li>
 <li><a href="#index-importFrom-46"><code>importFrom</code></a>: <a href="#Specifying-imports-and-exports">Specifying imports and exports</a></li>
 <li><a href="#index-importMethodsFrom-59"><code>importMethodsFrom</code></a>: <a href="#Namespaces-with-S4-classes-and-methods">Namespaces with S4 classes and methods</a></li>
 <li><a href="#index-install-213"><code>install</code></a>: <a href="#Attributes">Attributes</a></li>
-<li><a href="#index-iPsort-368"><code>iPsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-ISNA-274"><code>ISNA</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-iPsort-369"><code>iPsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-ISNA-275"><code>ISNA</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
 <li><a href="#index-ISNA-233"><code>ISNA</code></a>: <a href="#Missing-and-special-values">Missing and special values</a></li>
-<li><a href="#index-ISNAN-275"><code>ISNAN</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-ISNAN-276"><code>ISNAN</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
 <li><a href="#index-ISNAN-234"><code>ISNAN</code></a>: <a href="#Missing-and-special-values">Missing and special values</a></li>
 <li><a href="#index-LAPACK_005fLIBS-27"><code>LAPACK_LIBS</code></a>: <a href="#Using-Makevars">Using Makevars</a></li>
-<li><a href="#index-lbeta-309"><code>lbeta</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-lbfgsb-356"><code>lbfgsb</code></a>: <a href="#Optimization">Optimization</a></li>
-<li><a href="#index-lchoose-314"><code>lchoose</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-lgamma1p-332"><code>lgamma1p</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-lgammafn-294"><code>lgammafn</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-lbeta-310"><code>lbeta</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-lbfgsb-357"><code>lbfgsb</code></a>: <a href="#Optimization">Optimization</a></li>
+<li><a href="#index-lchoose-315"><code>lchoose</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-lgamma1p-333"><code>lgamma1p</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-lgammafn-295"><code>lgammafn</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-library_002edynam-178"><code>library.dynam</code></a>: <a href="#dyn_002eload-and-dyn_002eunload">dyn.load and dyn.unload</a></li>
 <li><a href="#index-library_002edynam-13"><code>library.dynam</code></a>: <a href="#Package-subdirectories">Package subdirectories</a></li>
-<li><a href="#index-log1p-328"><code>log1p</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-log1pexp-330"><code>log1pexp</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-log1pmx-329"><code>log1pmx</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-logspace_005fadd-336"><code>logspace_add</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-logspace_005fsub-337"><code>logspace_sub</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-logspace_005fsum-338"><code>logspace_sum</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-M_005fE-348"><code>M_E</code></a>: <a href="#Mathematical-constants">Mathematical constants</a></li>
-<li><a href="#index-M_005fPI-349"><code>M_PI</code></a>: <a href="#Mathematical-constants">Mathematical constants</a></li>
+<li><a href="#index-log1p-329"><code>log1p</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-log1pexp-331"><code>log1pexp</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-log1pmx-330"><code>log1pmx</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-logspace_005fadd-337"><code>logspace_add</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-logspace_005fsub-338"><code>logspace_sub</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-logspace_005fsum-339"><code>logspace_sum</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-M_005fE-349"><code>M_E</code></a>: <a href="#Mathematical-constants">Mathematical constants</a></li>
+<li><a href="#index-M_005fPI-350"><code>M_PI</code></a>: <a href="#Mathematical-constants">Mathematical constants</a></li>
 <li><a href="#index-mkChar-217"><code>mkChar</code></a>: <a href="#Handling-character-data">Handling character data</a></li>
 <li><a href="#index-mkCharCE-249"><code>mkCharCE</code></a>: <a href="#Character-encoding-issues">Character encoding issues</a></li>
 <li><a href="#index-mkCharLen-218"><code>mkCharLen</code></a>: <a href="#Handling-character-data">Handling character data</a></li>
 <li><a href="#index-mkCharLenCE-251"><code>mkCharLenCE</code></a>: <a href="#Character-encoding-issues">Character encoding issues</a></li>
-<li><a href="#index-NA_005fREAL-280"><code>NA_REAL</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-NA_005fREAL-281"><code>NA_REAL</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
 <li><a href="#index-NEWS_002eRd-17"><code>NEWS.Rd</code></a>: <a href="#Package-subdirectories">Package subdirectories</a></li>
-<li><a href="#index-nmmin-353"><code>nmmin</code></a>: <a href="#Optimization">Optimization</a></li>
-<li><a href="#index-norm_005frand-265"><code>norm_rand</code></a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-nmmin-354"><code>nmmin</code></a>: <a href="#Optimization">Optimization</a></li>
+<li><a href="#index-norm_005frand-266"><code>norm_rand</code></a>: <a href="#Random-numbers">Random numbers</a></li>
 <li><a href="#index-OBJECTS-193"><code>OBJECTS</code></a>: <a href="#Creating-shared-objects">Creating shared objects</a></li>
 <li><a href="#index-OBJECTS-29"><code>OBJECTS</code></a>: <a href="#Using-Makevars">Using Makevars</a></li>
-<li><a href="#index-pentagamma-298"><code>pentagamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-pentagamma-299"><code>pentagamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-PKG_005fCFLAGS-186"><code>PKG_CFLAGS</code></a>: <a href="#Creating-shared-objects">Creating shared objects</a></li>
 <li><a href="#index-PKG_005fCPPFLAGS-185"><code>PKG_CPPFLAGS</code></a>: <a href="#Creating-shared-objects">Creating shared objects</a></li>
 <li><a href="#index-PKG_005fCXXFLAGS-187"><code>PKG_CXXFLAGS</code></a>: <a href="#Creating-shared-objects">Creating shared objects</a></li>
@@ -13704,10 +13728,10 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-prompt-63"><code>prompt</code></a>: <a href="#Rd-format">Rd format</a></li>
 <li><a href="#index-PROTECT-200"><code>PROTECT</code></a>: <a href="#Garbage-Collection">Garbage Collection</a></li>
 <li><a href="#index-PROTECT_005fWITH_005fINDEX-203"><code>PROTECT_WITH_INDEX</code></a>: <a href="#Garbage-Collection">Garbage Collection</a></li>
-<li><a href="#index-psigamma-299"><code>psigamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-PutRNGstate-268"><code>PutRNGstate</code></a>: <a href="#Random-numbers">Random numbers</a></li>
-<li><a href="#index-qsort3-376"><code>qsort3</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-qsort4-375"><code>qsort4</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-psigamma-300"><code>psigamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-PutRNGstate-269"><code>PutRNGstate</code></a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-qsort3-377"><code>qsort3</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-qsort4-376"><code>qsort4</code></a>: <a href="#Utility-functions">Utility functions</a></li>
 <li><a href="#index-R-CMD-build-34"><code>R CMD build</code></a>: <a href="#Building-package-tarballs">Building package tarballs</a></li>
 <li><a href="#index-R-CMD-check-32"><code>R CMD check</code></a>: <a href="#Checking-packages">Checking packages</a></li>
 <li><a href="#index-R-CMD-config-21"><code>R CMD config</code></a>: <a href="#Configure-and-cleanup">Configure and cleanup</a></li>
@@ -13716,111 +13740,112 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-R-CMD-SHLIB-184"><code>R CMD SHLIB</code></a>: <a href="#Creating-shared-objects">Creating shared objects</a></li>
 <li><a href="#index-R-CMD-Stangle-144"><code>R CMD Stangle</code></a>: <a href="#Processing-documentation-files">Processing documentation files</a></li>
 <li><a href="#index-R-CMD-Sweave-143"><code>R CMD Sweave</code></a>: <a href="#Processing-documentation-files">Processing documentation files</a></li>
-<li><a href="#index-R_005faddhistory-407"><code>R_addhistory</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005faddhistory-408"><code>R_addhistory</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
 <li><a href="#index-R_005falloc-253"><code>R_alloc</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
-<li><a href="#index-R_005fBusy-394"><code>R_Busy</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fChooseFile-402"><code>R_ChooseFile</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fCleanUp-409"><code>R_CleanUp</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fClearErrConsole-400"><code>R_ClearErrConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fcsort-365"><code>R_csort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fdataentry-410"><code>R_dataentry</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fdataviewer-411"><code>R_dataviewer</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fEditFile-403"><code>R_EditFile</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fEditFiles-404"><code>R_EditFiles</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fExpandFileName-381"><code>R_ExpandFileName</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fFINITE-276"><code>R_FINITE</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
-<li><a href="#index-R_005fFlushConsole-399"><code>R_FlushConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fallocLD-254"><code>R_allocLD</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
+<li><a href="#index-R_005fBusy-395"><code>R_Busy</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fChooseFile-403"><code>R_ChooseFile</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fCleanUp-410"><code>R_CleanUp</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fClearErrConsole-401"><code>R_ClearErrConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fcsort-366"><code>R_csort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fdataentry-411"><code>R_dataentry</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fdataviewer-412"><code>R_dataviewer</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fEditFile-404"><code>R_EditFile</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fEditFiles-405"><code>R_EditFiles</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fExpandFileName-382"><code>R_ExpandFileName</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fFINITE-277"><code>R_FINITE</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-R_005fFlushConsole-400"><code>R_FlushConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
 <li><a href="#index-R_005fGetCCallable-182"><code>R_GetCCallable</code></a>: <a href="#Linking-to-native-routines-in-other-packages">Linking to native routines in other packages</a></li>
 <li><a href="#index-R_005fGetCurrentSrcref-241"><code>R_GetCurrentSrcref</code></a>: <a href="#Accessing-source-references">Accessing source references</a></li>
 <li><a href="#index-R_005fGetSrcFilename-242"><code>R_GetSrcFilename</code></a>: <a href="#Accessing-source-references">Accessing source references</a></li>
-<li><a href="#index-R_005fINLINE-389"><code>R_INLINE</code></a>: <a href="#Inlining-C-functions">Inlining C functions</a></li>
-<li><a href="#index-R_005fIsNaN-277"><code>R_IsNaN</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
-<li><a href="#index-R_005fisort-363"><code>R_isort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fINLINE-390"><code>R_INLINE</code></a>: <a href="#Inlining-C-functions">Inlining C functions</a></li>
+<li><a href="#index-R_005fIsNaN-278"><code>R_IsNaN</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-R_005fisort-364"><code>R_isort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
 <li><a href="#index-R_005fLIBRARY_005fDIR-22"><code>R_LIBRARY_DIR</code></a>: <a href="#Configure-and-cleanup">Configure and cleanup</a></li>
-<li><a href="#index-R_005floadhistory-405"><code>R_loadhistory</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fmax_005fcol-377"><code>R_max_col</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fNegInf-279"><code>R_NegInf</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
-<li><a href="#index-R_005forderVector-362"><code>R_orderVector</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005floadhistory-406"><code>R_loadhistory</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fmax_005fcol-378"><code>R_max_col</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fNegInf-280"><code>R_NegInf</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-R_005forderVector-363"><code>R_orderVector</code></a>: <a href="#Utility-functions">Utility functions</a></li>
 <li><a href="#index-R_005fPACKAGE_005fDIR-23"><code>R_PACKAGE_DIR</code></a>: <a href="#Configure-and-cleanup">Configure and cleanup</a></li>
 <li><a href="#index-R_005fPACKAGE_005fNAME-24"><code>R_PACKAGE_NAME</code></a>: <a href="#Configure-and-cleanup">Configure and cleanup</a></li>
 <li><a href="#index-R_005fParseVector-239"><code>R_ParseVector</code></a>: <a href="#Parsing-R-code-from-C">Parsing R code from C</a></li>
-<li><a href="#index-R_005fPosInf-278"><code>R_PosInf</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
-<li><a href="#index-R_005fpow-326"><code>R_pow</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-R_005fpow_005fdi-327"><code>R_pow_di</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-R_005fPosInf-279"><code>R_PosInf</code></a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-R_005fpow-327"><code>R_pow</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-R_005fpow_005fdi-328"><code>R_pow_di</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
 <li><a href="#index-R_005fPreserveObject-205"><code>R_PreserveObject</code></a>: <a href="#Garbage-Collection">Garbage Collection</a></li>
-<li><a href="#index-R_005fqsort-371"><code>R_qsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fqsort_005fI-372"><code>R_qsort_I</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fqsort_005fint-373"><code>R_qsort_int</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fqsort_005fint_005fI-374"><code>R_qsort_int_I</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fReadConsole-395"><code>R_ReadConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fqsort-372"><code>R_qsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fqsort_005fI-373"><code>R_qsort_I</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fqsort_005fint-374"><code>R_qsort_int</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fqsort_005fint_005fI-375"><code>R_qsort_int_I</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fReadConsole-396"><code>R_ReadConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
 <li><a href="#index-R_005fRegisterCCallable-181"><code>R_RegisterCCallable</code></a>: <a href="#Linking-to-native-routines-in-other-packages">Linking to native routines in other packages</a></li>
 <li><a href="#index-R_005fregisterRoutines-180"><code>R_registerRoutines</code></a>: <a href="#Registering-native-routines">Registering native routines</a></li>
 <li><a href="#index-R_005fReleaseObject-206"><code>R_ReleaseObject</code></a>: <a href="#Garbage-Collection">Garbage Collection</a></li>
-<li><a href="#index-R_005fResetConsole-398"><code>R_ResetConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005frsort-364"><code>R_rsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fsavehistory-406"><code>R_savehistory</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fselectlist-412"><code>R_selectlist</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fShowFiles-401"><code>R_ShowFiles</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fShowMessage-393"><code>R_ShowMessage</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fResetConsole-399"><code>R_ResetConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005frsort-365"><code>R_rsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fsavehistory-407"><code>R_savehistory</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fselectlist-413"><code>R_selectlist</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fShowFiles-402"><code>R_ShowFiles</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fShowMessage-394"><code>R_ShowMessage</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
 <li><a href="#index-R_005fSrcref-240"><code>R_Srcref</code></a>: <a href="#Accessing-source-references">Accessing source references</a></li>
-<li><a href="#index-R_005fSuicide-408"><code>R_Suicide</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005ftmpnam-379"><code>R_tmpnam</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005ftmpnam2-380"><code>R_tmpnam2</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-R_005fVersion-388"><code>R_Version</code></a>: <a href="#Platform-and-version-information">Platform and version information</a></li>
-<li><a href="#index-R_005fWriteConsole-396"><code>R_WriteConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-R_005fWriteConsoleEx-397"><code>R_WriteConsoleEx</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
-<li><a href="#index-Rdqagi-360"><code>Rdqagi</code></a>: <a href="#Integration">Integration</a></li>
-<li><a href="#index-Rdqags-359"><code>Rdqags</code></a>: <a href="#Integration">Integration</a></li>
-<li><a href="#index-Realloc-259"><code>Realloc</code></a>: <a href="#User_002dcontrolled-memory">User-controlled memory</a></li>
+<li><a href="#index-R_005fSuicide-409"><code>R_Suicide</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005ftmpnam-380"><code>R_tmpnam</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005ftmpnam2-381"><code>R_tmpnam2</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-R_005fVersion-389"><code>R_Version</code></a>: <a href="#Platform-and-version-information">Platform and version information</a></li>
+<li><a href="#index-R_005fWriteConsole-397"><code>R_WriteConsole</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-R_005fWriteConsoleEx-398"><code>R_WriteConsoleEx</code></a>: <a href="#Setting-R-callbacks">Setting R callbacks</a></li>
+<li><a href="#index-Rdqagi-361"><code>Rdqagi</code></a>: <a href="#Integration">Integration</a></li>
+<li><a href="#index-Rdqags-360"><code>Rdqags</code></a>: <a href="#Integration">Integration</a></li>
+<li><a href="#index-Realloc-260"><code>Realloc</code></a>: <a href="#User_002dcontrolled-memory">User-controlled memory</a></li>
 <li><a href="#index-recover-161"><code>recover</code></a>: <a href="#Debugging-R-code">Debugging R code</a></li>
 <li><a href="#index-reEnc-250"><code>reEnc</code></a>: <a href="#Character-encoding-issues">Character encoding issues</a></li>
-<li><a href="#index-REprintf-283"><code>REprintf</code></a>: <a href="#Printing">Printing</a></li>
+<li><a href="#index-REprintf-284"><code>REprintf</code></a>: <a href="#Printing">Printing</a></li>
 <li><a href="#index-REPROTECT-204"><code>REPROTECT</code></a>: <a href="#Garbage-Collection">Garbage Collection</a></li>
-<li><a href="#index-REvprintf-285"><code>REvprintf</code></a>: <a href="#Printing">Printing</a></li>
-<li><a href="#index-revsort-367"><code>revsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-Riconv-383"><code>Riconv</code></a>: <a href="#Re_002dencoding">Re-encoding</a></li>
-<li><a href="#index-Riconv_005fclose-384"><code>Riconv_close</code></a>: <a href="#Re_002dencoding">Re-encoding</a></li>
-<li><a href="#index-Riconv_005fopen-382"><code>Riconv_open</code></a>: <a href="#Re_002dencoding">Re-encoding</a></li>
-<li><a href="#index-Rprintf-282"><code>Rprintf</code></a>: <a href="#Printing">Printing</a></li>
+<li><a href="#index-REvprintf-286"><code>REvprintf</code></a>: <a href="#Printing">Printing</a></li>
+<li><a href="#index-revsort-368"><code>revsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-Riconv-384"><code>Riconv</code></a>: <a href="#Re_002dencoding">Re-encoding</a></li>
+<li><a href="#index-Riconv_005fclose-385"><code>Riconv_close</code></a>: <a href="#Re_002dencoding">Re-encoding</a></li>
+<li><a href="#index-Riconv_005fopen-383"><code>Riconv_open</code></a>: <a href="#Re_002dencoding">Re-encoding</a></li>
+<li><a href="#index-Rprintf-283"><code>Rprintf</code></a>: <a href="#Printing">Printing</a></li>
 <li><a href="#index-Rprof-151"><code>Rprof</code></a>: <a href="#Memory-statistics-from-Rprof">Memory statistics from Rprof</a></li>
 <li><a href="#index-Rprof-148"><code>Rprof</code></a>: <a href="#Profiling-R-code-for-speed">Profiling R code for speed</a></li>
 <li><a href="#index-Rprofmem-153"><code>Rprofmem</code></a>: <a href="#Tracking-memory-allocations">Tracking memory allocations</a></li>
-<li><a href="#index-rPsort-369"><code>rPsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-rsort_005fwith_005findex-366"><code>rsort_with_index</code></a>: <a href="#Utility-functions">Utility functions</a></li>
-<li><a href="#index-Rvprintf-284"><code>Rvprintf</code></a>: <a href="#Printing">Printing</a></li>
+<li><a href="#index-rPsort-370"><code>rPsort</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-rsort_005fwith_005findex-367"><code>rsort_with_index</code></a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-Rvprintf-285"><code>Rvprintf</code></a>: <a href="#Printing">Printing</a></li>
 <li><a href="#index-S3method-47"><code>S3method</code></a>: <a href="#Registering-S3-methods">Registering S3 methods</a></li>
-<li><a href="#index-S_005falloc-254"><code>S_alloc</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
-<li><a href="#index-S_005frealloc-255"><code>S_realloc</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
+<li><a href="#index-S_005falloc-255"><code>S_alloc</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
+<li><a href="#index-S_005frealloc-256"><code>S_realloc</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
 <li><a href="#index-SAFE_005fFFLAGS-28"><code>SAFE_FFLAGS</code></a>: <a href="#Using-Makevars">Using Makevars</a></li>
-<li><a href="#index-samin-357"><code>samin</code></a>: <a href="#Optimization">Optimization</a></li>
-<li><a href="#index-seed_005fin-270"><code>seed_in</code></a>: <a href="#Random-numbers">Random numbers</a></li>
-<li><a href="#index-seed_005fout-271"><code>seed_out</code></a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-samin-358"><code>samin</code></a>: <a href="#Optimization">Optimization</a></li>
+<li><a href="#index-seed_005fin-271"><code>seed_in</code></a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-seed_005fout-272"><code>seed_out</code></a>: <a href="#Random-numbers">Random numbers</a></li>
 <li><a href="#index-setAttrib-212"><code>setAttrib</code></a>: <a href="#Attributes">Attributes</a></li>
 <li><a href="#index-setVar-223"><code>setVar</code></a>: <a href="#Finding-and-setting-variables">Finding and setting variables</a></li>
-<li><a href="#index-sign-343"><code>sign</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-sinpi-334"><code>sinpi</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-sign-344"><code>sign</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-sinpi-335"><code>sinpi</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
 <li><a href="#index-summaryRprof-152"><code>summaryRprof</code></a>: <a href="#Memory-statistics-from-Rprof">Memory statistics from Rprof</a></li>
 <li><a href="#index-system-169"><code>system</code></a>: <a href="#Operating-system-access">Operating system access</a></li>
 <li><a href="#index-system_002etime-171"><code>system.time</code></a>: <a href="#Operating-system-access">Operating system access</a></li>
 <li><a href="#index-system2-170"><code>system2</code></a>: <a href="#Operating-system-access">Operating system access</a></li>
-<li><a href="#index-tanpi-335"><code>tanpi</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
-<li><a href="#index-tetragamma-297"><code>tetragamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-tanpi-336"><code>tanpi</code></a>: <a href="#Numerical-Utilities">Numerical Utilities</a></li>
+<li><a href="#index-tetragamma-298"><code>tetragamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-trace-164"><code>trace</code></a>: <a href="#Debugging-R-code">Debugging R code</a></li>
 <li><a href="#index-traceback-158"><code>traceback</code></a>: <a href="#Debugging-R-code">Debugging R code</a></li>
 <li><a href="#index-tracemem-154"><code>tracemem</code></a>: <a href="#Tracing-copies-of-an-object">Tracing copies of an object</a></li>
 <li><a href="#index-translateChar-246"><code>translateChar</code></a>: <a href="#Character-encoding-issues">Character encoding issues</a></li>
 <li><a href="#index-translateCharUTF8-247"><code>translateCharUTF8</code></a>: <a href="#Character-encoding-issues">Character encoding issues</a></li>
-<li><a href="#index-trigamma-296"><code>trigamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-TRUE-350"><code>TRUE</code></a>: <a href="#Mathematical-constants">Mathematical constants</a></li>
+<li><a href="#index-trigamma-297"><code>trigamma</code></a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-TRUE-351"><code>TRUE</code></a>: <a href="#Mathematical-constants">Mathematical constants</a></li>
 <li><a href="#index-undebug-163"><code>undebug</code></a>: <a href="#Debugging-R-code">Debugging R code</a></li>
-<li><a href="#index-unif_005frand-264"><code>unif_rand</code></a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-unif_005frand-265"><code>unif_rand</code></a>: <a href="#Random-numbers">Random numbers</a></li>
 <li><a href="#index-UNPROTECT-201"><code>UNPROTECT</code></a>: <a href="#Garbage-Collection">Garbage Collection</a></li>
 <li><a href="#index-UNPROTECT_005fPTR-202"><code>UNPROTECT_PTR</code></a>: <a href="#Garbage-Collection">Garbage Collection</a></li>
 <li><a href="#index-untracemem-155"><code>untracemem</code></a>: <a href="#Tracing-copies-of-an-object">Tracing copies of an object</a></li>
 <li><a href="#index-useDynLib-53"><code>useDynLib</code></a>: <a href="#useDynLib">useDynLib</a></li>
-<li><a href="#index-vmaxget-256"><code>vmaxget</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
-<li><a href="#index-vmaxset-257"><code>vmaxset</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
-<li><a href="#index-vmmin-354"><code>vmmin</code></a>: <a href="#Optimization">Optimization</a></li>
+<li><a href="#index-vmaxget-257"><code>vmaxget</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
+<li><a href="#index-vmaxset-258"><code>vmaxset</code></a>: <a href="#Transient-storage-allocation">Transient storage allocation</a></li>
+<li><a href="#index-vmmin-355"><code>vmmin</code></a>: <a href="#Optimization">Optimization</a></li>
    </ul><div class="node">
 <a name="Concept-index"></a>
 <p><hr>
@@ -13840,12 +13865,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-g_t_005clinkS4class-116">\linkS4class</a>: <a href="#Cross_002dreferences">Cross-references</a></li>
 <li><a href="#index-Allocating-storage-207">Allocating storage</a>: <a href="#Allocating-storage">Allocating storage</a></li>
 <li><a href="#index-Attributes-210">Attributes</a>: <a href="#Attributes">Attributes</a></li>
-<li><a href="#index-Bessel-functions-321">Bessel functions</a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
-<li><a href="#index-Beta-function-310">Beta function</a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-Bessel-functions-322">Bessel functions</a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-Beta-function-311">Beta function</a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-Building-binary-packages-38">Building binary packages</a>: <a href="#Building-binary-packages">Building binary packages</a></li>
 <li><a href="#index-Building-source-packages-33">Building source packages</a>: <a href="#Building-package-tarballs">Building package tarballs</a></li>
 <li><a href="#index-C_002b_002b-code_002c-interfacing-195">C++ code, interfacing</a>: <a href="#Interfacing-C_002b_002b-code">Interfacing C++ code</a></li>
-<li><a href="#index-Calling-C-from-FORTRAN-and-vice-versa-287">Calling C from FORTRAN and vice versa</a>: <a href="#Calling-C-from-FORTRAN-and-vice-versa">Calling C from FORTRAN and vice versa</a></li>
+<li><a href="#index-Calling-C-from-FORTRAN-and-vice-versa-288">Calling C from FORTRAN and vice versa</a>: <a href="#Calling-C-from-FORTRAN-and-vice-versa">Calling C from FORTRAN and vice versa</a></li>
 <li><a href="#index-Checking-packages-31">Checking packages</a>: <a href="#Checking-packages">Checking packages</a></li>
 <li><a href="#index-citation-61">citation</a>: <a href="#Preparing-translations">Preparing translations</a></li>
 <li><a href="#index-citation-16">citation</a>: <a href="#Package-subdirectories">Package subdirectories</a></li>
@@ -13858,39 +13883,39 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-Creating-packages-2">Creating packages</a>: <a href="#Creating-R-packages">Creating R packages</a></li>
 <li><a href="#index-Creating-shared-objects-183">Creating shared objects</a>: <a href="#Creating-shared-objects">Creating shared objects</a></li>
 <li><a href="#index-Cross_002dreferences-in-documentation-114">Cross-references in documentation</a>: <a href="#Cross_002dreferences">Cross-references</a></li>
-<li><a href="#index-cumulative-hazard-291">cumulative hazard</a>: <a href="#Distribution-functions">Distribution functions</a></li>
+<li><a href="#index-cumulative-hazard-292">cumulative hazard</a>: <a href="#Distribution-functions">Distribution functions</a></li>
 <li><a href="#index-Debugging-166">Debugging</a>: <a href="#Debugging-compiled-code">Debugging compiled code</a></li>
 <li><a href="#index-DESCRIPTION-file-7">DESCRIPTION file</a>: <a href="#The-DESCRIPTION-file">The DESCRIPTION file</a></li>
 <li><a href="#index-Details-of-R-types-209">Details of R types</a>: <a href="#Details-of-R-types">Details of R types</a></li>
-<li><a href="#index-Distribution-functions-from-C-290">Distribution functions from C</a>: <a href="#Distribution-functions">Distribution functions</a></li>
+<li><a href="#index-Distribution-functions-from-C-291">Distribution functions from C</a>: <a href="#Distribution-functions">Distribution functions</a></li>
 <li><a href="#index-Documentation_002c-writing-62">Documentation, writing</a>: <a href="#Writing-R-documentation-files">Writing R documentation files</a></li>
 <li><a href="#index-Dynamic-loading-175">Dynamic loading</a>: <a href="#dyn_002eload-and-dyn_002eunload">dyn.load and dyn.unload</a></li>
 <li><a href="#index-dynamic-pages-133">dynamic pages</a>: <a href="#Dynamic-pages">Dynamic pages</a></li>
 <li><a href="#index-Editing-Rd-files-145">Editing Rd files</a>: <a href="#Editing-Rd-files">Editing Rd files</a></li>
 <li><a href="#index-encoding-139">encoding</a>: <a href="#Encoding">Encoding</a></li>
-<li><a href="#index-Error-handling-from-C-261">Error handling from C</a>: <a href="#Error-handling">Error handling</a></li>
-<li><a href="#index-Error-handling-from-FORTRAN-262">Error handling from FORTRAN</a>: <a href="#Error-handling-from-FORTRAN">Error handling from FORTRAN</a></li>
+<li><a href="#index-Error-handling-from-C-262">Error handling from C</a>: <a href="#Error-handling">Error handling</a></li>
+<li><a href="#index-Error-handling-from-FORTRAN-263">Error handling from FORTRAN</a>: <a href="#Error-handling-from-FORTRAN">Error handling from FORTRAN</a></li>
 <li><a href="#index-Evaluating-R-expressions-from-C-235">Evaluating R expressions from C</a>: <a href="#Evaluating-R-expressions-from-C">Evaluating R expressions from C</a></li>
 <li><a href="#index-external-pointer-243">external pointer</a>: <a href="#External-pointers-and-weak-references">External pointers and weak references</a></li>
 <li><a href="#index-Figures-in-documentation-120">Figures in documentation</a>: <a href="#Figures">Figures</a></li>
 <li><a href="#index-finalizer-244">finalizer</a>: <a href="#External-pointers-and-weak-references">External pointers and weak references</a></li>
 <li><a href="#index-Finding-variables-219">Finding variables</a>: <a href="#Finding-and-setting-variables">Finding and setting variables</a></li>
-<li><a href="#index-Gamma-function-300">Gamma function</a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
+<li><a href="#index-Gamma-function-301">Gamma function</a>: <a href="#Mathematical-functions">Mathematical functions</a></li>
 <li><a href="#index-Garbage-collection-199">Garbage collection</a>: <a href="#Garbage-Collection">Garbage Collection</a></li>
-<li><a href="#index-Generic-functions-391">Generic functions</a>: <a href="#Generic-functions-and-methods">Generic functions and methods</a></li>
+<li><a href="#index-Generic-functions-392">Generic functions</a>: <a href="#Generic-functions-and-methods">Generic functions and methods</a></li>
 <li><a href="#index-handling-character-data-216">handling character data</a>: <a href="#Handling-character-data">Handling character data</a></li>
 <li><a href="#index-Handling-lists-215">Handling lists</a>: <a href="#Handling-lists">Handling lists</a></li>
 <li><a href="#index-Handling-R-objects-in-C-196">Handling R objects in C</a>: <a href="#Handling-R-objects-in-C">Handling R objects in C</a></li>
-<li><a href="#index-IEEE-special-values-273">IEEE special values</a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-IEEE-special-values-274">IEEE special values</a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
 <li><a href="#index-IEEE-special-values-232">IEEE special values</a>: <a href="#Missing-and-special-values">Missing and special values</a></li>
 <li><a href="#index-INDEX-file-11">INDEX file</a>: <a href="#The-INDEX-file">The INDEX file</a></li>
 <li><a href="#index-Indices-126">Indices</a>: <a href="#Indices">Indices</a></li>
 <li><a href="#index-Inspecting-R-objects-when-debugging-167">Inspecting R objects when debugging</a>: <a href="#Inspecting-R-objects">Inspecting R objects</a></li>
-<li><a href="#index-integration-358">integration</a>: <a href="#Integration">Integration</a></li>
+<li><a href="#index-integration-359">integration</a>: <a href="#Integration">Integration</a></li>
 <li><a href="#index-Interfaces-to-compiled-code-226">Interfaces to compiled code</a>: <a href="#Interface-functions-_002eCall-and-_002eExternal">Interface functions .Call and .External</a></li>
 <li><a href="#index-Interfaces-to-compiled-code-172">Interfaces to compiled code</a>: <a href="#Interface-functions-_002eC-and-_002eFortran">Interface functions .C and .Fortran</a></li>
 <li><a href="#index-Interfacing-C_002b_002b-code-194">Interfacing C++ code</a>: <a href="#Interfacing-C_002b_002b-code">Interfacing C++ code</a></li>
-<li><a href="#index-Interrupts-385">Interrupts</a>: <a href="#Allowing-interrupts">Allowing interrupts</a></li>
+<li><a href="#index-Interrupts-386">Interrupts</a>: <a href="#Allowing-interrupts">Allowing interrupts</a></li>
 <li><a href="#index-LICENCE-file-10">LICENCE file</a>: <a href="#Licensing">Licensing</a></li>
 <li><a href="#index-LICENSE-file-9">LICENSE file</a>: <a href="#Licensing">Licensing</a></li>
 <li><a href="#index-Lists-and-tables-in-documentation-109">Lists and tables in documentation</a>: <a href="#Lists-and-tables">Lists and tables</a></li>
@@ -13898,42 +13923,42 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a href="#index-Mathematics-in-documentation-117">Mathematics in documentation</a>: <a href="#Mathematics">Mathematics</a></li>
 <li><a href="#index-Memory-allocation-from-C-252">Memory allocation from C</a>: <a href="#Memory-allocation">Memory allocation</a></li>
 <li><a href="#index-Memory-use-150">Memory use</a>: <a href="#Profiling-R-code-for-memory-use">Profiling R code for memory use</a></li>
-<li><a href="#index-Method-functions-392">Method functions</a>: <a href="#Generic-functions-and-methods">Generic functions and methods</a></li>
-<li><a href="#index-Missing-values-272">Missing values</a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
+<li><a href="#index-Method-functions-393">Method functions</a>: <a href="#Generic-functions-and-methods">Generic functions and methods</a></li>
+<li><a href="#index-Missing-values-273">Missing values</a>: <a href="#Missing-and-IEEE-values">Missing and IEEE values</a></li>
 <li><a href="#index-Missing-values-231">Missing values</a>: <a href="#Missing-and-special-values">Missing and special values</a></li>
 <li><a href="#index-namespaces-42">namespaces</a>: <a href="#Package-namespaces">Package namespaces</a></li>
 <li><a href="#index-news-18">news</a>: <a href="#Package-subdirectories">Package subdirectories</a></li>
-<li><a href="#index-Numerical-analysis-subroutines-from-C-289">Numerical analysis subroutines from C</a>: <a href="#Numerical-analysis-subroutines">Numerical analysis subroutines</a></li>
+<li><a href="#index-Numerical-analysis-subroutines-from-C-290">Numerical analysis subroutines from C</a>: <a href="#Numerical-analysis-subroutines">Numerical analysis subroutines</a></li>
 <li><a href="#index-Numerical-derivatives-237">Numerical derivatives</a>: <a href="#Calculating-numerical-derivatives">Calculating numerical derivatives</a></li>
-<li><a href="#index-OpenMP-387">OpenMP</a>: <a href="#Platform-and-version-information">Platform and version information</a></li>
+<li><a href="#index-OpenMP-388">OpenMP</a>: <a href="#Platform-and-version-information">Platform and version information</a></li>
 <li><a href="#index-OpenMP-30">OpenMP</a>: <a href="#OpenMP-support">OpenMP support</a></li>
 <li><a href="#index-Operating-system-access-168">Operating system access</a>: <a href="#Operating-system-access">Operating system access</a></li>
-<li><a href="#index-optimization-352">optimization</a>: <a href="#Optimization">Optimization</a></li>
+<li><a href="#index-optimization-353">optimization</a>: <a href="#Optimization">Optimization</a></li>
 <li><a href="#index-Package-builder-35">Package builder</a>: <a href="#Building-package-tarballs">Building package tarballs</a></li>
 <li><a href="#index-Package-structure-4">Package structure</a>: <a href="#Package-structure">Package structure</a></li>
 <li><a href="#index-Package-subdirectories-12">Package subdirectories</a>: <a href="#Package-subdirectories">Package subdirectories</a></li>
 <li><a href="#index-Packages-1">Packages</a>: <a href="#Creating-R-packages">Creating R packages</a></li>
 <li><a href="#index-Parsing-R-code-from-C-238">Parsing R code from C</a>: <a href="#Parsing-R-code-from-C">Parsing R code from C</a></li>
 <li><a href="#index-Platform_002dspecific-documentation-128">Platform-specific documentation</a>: <a href="#Platform_002dspecific-sections">Platform-specific sections</a></li>
-<li><a href="#index-Printing-from-C-281">Printing from C</a>: <a href="#Printing">Printing</a></li>
-<li><a href="#index-Printing-from-FORTRAN-286">Printing from FORTRAN</a>: <a href="#Printing-from-FORTRAN">Printing from FORTRAN</a></li>
+<li><a href="#index-Printing-from-C-282">Printing from C</a>: <a href="#Printing">Printing</a></li>
+<li><a href="#index-Printing-from-FORTRAN-287">Printing from FORTRAN</a>: <a href="#Printing-from-FORTRAN">Printing from FORTRAN</a></li>
 <li><a href="#index-Processing-Rd-format-140">Processing Rd format</a>: <a href="#Processing-documentation-files">Processing documentation files</a></li>
 <li><a href="#index-Profiling-156">Profiling</a>: <a href="#Profiling-compiled-code">Profiling compiled code</a></li>
 <li><a href="#index-Profiling-149">Profiling</a>: <a href="#Profiling-R-code-for-memory-use">Profiling R code for memory use</a></li>
 <li><a href="#index-Profiling-147">Profiling</a>: <a href="#Profiling-R-code-for-speed">Profiling R code for speed</a></li>
-<li><a href="#index-Random-numbers-in-C-292">Random numbers in C</a>: <a href="#Distribution-functions">Distribution functions</a></li>
-<li><a href="#index-Random-numbers-in-C-263">Random numbers in C</a>: <a href="#Random-numbers">Random numbers</a></li>
-<li><a href="#index-Random-numbers-in-FORTRAN-288">Random numbers in FORTRAN</a>: <a href="#Calling-C-from-FORTRAN-and-vice-versa">Calling C from FORTRAN and vice versa</a></li>
+<li><a href="#index-Random-numbers-in-C-293">Random numbers in C</a>: <a href="#Distribution-functions">Distribution functions</a></li>
+<li><a href="#index-Random-numbers-in-C-264">Random numbers in C</a>: <a href="#Random-numbers">Random numbers</a></li>
+<li><a href="#index-Random-numbers-in-FORTRAN-289">Random numbers in FORTRAN</a>: <a href="#Calling-C-from-FORTRAN-and-vice-versa">Calling C from FORTRAN and vice versa</a></li>
 <li><a href="#index-Registering-native-routines-179">Registering native routines</a>: <a href="#Registering-native-routines">Registering native routines</a></li>
 <li><a href="#index-Setting-variables-220">Setting variables</a>: <a href="#Finding-and-setting-variables">Finding and setting variables</a></li>
-<li><a href="#index-Sort-functions-from-C-361">Sort functions from C</a>: <a href="#Utility-functions">Utility functions</a></li>
+<li><a href="#index-Sort-functions-from-C-362">Sort functions from C</a>: <a href="#Utility-functions">Utility functions</a></li>
 <li><a href="#index-Sweave-40">Sweave</a>: <a href="#Writing-package-vignettes">Writing package vignettes</a></li>
 <li><a href="#index-tarballs-36">tarballs</a>: <a href="#Building-package-tarballs">Building package tarballs</a></li>
 <li><a href="#index-Tidying-R-code-146">Tidying R code</a>: <a href="#Tidying-R-code">Tidying R code</a></li>
 <li><a href="#index-user_002ddefined-macros-136">user-defined macros</a>: <a href="#User_002ddefined-macros">User-defined macros</a></li>
-<li><a href="#index-Version-information-from-C-386">Version information from C</a>: <a href="#Platform-and-version-information">Platform and version information</a></li>
+<li><a href="#index-Version-information-from-C-387">Version information from C</a>: <a href="#Platform-and-version-information">Platform and version information</a></li>
 <li><a href="#index-vignettes-39">vignettes</a>: <a href="#Writing-package-vignettes">Writing package vignettes</a></li>
-<li><a href="#index-Visibility-390">Visibility</a>: <a href="#Controlling-visibility">Controlling visibility</a></li>
+<li><a href="#index-Visibility-391">Visibility</a>: <a href="#Controlling-visibility">Controlling visibility</a></li>
 <li><a href="#index-weak-reference-245">weak reference</a>: <a href="#External-pointers-and-weak-references">External pointers and weak references</a></li>
 <li><a href="#index-Zero_002dfinding-236">Zero-finding</a>: <a href="#Zero_002dfinding">Zero-finding</a></li>
    </ul><div class="footnote">
@@ -14019,7 +14044,7 @@ check</span></samp>.  If you want to generate it separately, do run R with optio
 <samp><span class="option">--vanilla --slave</span></samp> and with environment variable
 <samp><span class="env">LANGUAGE=en</span></samp> set to get messages in English.</p>
 
-   <p class="footnote"><small>[<a name="fn-19" href="#fnd-19">19</a>]</small> e.g
+   <p class="footnote"><small>[<a name="fn-19" href="#fnd-19">19</a>]</small> e.g. 
 <a href="http://tools.ietf.org/html/rfc4180">http://tools.ietf.org/html/rfc4180</a>.</p>
 
    <p class="footnote"><small>[<a name="fn-20" href="#fnd-20">20</a>]</small> in POSIX parlance: GNU <samp><span class="command">make</span></samp>
@@ -14033,279 +14058,284 @@ resolves such dependencies to a static FORTRAN library when
 <a href="http://en.wikipedia.org/wiki/OpenMP">http://en.wikipedia.org/wiki/OpenMP</a>,
 <a href="https://computing.llnl.gov/tutorials/openMP/">https://computing.llnl.gov/tutorials/openMP/</a></p>
 
-   <p class="footnote"><small>[<a name="fn-23" href="#fnd-23">23</a>]</small> Which it was at the time of writing with GCC,
+   <p class="footnote"><small>[<a name="fn-23" href="#fnd-23">23</a>]</small> Projects to add it has
+been announced at <a href="http://clang-omp.github.io/">http://clang-omp.github.io/</a> and
+<a href="http://openmp.llvm.org/">http://openmp.llvm.org/</a>, but it is unknown when or even if the
+Apple builds will incorporate it.</p>
+
+   <p class="footnote"><small>[<a name="fn-24" href="#fnd-24">24</a>]</small> Which it was at the time of writing with GCC,
 Solaris Studio and Intel compilers.</p>
 
-   <p class="footnote"><small>[<a name="fn-24" href="#fnd-24">24</a>]</small> some Windows toolchains have the
+   <p class="footnote"><small>[<a name="fn-25" href="#fnd-25">25</a>]</small> some Windows toolchains have the
 typo &lsquo;<samp><span class="samp">_REENTRANCE</span></samp>&rsquo; instead.</p>
 
-   <p class="footnote"><small>[<a name="fn-25" href="#fnd-25">25</a>]</small> Cygwin used <samp><span class="command">g77</span></samp> up to 2011, and some pre-built
+   <p class="footnote"><small>[<a name="fn-26" href="#fnd-26">26</a>]</small> Cygwin used <samp><span class="command">g77</span></samp> up to 2011, and some pre-built
 versions of R for Unix OSes still do.</p>
 
-   <p class="footnote"><small>[<a name="fn-26" href="#fnd-26">26</a>]</small> For
+   <p class="footnote"><small>[<a name="fn-27" href="#fnd-27">27</a>]</small> For
 details of these and related macros, see file <samp><span class="file">config.site</span></samp> in
 the R sources.</p>
 
-   <p class="footnote"><small>[<a name="fn-27" href="#fnd-27">27</a>]</small> OS X 10.7 and later have <samp><span class="command">clang++</span></samp> but for
+   <p class="footnote"><small>[<a name="fn-28" href="#fnd-28">28</a>]</small> OS X 10.7 and later have <samp><span class="command">clang++</span></samp> but for
 10.7 and 10.8 it uses the <samp><span class="command">g++</span></samp> 4.2.x headers.</p>
 
-   <p class="footnote"><small>[<a name="fn-28" href="#fnd-28">28</a>]</small> On systems which use sub-architectures,
+   <p class="footnote"><small>[<a name="fn-29" href="#fnd-29">29</a>]</small> On systems which use sub-architectures,
 architecture-specific versions such as <samp><span class="file">~/.R/check.Renviron.i386</span></samp>
 take precedence.</p>
 
-   <p class="footnote"><small>[<a name="fn-29" href="#fnd-29">29</a>]</small> A suitable <samp><span class="command">file.exe</span></samp> is
+   <p class="footnote"><small>[<a name="fn-30" href="#fnd-30">30</a>]</small> A suitable <samp><span class="command">file.exe</span></samp> is
 part of the Windows toolset: it checks for <samp><span class="command">gfile</span></samp> if a suitable
 <samp><span class="command">file</span></samp> is not found: the latter is available in the OpenCSW
 collection for Solaris at <a href="http://www.opencsw.org">http://www.opencsw.org</a>.  The source
 repository is <a href="ftp://ftp.astron.com/pub/file/">ftp://ftp.astron.com/pub/file/</a>.</p>
 
-   <p class="footnote"><small>[<a name="fn-30" href="#fnd-30">30</a>]</small> An exception is made
+   <p class="footnote"><small>[<a name="fn-31" href="#fnd-31">31</a>]</small> An exception is made
 for subdirectories with names starting &lsquo;<samp><span class="samp">win</span></samp>&rsquo; or &lsquo;<samp><span class="samp">Win</span></samp>&rsquo;.</p>
 
-   <p class="footnote"><small>[<a name="fn-31" href="#fnd-31">31</a>]</small> on most other platforms such runtime
+   <p class="footnote"><small>[<a name="fn-32" href="#fnd-32">32</a>]</small> on most other platforms such runtime
 libraries are dynamic, but static libraries are currently used on
 Windows because the toolchain is not a standard part of the OS.</p>
 
-   <p class="footnote"><small>[<a name="fn-32" href="#fnd-32">32</a>]</small> or if option <samp><span class="option">--use-valgrind</span></samp> is
+   <p class="footnote"><small>[<a name="fn-33" href="#fnd-33">33</a>]</small> or if option <samp><span class="option">--use-valgrind</span></samp> is
 used or environment variable <samp><span class="env">_R_CHECK_ALWAYS_LOG_VIGNETTE_OUTPUT_</span></samp>
 is set to a true value or if there are differences from a target output
 file</p>
 
-   <p class="footnote"><small>[<a name="fn-33" href="#fnd-33">33</a>]</small> Windows users behind proxies may
+   <p class="footnote"><small>[<a name="fn-34" href="#fnd-34">34</a>]</small> Windows users behind proxies may
 want to set environment variable <samp><span class="env">R_WIN_INTERNET2</span></samp> to a non-empty
 value, e.g. in <samp><span class="file">~/.R/check_environ</span></samp>.</p>
 
-   <p class="footnote"><small>[<a name="fn-34" href="#fnd-34">34</a>]</small> For example, in early
+   <p class="footnote"><small>[<a name="fn-35" href="#fnd-35">35</a>]</small> For example, in early
 2014 <a href="http://CRAN.R-project.org/package=gdata"><strong>gdata</strong></a> declared &lsquo;<samp><span class="samp">Imports: gtools</span></samp>&rsquo; and <a href="http://CRAN.R-project.org/package=gtools"><strong>gtools</strong></a>
 declared &lsquo;<samp><span class="samp">Imports: gdata</span></samp>&rsquo;.</p>
 
-   <p class="footnote"><small>[<a name="fn-35" href="#fnd-35">35</a>]</small> loading, examples,
-tests, vignettes</p>
+   <p class="footnote"><small>[<a name="fn-36" href="#fnd-36">36</a>]</small> loading, examples,
+tests, running vignette code</p>
 
-   <p class="footnote"><small>[<a name="fn-36" href="#fnd-36">36</a>]</small> on all platforms from
+   <p class="footnote"><small>[<a name="fn-37" href="#fnd-37">37</a>]</small> on all platforms from
 R 3.1.0.</p>
 
-   <p class="footnote"><small>[<a name="fn-37" href="#fnd-37">37</a>]</small> called <samp><span class="file">CVS</span></samp> or <samp><span class="file">.svn</span></samp> or
+   <p class="footnote"><small>[<a name="fn-38" href="#fnd-38">38</a>]</small> called <samp><span class="file">CVS</span></samp> or <samp><span class="file">.svn</span></samp> or
 <samp><span class="file">.arch-ids</span></samp> or <samp><span class="file">.bzr</span></samp> or <samp><span class="file">.git</span></samp> (but not files called
 <samp><span class="file">.git</span></samp>) or <samp><span class="file">.hg</span></samp>.</p>
 
-   <p class="footnote"><small>[<a name="fn-38" href="#fnd-38">38</a>]</small> called
+   <p class="footnote"><small>[<a name="fn-39" href="#fnd-39">39</a>]</small> called
 <samp><span class="file">.metadata</span></samp>.</p>
 
-   <p class="footnote"><small>[<a name="fn-39" href="#fnd-39">39</a>]</small> and to avoid problems with case-insensitive file
+   <p class="footnote"><small>[<a name="fn-40" href="#fnd-40">40</a>]</small> and to avoid problems with case-insensitive file
 systems, lower-case versions of all these extensions.</p>
 
-   <p class="footnote"><small>[<a name="fn-40" href="#fnd-40">40</a>]</small> unless inhibited by using
+   <p class="footnote"><small>[<a name="fn-41" href="#fnd-41">41</a>]</small> unless inhibited by using
 &lsquo;<samp><span class="samp">BuildVignettes: no</span></samp>&rsquo; in the <samp><span class="file">DESCRIPTION</span></samp> file.</p>
 
-   <p class="footnote"><small>[<a name="fn-41" href="#fnd-41">41</a>]</small> provided the conditions of the
+   <p class="footnote"><small>[<a name="fn-42" href="#fnd-42">42</a>]</small> provided the conditions of the
 package's license are met: many, including <acronym>CRAN</acronym>, see the
 omission of source components as incompatible with an Open Source
 license.</p>
 
-   <p class="footnote"><small>[<a name="fn-42" href="#fnd-42">42</a>]</small> <code>R_HOME/bin</code> is prepended to the
+   <p class="footnote"><small>[<a name="fn-43" href="#fnd-43">43</a>]</small> <code>R_HOME/bin</code> is prepended to the
 <samp><span class="env">PATH</span></samp> so that references to <samp><span class="command">R</span></samp> or <samp><span class="command">Rscript</span></samp> in the
 <samp><span class="file">Makefile</span></samp> do make use of the currently running version of R.</p>
 
-   <p class="footnote"><small>[<a name="fn-43" href="#fnd-43">43</a>]</small> Note that
+   <p class="footnote"><small>[<a name="fn-44" href="#fnd-44">44</a>]</small> Note that
 lazy-loaded datasets are <em>not</em> in the package's namespace so need
 to be accessed <em>via</em> <code>::</code>, e.g. 
 <code>survival::survexp.us</code>.</p>
 
-   <p class="footnote"><small>[<a name="fn-44" href="#fnd-44">44</a>]</small> they will be called
+   <p class="footnote"><small>[<a name="fn-45" href="#fnd-45">45</a>]</small> they will be called
 with two unnamed arguments, in that order.</p>
 
-   <p class="footnote"><small>[<a name="fn-45" href="#fnd-45">45</a>]</small> NB: this will only be read in all versions of R if
+   <p class="footnote"><small>[<a name="fn-46" href="#fnd-46">46</a>]</small> NB: this will only be read in all versions of R if
 the package contains R code in a <samp><span class="file">R</span></samp> directory.</p>
 
-   <p class="footnote"><small>[<a name="fn-46" href="#fnd-46">46</a>]</small> Note that this is the
+   <p class="footnote"><small>[<a name="fn-47" href="#fnd-47">47</a>]</small> Note that this is the
 basename of the shared object, and the appropriate extension (<samp><span class="file">.so</span></samp>
 or <samp><span class="file">.dll</span></samp>) will be added.</p>
 
-   <p class="footnote"><small>[<a name="fn-47" href="#fnd-47">47</a>]</small> This was necessary at least prior to
+   <p class="footnote"><small>[<a name="fn-48" href="#fnd-48">48</a>]</small> This was necessary at least prior to
 R 3.0.2 as the <strong>methods</strong> package looked for its own R code on
 the search path.</p>
 
-   <p class="footnote"><small>[<a name="fn-48" href="#fnd-48">48</a>]</small> This defaults to the same
+   <p class="footnote"><small>[<a name="fn-49" href="#fnd-49">49</a>]</small> This defaults to the same
 pattern as <code>exportPattern</code>: use something like
 <code>exportClassPattern("^$")</code> to override this.</p>
 
-   <p class="footnote"><small>[<a name="fn-49" href="#fnd-49">49</a>]</small> if it does, there will be opaque warnings about
+   <p class="footnote"><small>[<a name="fn-50" href="#fnd-50">50</a>]</small> if it does, there will be opaque warnings about
 replacing imports if the classes/methods are also imported.</p>
 
-   <p class="footnote"><small>[<a name="fn-50" href="#fnd-50">50</a>]</small> People use <code>dev.new()</code> to open a
+   <p class="footnote"><small>[<a name="fn-51" href="#fnd-51">51</a>]</small> People use <code>dev.new()</code> to open a
 device at a particular size: that is not portable but using
 <code>dev.new(noRStudioGD = TRUE)</code> helps.</p>
 
-   <p class="footnote"><small>[<a name="fn-51" href="#fnd-51">51</a>]</small> GNU make,
+   <p class="footnote"><small>[<a name="fn-52" href="#fnd-52">52</a>]</small> GNU make,
 BSD make as in FreeBSD, AT&amp;T make as implemented on Solaris.</p>
 
-   <p class="footnote"><small>[<a name="fn-52" href="#fnd-52">52</a>]</small> but
+   <p class="footnote"><small>[<a name="fn-53" href="#fnd-53">53</a>]</small> but
 note that <code>long long</code> is not a standard C++ type, and C++ compilers
 set up for strict checking will reject it.</p>
 
-   <p class="footnote"><small>[<a name="fn-53" href="#fnd-53">53</a>]</small> or where supported the variants <code>_Exit</code> and
+   <p class="footnote"><small>[<a name="fn-54" href="#fnd-54">54</a>]</small> or where supported the variants <code>_Exit</code> and
 <code>_exit</code>.</p>
 
-   <p class="footnote"><small>[<a name="fn-54" href="#fnd-54">54</a>]</small> This and
+   <p class="footnote"><small>[<a name="fn-55" href="#fnd-55">55</a>]</small> This and
 <code>srandom</code> are in any case not portable.  They are in POSIX but not
 in the C99 standard, and not available on Windows.</p>
 
-   <p class="footnote"><small>[<a name="fn-55" href="#fnd-55">55</a>]</small> Not doing so is the
+   <p class="footnote"><small>[<a name="fn-56" href="#fnd-56">56</a>]</small> Not doing so is the
 default on Windows, overridden for the R executables.  It is also the
 default on some Solaris compilers.</p>
 
-   <p class="footnote"><small>[<a name="fn-56" href="#fnd-56">56</a>]</small> Select ‘Save as’, and select
+   <p class="footnote"><small>[<a name="fn-57" href="#fnd-57">57</a>]</small> Select ‘Save as’, and select
 ‘Reduce file size’ from the ‘Quartz filter’ menu': this can be accessed
 in other ways, for example by Automator.</p>
 
-   <p class="footnote"><small>[<a name="fn-57" href="#fnd-57">57</a>]</small> except perhaps some
+   <p class="footnote"><small>[<a name="fn-58" href="#fnd-58">58</a>]</small> except perhaps some
 special characters such as backslash and hash which may be taken over
 for currency symbols.</p>
 
-   <p class="footnote"><small>[<a name="fn-58" href="#fnd-58">58</a>]</small> Typically on a Unix-alike this is done by telling
+   <p class="footnote"><small>[<a name="fn-59" href="#fnd-59">59</a>]</small> Typically on a Unix-alike this is done by telling
 <samp><span class="command">fontconfig</span></samp> where to find suitable fonts to select glyphs
 from.</p>
 
-   <p class="footnote"><small>[<a name="fn-59" href="#fnd-59">59</a>]</small> e.g. <code>\alias</code>, <code>\keyword</code> and
+   <p class="footnote"><small>[<a name="fn-60" href="#fnd-60">60</a>]</small> e.g. <code>\alias</code>, <code>\keyword</code> and
 <code>\note</code> sections.</p>
 
-   <p class="footnote"><small>[<a name="fn-60" href="#fnd-60">60</a>]</small> There can be exceptions: for example
+   <p class="footnote"><small>[<a name="fn-61" href="#fnd-61">61</a>]</small> There can be exceptions: for example
 <samp><span class="file">Rd</span></samp> files are not allowed to start with a dot, and have to be
 uniquely named on a case-insensitive file system.</p>
 
-   <p class="footnote"><small>[<a name="fn-61" href="#fnd-61">61</a>]</small> in the current locale, and with special
+   <p class="footnote"><small>[<a name="fn-62" href="#fnd-62">62</a>]</small> in the current locale, and with special
 treatment for LaTeX special characters and with any
 &lsquo;<samp><var>pkgname</var><span class="samp">-package</span></samp>&rsquo; topic moved to the top of the list.</p>
 
-   <p class="footnote"><small>[<a name="fn-62" href="#fnd-62">62</a>]</small> Text between or after list items is discouraged.</p>
+   <p class="footnote"><small>[<a name="fn-63" href="#fnd-63">63</a>]</small> Text between or after list items is discouraged.</p>
 
-   <p class="footnote"><small>[<a name="fn-63" href="#fnd-63">63</a>]</small> Currently it is
+   <p class="footnote"><small>[<a name="fn-64" href="#fnd-64">64</a>]</small> Currently it is
 rendered differently only in <acronym>HTML</acronym> conversions, and LaTeX conversion
 outside &lsquo;<samp><span class="samp">\usage</span></samp>&rsquo; and &lsquo;<samp><span class="samp">\examples</span></samp>&rsquo; environments.</p>
 
-   <p class="footnote"><small>[<a name="fn-64" href="#fnd-64">64</a>]</small> a common
+   <p class="footnote"><small>[<a name="fn-65" href="#fnd-65">65</a>]</small> a common
 example in <acronym>CRAN</acronym> packages is <code>\link[mgcv]{gam}</code>.</p>
 
-   <p class="footnote"><small>[<a name="fn-65" href="#fnd-65">65</a>]</small> There is only a fine
+   <p class="footnote"><small>[<a name="fn-66" href="#fnd-66">66</a>]</small> There is only a fine
 distinction between <code>\dots</code> and <code>\ldots</code>.  It is technically
 incorrect to use <code>\ldots</code> in code blocks and <code>tools::checkRd</code>
 will warn about this&mdash;on the other hand the current converters treat
 them the same way in code blocks, and elsewhere apart from the small
 distinction between the two in LaTeX.</p>
 
-   <p class="footnote"><small>[<a name="fn-66" href="#fnd-66">66</a>]</small> See the
+   <p class="footnote"><small>[<a name="fn-67" href="#fnd-67">67</a>]</small> See the
 examples section in the file <samp><span class="file">Paren.Rd</span></samp> for an example.</p>
 
-   <p class="footnote"><small>[<a name="fn-67" href="#fnd-67">67</a>]</small> R
+   <p class="footnote"><small>[<a name="fn-68" href="#fnd-68">68</a>]</small> R
 2.9.0 added support for UTF-8 Cyrillic characters in LaTeX, but on
 some OSes this will need Cyrillic support added to LaTeX, so
 environment variable <samp><span class="env">_R_CYRILLIC_TEX_</span></samp> may need to be set to a
 non-empty value to enable this.</p>
 
-   <p class="footnote"><small>[<a name="fn-68" href="#fnd-68">68</a>]</small> R
+   <p class="footnote"><small>[<a name="fn-69" href="#fnd-69">69</a>]</small> R
 has to be built to enable this, but the option
 <samp><span class="option">--enable-R-profiling</span></samp> is the default.</p>
 
-   <p class="footnote"><small>[<a name="fn-69" href="#fnd-69">69</a>]</small> For Unix-alikes these are intervals of CPU
+   <p class="footnote"><small>[<a name="fn-70" href="#fnd-70">70</a>]</small> For Unix-alikes these are intervals of CPU
 time, and for Windows of elapsed time.</p>
 
-   <p class="footnote"><small>[<a name="fn-70" href="#fnd-70">70</a>]</small> With the exceptions of the commands
+   <p class="footnote"><small>[<a name="fn-71" href="#fnd-71">71</a>]</small> With the exceptions of the commands
 listed below: an object of such a name can be printed <em>via</em> an
 explicit call to <code>print</code>.</p>
 
-   <p class="footnote"><small>[<a name="fn-71" href="#fnd-71">71</a>]</small> at the time of writing mainly for 10.7 with some
+   <p class="footnote"><small>[<a name="fn-72" href="#fnd-72">72</a>]</small> at the time of writing mainly for 10.7 with some
 support for 10.8, none for the current 10.9.</p>
 
-   <p class="footnote"><small>[<a name="fn-72" href="#fnd-72">72</a>]</small> see the
+   <p class="footnote"><small>[<a name="fn-73" href="#fnd-73">73</a>]</small> see the
 R source file <samp><span class="file">src/main/memory.c</span></samp> for precisely what these do.</p>
 
-   <p class="footnote"><small>[<a name="fn-73" href="#fnd-73">73</a>]</small> small
+   <p class="footnote"><small>[<a name="fn-74" href="#fnd-74">74</a>]</small> small
 fixed-size arrays by default in <samp><span class="command">gfortran</span></samp>, for example.</p>
 
-   <p class="footnote"><small>[<a name="fn-74" href="#fnd-74">74</a>]</small> currently only on &lsquo;<samp><span class="samp">ix86</span></samp>&rsquo;/&lsquo;<samp><span class="samp">x86_64</span></samp>&rsquo; Linux
+   <p class="footnote"><small>[<a name="fn-75" href="#fnd-75">75</a>]</small> currently only on &lsquo;<samp><span class="samp">ix86</span></samp>&rsquo;/&lsquo;<samp><span class="samp">x86_64</span></samp>&rsquo; Linux
 and OS X, not including the versions distributed by Apple in
 <code>Xcode</code> 4.6 or 5. On some platforms, e.g. Fedora, the runtime
 library, <strong>libasan</strong>, needs to be installed separately. OS X users can
 install a suitable <samp><span class="command">clang</span></samp> from the sources or possibly
 distributions such as MacPorts or Homebrew.</p>
 
-   <p class="footnote"><small>[<a name="fn-75" href="#fnd-75">75</a>]</small> <samp><span class="option">-faddress-sanitizer</span></samp> in
+   <p class="footnote"><small>[<a name="fn-76" href="#fnd-76">76</a>]</small> <samp><span class="option">-faddress-sanitizer</span></samp> in
 <samp><span class="command">clang</span></samp> 3.1</p>
 
-   <p class="footnote"><small>[<a name="fn-76" href="#fnd-76">76</a>]</small> installed on some Linux systems as
+   <p class="footnote"><small>[<a name="fn-77" href="#fnd-77">77</a>]</small> installed on some Linux systems as
 <samp><span class="command">asan_symbolize</span></samp>, and obtainable from
 <a href="https://llvm.org/svn/llvm-project/compiler-rt/trunk/lib/asan/scripts/asan_symbolize.py">https://llvm.org/svn/llvm-project/compiler-rt/trunk/lib/asan/scripts/asan_symbolize.py</a>:
 it makes use of <samp><span class="command">llvm-symbolizer</span></samp> if available.</p>
 
-   <p class="footnote"><small>[<a name="fn-77" href="#fnd-77">77</a>]</small> but
+   <p class="footnote"><small>[<a name="fn-78" href="#fnd-78">78</a>]</small> but
 works better if inlining and frame pointer optimizations are disabled.</p>
 
-   <p class="footnote"><small>[<a name="fn-78" href="#fnd-78">78</a>]</small> depending on the compiler
+   <p class="footnote"><small>[<a name="fn-79" href="#fnd-79">79</a>]</small> depending on the compiler
 version, with <samp><span class="command">gfortran</span></samp> <code>4.8.x</code> doing this less than
 <code>4.7.x</code>.</p>
 
-   <p class="footnote"><small>[<a name="fn-79" href="#fnd-79">79</a>]</small> possibly after some platform-specific
+   <p class="footnote"><small>[<a name="fn-80" href="#fnd-80">80</a>]</small> possibly after some platform-specific
 translation, e.g. adding leading or trailing underscores.</p>
 
-   <p class="footnote"><small>[<a name="fn-80" href="#fnd-80">80</a>]</small> Note that this is then not checked for over-runs by
+   <p class="footnote"><small>[<a name="fn-81" href="#fnd-81">81</a>]</small> Note that this is then not checked for over-runs by
 option <code>CBoundsCheck = TRUE</code>.</p>
 
-   <p class="footnote"><small>[<a name="fn-81" href="#fnd-81">81</a>]</small> but this is not currently done.</p>
+   <p class="footnote"><small>[<a name="fn-82" href="#fnd-82">82</a>]</small> but this is not currently done.</p>
 
-   <p class="footnote"><small>[<a name="fn-82" href="#fnd-82">82</a>]</small> whether or not &lsquo;<samp><span class="samp">LinkingTo</span></samp>&rsquo; is used.</p>
+   <p class="footnote"><small>[<a name="fn-83" href="#fnd-83">83</a>]</small> whether or not &lsquo;<samp><span class="samp">LinkingTo</span></samp>&rsquo; is used.</p>
 
-   <p class="footnote"><small>[<a name="fn-83" href="#fnd-83">83</a>]</small> so there needs to be a corresponding <code>import</code> or
+   <p class="footnote"><small>[<a name="fn-84" href="#fnd-84">84</a>]</small> so there needs to be a corresponding <code>import</code> or
 <code>importFrom</code> entry in the <samp><span class="file">NAMESPACE</span></samp> file.</p>
 
-   <p class="footnote"><small>[<a name="fn-84" href="#fnd-84">84</a>]</small> <samp><span class="command">dyld</span></samp> on OS X,
+   <p class="footnote"><small>[<a name="fn-85" href="#fnd-85">85</a>]</small> <samp><span class="command">dyld</span></samp> on OS X,
 and <samp><span class="env">DYLD_LIBRARY_PATHS</span></samp> below.</p>
 
-   <p class="footnote"><small>[<a name="fn-85" href="#fnd-85">85</a>]</small> That is,
+   <p class="footnote"><small>[<a name="fn-86" href="#fnd-86">86</a>]</small> That is,
 similar to those defined in S version 4 from the 1990s: these are
 not kept up to date and are not recommended for new projects.</p>
 
-   <p class="footnote"><small>[<a name="fn-86" href="#fnd-86">86</a>]</small>  see <a href="#The-R-API">The R API</a>: note that these are not all part of
+   <p class="footnote"><small>[<a name="fn-87" href="#fnd-87">87</a>]</small>  see <a href="#The-R-API">The R API</a>: note that these are not all part of
 the API.</p>
 
-   <p class="footnote"><small>[<a name="fn-87" href="#fnd-87">87</a>]</small> SEXP is an acronym for <em>S</em>imple
+   <p class="footnote"><small>[<a name="fn-88" href="#fnd-88">88</a>]</small> SEXP is an acronym for <em>S</em>imple
 <em>EXP</em>ression, common in LISP-like language syntaxes.</p>
 
-   <p class="footnote"><small>[<a name="fn-88" href="#fnd-88">88</a>]</small> If no coercion was required, <code>coerceVector</code> would
+   <p class="footnote"><small>[<a name="fn-89" href="#fnd-89">89</a>]</small> If no coercion was required, <code>coerceVector</code> would
 have passed the old object through unchanged.</p>
 
-   <p class="footnote"><small>[<a name="fn-89" href="#fnd-89">89</a>]</small> You can assign a <em>copy</em> of the object in the
+   <p class="footnote"><small>[<a name="fn-90" href="#fnd-90">90</a>]</small> You can assign a <em>copy</em> of the object in the
 environment frame <code>rho</code> using <code>defineVar(symbol,
 duplicate(value), rho)</code>).</p>
 
-   <p class="footnote"><small>[<a name="fn-90" href="#fnd-90">90</a>]</small> see <a href="#Character-encoding-issues">Character encoding issues</a> for why this
+   <p class="footnote"><small>[<a name="fn-91" href="#fnd-91">91</a>]</small> see <a href="#Character-encoding-issues">Character encoding issues</a> for why this
 might not be what is required.</p>
 
-   <p class="footnote"><small>[<a name="fn-91" href="#fnd-91">91</a>]</small> This is only guaranteed to show the
+   <p class="footnote"><small>[<a name="fn-92" href="#fnd-92">92</a>]</small> This is only guaranteed to show the
 current interface: it is liable to change.</p>
 
-   <p class="footnote"><small>[<a name="fn-92" href="#fnd-92">92</a>]</small> Known problems are redefining
+   <p class="footnote"><small>[<a name="fn-93" href="#fnd-93">93</a>]</small> Known problems are redefining
 <code>LENGTH</code>, <code>error</code>, <code>length</code>, <code>vector</code> and
 <code>warning</code></p>
 
-   <p class="footnote"><small>[<a name="fn-93" href="#fnd-93">93</a>]</small> It is an optional C11
+   <p class="footnote"><small>[<a name="fn-94" href="#fnd-94">94</a>]</small> It is an optional C11
 extension.</p>
 
-   <p class="footnote"><small>[<a name="fn-94" href="#fnd-94">94</a>]</small> <a href="http://en.wikipedia.org/wiki/Endianness">http://en.wikipedia.org/wiki/Endianness</a>.</p>
+   <p class="footnote"><small>[<a name="fn-95" href="#fnd-95">95</a>]</small> <a href="http://en.wikipedia.org/wiki/Endianness">http://en.wikipedia.org/wiki/Endianness</a>.</p>
 
-   <p class="footnote"><small>[<a name="fn-95" href="#fnd-95">95</a>]</small> In the parlance of OS X
+   <p class="footnote"><small>[<a name="fn-96" href="#fnd-96">96</a>]</small> In the parlance of OS X
 this is a <em>dynamic</em> library, and is the normal way to build R on
 that platform.</p>
 
-   <p class="footnote"><small>[<a name="fn-96" href="#fnd-96">96</a>]</small> but these
+   <p class="footnote"><small>[<a name="fn-97" href="#fnd-97">97</a>]</small> but these
 are not part of the automated test procedures and so little tested.</p>
 
-   <p class="footnote"><small>[<a name="fn-97" href="#fnd-97">97</a>]</small> at least on platforms where the values are
+   <p class="footnote"><small>[<a name="fn-98" href="#fnd-98">98</a>]</small> at least on platforms where the values are
 available, that is having <code>getrlimit</code> and on Linux or having
 <code>sysctl</code> supporting <code>KERN_USRSTACK</code>, including FreeBSD and OS
 X.</p>
 
-   <p class="footnote"><small>[<a name="fn-98" href="#fnd-98">98</a>]</small> An
+   <p class="footnote"><small>[<a name="fn-99" href="#fnd-99">99</a>]</small> An
 attempt to use only threads in the late 1990s failed to work correctly
 under Windows 95, the predominant version of Windows at that time.</p>
 
