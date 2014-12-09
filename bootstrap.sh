@@ -104,6 +104,7 @@ install_r_packages() {
 }
 
 push_r() {
+  git pull --no-edit
   git add -A
   if test -n "$(git status --porcelain)"; then
     git commit -m "update bits"
