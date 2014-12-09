@@ -34,7 +34,7 @@ Foreign                 Foreign Function Interface
 ISOdatetime             Date-time Conversion Functions from Numeric
                         Representations
 InternalMethods         Internal Generic Functions
-La_version              LAPACK version
+La_version              LAPACK Version
 Logic                   Logical Operators
 Memory                  Memory Available for Data Storage
 Memory-limits           Memory Limits in R
@@ -178,6 +178,7 @@ exists                  Is an Object Defined?
 expand.grid             Create a Data Frame from All Combinations of
                         Factors
 expression              Unevaluated Expressions
+extSoftVersion          Report Versions of Third-Party Software
 factor                  Factors
 file.access             Ascertain File Accessibility
 file.choose             Choose a File Interactively

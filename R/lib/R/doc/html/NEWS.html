@@ -186,6 +186,33 @@ numerical code.
 <li><p> A new somewhat experimental function <code>debuggingState()</code>
 has been added, allowing to temporarily turn off debugging.
 </p>
+</li>
+<li> <p><code>example()</code> gets new optional argument <code>run.dontcheck</code>
+and <code>tools::Rd2ex()</code> a corresponding <code>commentDonttest</code>,
+with a default such that <code>example(..)</code> in help examples will
+run <code>\dontcheck</code> code only if used interactively.
+</p>
+</li>
+<li> <p><code>rbind.data.frame()</code> gains an optional argument
+<code>make.row.names</code>, for potential speedup.
+</p>
+</li>
+<li><p> New function <code>extSoftVersion()</code> to report on the
+versions of third-party software in use in this session.
+Currently reports versions of <code>zlib</code>, <code>bzlib</code>, the
+<code>liblzma</code> from <code>xz</code>, PCRE, ICU and TRE.
+</p>
+<p>A similar function <code>grSoftVersion()</code> in package <span class="pkg">grDevices</span>
+reports on third-party graphics software.
+</p>
+</li>
+<li><p> Calling <code>callGeneric()</code> without arguments now works
+with primitive generics to some extent.
+</p>
+</li>
+<li> <p><code>vapply(x, FUN, FUN.VALUE)</code> is more efficient notably
+for large <code>length(FUN.VALUE)</code>; as extension of <a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16061">PR#16061</a>.
+</p>
 </li></ul>
 
 
@@ -197,7 +224,35 @@ has been added, allowing to temporarily turn off debugging.
 <ul>
 <li><p> The <code>\donttest</code> sections of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>'s help files can be
 tested by<br />
-<code>make check TEST_DONTTEST=TRUE</code>.
+<code>make check TEST_DONTTEST=TRUE</code> .
+</p>
+</li>
+<li><p> It is possible to request the use of system
+<code>valgrind</code> headers <em>via</em> <code>configure</code> option
+<span class="option">--with-system-valgrind-headers</span>: note the possible
+incompatibility of such headers discussed in the 'R Installation
+and Administration' manual. (Wish of <a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16068">PR#16068</a>.)
+</p>
+</li>
+<li><p> The included version of <code>liblzma</code> has been updated to
+<code>xz-utils</code> 5.0.7 (minor bug fixes from 5.0.5).
+</p>
+</li>
+<li> <p><code>configure</code> options <span class="option">--with-system-zlib</span>,
+<span class="option">--with-system-bzlib</span> and <span class="option">--with-system-pcre</span> are
+now the default.  For the time being there is fallback to the
+versions included in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> sources if no system versions are
+found or (unlikely) if they are too old.
+</p>
+<p>Linux users should check that the <code>-devel</code> or <code>-dev</code>
+versions of packages <span class="pkg">zlib</span>, <span class="pkg">bzip2</span>/<span class="pkg">libbz2</span> and
+<code>pcre</code> (or similar names) are installed.
+</p>
+</li>
+<li><p> (Windows.) Installation using external binary distributions
+of <span class="pkg">zlib</span>, <span class="pkg">bzip</span>, <span class="pkg">liblzma</span>, <span class="pkg">pcre</span>,
+<span class="pkg">libpng</span>, <span class="pkg">jpeglib</span> and <span class="pkg">libtiff</span> is now preferred
+and likely to become the only way before release.
 </p>
 </li></ul>
 
@@ -223,13 +278,13 @@ tested by<br />
 &lsquo;<acronym><span class="acronym">XHTML</span></acronym> 1.0 Strict&rsquo;.
 </p>
 </li>
-<li><p> The compiler utility function <code>setCompilerOptions()</code>
-now returns the old values invisibly. The initial optimization
-level can also be set with the environment variable
-<span class="env">R_COMPILER_OPTIMIZE</span>.
+<li><p> The <span class="pkg">compiler</span> package has a new utility function
+<code>setCompilerOptions()</code> now returns the old values
+invisibly. The initial optimization level can also be set with the
+environment variable <span class="env">R_COMPILER_OPTIMIZE</span>.
 </p>
 </li>
-<li> <p><code>R CMD check</code> gains option <span class="option">--test-dir=</span> to 
+<li> <p><code>R CMD check</code> gains option <span class="option">--test-dir</span> to
 specify an alternative set of tests to run.
 </p>
 </li></ul>
@@ -245,8 +300,8 @@ specify an alternative set of tests to run.
 </p>
 </li>
 <li><p> Entry points <code>rbinom_mu</code>, <code>rnbinom_mu</code> and
-<code>rmultinom</code> are remapped (by default).  This requires
-packages using them to be re-installed.
+<code>rmultinom</code> are remapped (by default) to <code>Rf_rbinom_mu</code>
+etc.  This requires packages using them to be re-installed.
 </p>
 </li>
 <li> <p><code>.C(DUP = FALSE)</code> and <code>.Fortran(DUP = FALSE)</code> are
@@ -264,11 +319,37 @@ pointers.
 
 
 
+<h4>PACKAGE INSTALLATION</h4>
+
+
+<ul>
+<li><p>  (Windows) The use of macro <code>ZLIB_LIBS</code> in file
+&lsquo;<span class="file">src/Makevars.win</span>&rsquo; (which has not been documented for a long
+time) now requires an external &lsquo;<span class="file">libz.a</span>&rsquo; to be available (it is
+part of the &lsquo;goodies&rsquo; used to compile Windows binary
+packages).  It would be simpler to use <code>-lz</code> instead.
+</p>
+</li></ul>
+
+
+
+
 <h4>DEPRECATED AND DEFUNCT</h4>
 
 
 <ul>
 <li> <p><code>download.file(method = "lynx")</code> is defunct.
+</p>
+</li>
+<li><p> Use of the included versions of <code>zlib</code>, <code>bzip2</code>,
+<code>xz</code> and PCRE is deprecated: these are essentially frozen and
+will eventually be removed.
+</p>
+</li>
+<li><p> The <code>configure</code> option
+<span class="option">--with-valgrind-instrumentation=3</span> has been withdrawn, as
+it did not work with recent <code>valgrind</code> headers: it is now
+treated as level <code>2</code>.
 </p>
 </li></ul>
 
@@ -290,10 +371,8 @@ matching by name in <code>log()</code>.
 <li> <p><code>all.equal()</code> gains methods for <code>environment</code>s and
 <code>refClass</code>es.
 </p>
-</li>
-<li><p> (Windows.) The command completion in <code>Rgui.exe</code>
-messed up the console.  This is an experimental fix; if it is reported
-to work it will be kept, otherwise it will be removed. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15791">PR#15791</a>)
+<p><code>[&lt;-</code> and <code>[[&lt;-</code> gain S4 <code>data.frame</code> methods to
+avoid corruption of S4 class information by the S3 methods.
 </p>
 </li></ul>
 
@@ -320,6 +399,61 @@ files larger than 2GB on 32-bit builds which support such files
 gets a <code>check</code> argument protecting against memory explosion for
 invalid inputs.
 </p>
+</li>
+<li> <p><code>capabilities()</code> has a new item <code>long.double</code>
+which indicates if the build uses a <code>long double</code> type which
+is longer than <code>double</code>.
+</p>
+</li>
+<li> <p><code>nlm()</code> no longer modifies the callback argument in
+place (a new vector is allocated for each invocation, which mimics
+the implicit duplication that occurred in R &lt; 3.1.0); note that
+this is a change from the previously documented
+behavior. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15958">PR#15958</a>)
+</p>
+</li>
+<li> <p><code>icuSetCollate()</code> now accepts <code>locale = "ASCII"</code>
+which uses the basic C function <code>strcmp</code> and so collates
+strings byte-by-byte in numerical order.
+</p>
+</li></ul>
+
+
+
+
+<h4>INSTALLATION and INCLUDED SOFTWARE</h4>
+
+
+<ul>
+<li><p> The included version of PCRE has been updated to 8.36.
+</p>
+</li></ul>
+
+
+
+
+<h4>UTILITIES</h4>
+
+
+<ul>
+<li> <p><code>R CMD check</code> now checks the packages used in
+<code>\donttest</code> sections of the examples are specified in the
+&lsquo;<span class="file">DESCRIPTION</span>&rsquo; file.
+(These are needed to run the examples interactively.)
+</p>
+</li></ul>
+
+
+
+
+<h4>DEPRECATED AND DEFUNCT</h4>
+
+
+<ul>
+<li><p> The <code>configure</code> option
+<span class="option">--with-valgrind-instrumentation=3</span> is deprecated and will
+be removed in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> 3.2.0.
+</p>
 </li></ul>
 
 
@@ -342,24 +476,62 @@ the HTML help system produced an empty index page.
 in a string using Unicode escapes. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16046">PR#16046</a>)
 </p>
 </li>
-<li> <p><code>qr.Q()</code> failed on complex arguments due to 
-pre-3.0(!) typo. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16054">PR#16054</a>) 
+<li> <p><code>qr.Q()</code> failed on complex arguments due to
+pre-3.0(!) typo. (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16054">PR#16054</a>)
 </p>
 </li>
 <li> <p><code>abs()</code> failed with named arguments when the argument
 was complex.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16047">PR#16047</a>)
 </p>
 </li>
-<li> <p><code>"noquote"</code> objects may now be used as columns in 
+<li> <p><code>"noquote"</code> objects may now be used as columns in
 dataframes.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15997">PR#15997</a>)
 </p>
 </li>
-<li><p> Some values with extremely long names were printed 
+<li><p> Some values with extremely long names were printed
 incorrectly.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15999">PR#15999</a>)
 </p>
 </li>
 <li><p> Extremely large exponents on zero expressed in scientific
 notation (e.g. <code>0.0e50000</code>) could give <code>NaN</code>.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15976">PR#15976</a>)
+</p>
+</li>
+<li> <p><code>download.file()</code> reported downloaded sizes as 0KB if
+less than 1MB, only for <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> 3.1.2 and only on big-endian platforms.
+</p>
+</li>
+<li> <p><code>prompt()</code> did not escape percent signs in the
+automatically generated usage section of help files.
+</p>
+</li>
+<li> <p><code>drop.terms()</code> dropped some of the attributes of the
+object it was working with.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16029">PR#16029</a>)
+</p>
+</li>
+<li><p> (Windows.) The command completion in <code>Rgui.exe</code>
+messed up the console.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=15791">PR#15791</a>)
+</p>
+</li>
+<li><p> (Windows.) The <code>choose.files()</code> command returned a
+blank string when the user asked for a single file but cancelled
+the request.  (<a href="https://bugs.R-project.org/bugzilla3/show_bug.cgi?id=16074">PR#16074</a>)
+</p>
+</li>
+<li> <p><code>Math2</code> group generics failed to correctly dispatch
+<code>"structure"</code> and <code>"nonStructure"</code>-derived classes.
+</p>
+</li>
+<li> <p><code>loadNamespace()</code> imposed undocumented restrictions
+on the <code>versionCheck</code> parameter.  (Reported by Geoff Lee.)
+</p>
+</li>
+<li><p> Rare over-runs detected by AddressSanitizer in
+<code>substr()</code> and its replacement version have been avoided.
+</p>
+</li>
+<li><p> Loading packages incorrectly defining an S4 generic followed
+by a function of the same name caused an erroneous cyclic
+namespace dependency error.
 </p>
 </li></ul>
 

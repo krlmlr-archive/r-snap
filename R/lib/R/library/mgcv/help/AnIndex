@@ -61,6 +61,7 @@ influence.gam	influence.gam
 initial.sp	initial.sp
 inSide	inSide
 interpret.gam	interpret.gam
+jagam	jagam
 ldTweedie	ldTweedie
 linear.functional.terms	linear.functional.terms
 logDet.pdIdnot	pdIdnot
@@ -135,6 +136,7 @@ rTweedie	rTweedie
 s	s
 scat	scat
 signal.regression	linear.functional.terms
+sim2jam	jagam
 slanczos	slanczos
 smooth.construct	smooth.construct
 smooth.construct.ad.smooth.spec	smooth.construct.ad.smooth.spec

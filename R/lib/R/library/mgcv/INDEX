@@ -63,6 +63,8 @@ influence.gam           Extract the diagonal of the influence/hat
 initial.sp              Starting values for multiple smoothing
                         parameter estimation
 interpret.gam           Interpret a GAM formula
+jagam                   Just Another Gibbs Additive Modeller: JAGS
+                        support for mgcv.
 ldTweedie               Log Tweedie density evaluation
 linear.functional.terms
                         Linear functionals of a smooth in GAMs

@@ -302,7 +302,7 @@ stat.anova              GLM Anova Statistics
 stats-deprecated        Deprecated Functions in Package 'stats'
 stats-package           The R Stats Package
 step                    Choose a model by AIC in a Stepwise Algorithm
-stepfun                 Step Function Class
+stepfun                 Step Functions - Creation and Class
 stl                     Seasonal Decomposition of Time Series by Loess
 summary.aov             Summarize an Analysis of Variance Model
 summary.glm             Summarizing Generalized Linear Model Fits

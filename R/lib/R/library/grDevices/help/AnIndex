@@ -73,6 +73,7 @@ grDevices	grDevices-package
 grey	gray
 grey.colors	gray.colors
 group	plotmath
+grSoftVersion	grSoftVersion
 hat	plotmath
 hcl	hcl
 heat.colors	palettes

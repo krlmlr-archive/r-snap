@@ -7,6 +7,8 @@ dep_auto                Build automatic dependencies among chunks
 dep_prev                Make later chunks depend on previous chunks
 eclipse_theme           Download and convert a theme from
                         eclipsecolorthemes.org to CSS
+engine_output           An output wrapper for language engine output
+fig_chunk               Obtain the figure filenames for a chunk
 fig_path                Path for figure files
 hook_ffmpeg_html        Hooks to create animations in HTML output
 hook_movecode           Some potentially useful document hooks
@@ -14,6 +16,7 @@ hook_plot_asciidoc      Default plot hooks for different output formats
 hook_rgl                Built-in chunk hooks to extend knitr
 image_uri               Encode an image file to a data URI
 imgur_upload            Upload an image to imgur.com
+inline_expr             Wrap code using the inline R expression syntax
 kable                   Create tables in LaTeX, HTML, Markdown and
                         reStructuredText
 knit                    Knit a document
@@ -28,6 +31,7 @@ knit_engines            Engines of other languages
 knit_exit               Exit knitting early
 knit_expand             A simple macro preprocessor for templating
                         purposes
+knit_filter             Spell check filter for source documents
 knit_global             The global environment in which code chunks are
                         evaluated
 knit_hooks              Hooks for R code chunks, inline R code and
@@ -59,6 +63,7 @@ set_alias               Set aliases for chunk options
 set_header              Set the header information
 set_parent              Specify the parent document of child documents
 spin                    Spin goat's hair into wool
+spin_child              Spin a child R script
 stitch                  Automatically create a report based on an R
                         script and a template
 vignette_engines        Package vignette engines

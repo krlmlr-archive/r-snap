@@ -6,6 +6,8 @@ current_input	current_input
 dep_auto	dep_auto
 dep_prev	dep_prev
 eclipse_theme	eclipse_theme
+engine_output	engine_output
+fig_chunk	fig_chunk
 fig_path	fig_path
 hook_ffmpeg_html	hook_animation
 hook_movecode	hook_document
@@ -25,6 +27,7 @@ hook_scianimator	hook_animation
 hook_webgl	chunk_hook
 image_uri	image_uri
 imgur_upload	imgur_upload
+inline_expr	inline_expr
 kable	kable
 knit	knit
 knit2html	knit2html
@@ -35,6 +38,7 @@ knit_child	knit_child
 knit_engines	knit_engines
 knit_exit	knit_exit
 knit_expand	knit_expand
+knit_filter	knit_filter
 knit_global	knit_global
 knit_hooks	knit_hooks
 knit_meta	knit_meta
@@ -78,6 +82,7 @@ set_alias	set_alias
 set_header	set_header
 set_parent	set_parent
 spin	spin
+spin_child	spin_child
 stitch	stitch
 stitch_rhtml	stitch
 stitch_rmd	stitch
